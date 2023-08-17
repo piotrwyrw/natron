@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
         if (remove(params.out) < 0)
             printf("Failed to remove flawed compiled output: %s.\n", strerror(errno));
     } else {
-        printf("Compilation successful with %d operations.", env.op_ct);
+        printf("Compilation successful with %d operations.\n", env.op_ct);
     }
 
     return cmp_status;
