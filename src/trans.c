@@ -58,7 +58,12 @@ static void _gen_preamble(struct CompilerEnv *env) {
 
     // Define the variables that are required for the operation
     EMIT(env, "unsigned char a[%d] = { 0 };\n", BRAINFUCK_CELL_COUNT)
-    EMIT(env, "unsigned int n = 0;\n\n")
+    EMIT(env, "unsigned int n = 0;\n")
+    EMIT(env, "char lc = 0xA;\n\n")
+
+    // Define the necessary functions
+    EMIT(env, "void out() {\n\tputchar(a[n]);\n\tlc = a[n];\n}\n\n");
+    EMIT(env, "void in() {\n\tif (lc != '\\n')\n\t\tprintf(\"\\n\");\n\tprintf(\"(Input for cell %s) :: \", n);\n\ta[n] = getc(stdin);\n\tfflush(stdin);\n}\n\n", "%d")
 
 }
 
@@ -122,7 +127,12 @@ static int _compile_next(struct CompilerEnv *env) {
         }
         case '.': {
             env->op_ct ++;
-            EMIT(env, "putchar(a[n]);\n");
+            EMIT(env, "out();\n");
+            break;
+        }
+        case ',': {
+            env->op_ct ++;
+            EMIT(env, "in();\n");
             break;
         }
     }

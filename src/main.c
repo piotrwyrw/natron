@@ -57,7 +57,7 @@ int main(int argc, char **argv) {
 
     return cmp_status;
 
-    // Only meant to be used in case of a irrecoverable failure
+    // Only meant to be used in case of an irrecoverable failure
     fail_and_quit:
     free(src);
     fclose(outf);
