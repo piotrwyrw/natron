@@ -18,6 +18,6 @@ A minimalist transpiler for the Brainfuck programming language.
 ### CLI Usage
 ```bash
 ./bfcmp
- --source file_name   | The input file containing the source code
- --output file_name   | The file to write the transpiler's output to
+ --source file_name   # The input file containing the source code
+ --output file_name   # The file to write the transpiler's output to
 ```
