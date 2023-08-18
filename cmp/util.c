@@ -17,15 +17,15 @@ char *_ctimes(char c, size_t n) {
 /**
  * Count continuous sequence
  */
-unsigned int countcs(unsigned int org, char *str, char c) {
-    unsigned int n = 0;
+size_t countcs(unsigned int org, char *str, char c) {
+    size_t n = 0;
 
     size_t len = strlen(str);
 
     if (org >= len)
         return 0;
 
-    for (unsigned int i = org; i < len; i++)
+    for (size_t i = org; i < len; i++)
         if (str[i] == c) n++; else break;
 
     return n;

@@ -33,10 +33,12 @@ int compile(struct CompilerEnv *env) {
     EMIT(env, "int %s(void) {\n", BRAINFUCK_MAIN_FUNCTION)
     env->indent++;
 
+    EMIT(env, "bf_init();\n");
+
     for (; env->offset < env->len; env->offset++)
         if (_compile_next(env)) return EXIT_FAILURE;
 
-    EMIT(env, "return a[n];\n")
+    EMIT(env, "return bf_end();\n")
 
     env->indent--;
     EMIT(env, "}\n")
@@ -50,21 +52,20 @@ int compile(struct CompilerEnv *env) {
 }
 
 static void _gen_preamble(struct CompilerEnv *env) {
-
     // Include all requested headers
     for (unsigned int i = 0; i < env->includes_ct; i++) EMIT(env, "#include <%s>\n", env->includes[i])
 
     EMIT(env, "\n")
 
-    // Define the variables that are required for the operation
-    EMIT(env, "unsigned char a[%d] = { 0 };\n", BRAINFUCK_CELL_COUNT)
-    EMIT(env, "unsigned int n = 0;\n")
-    EMIT(env, "char lc = 0xA;\n\n")
-
-    // Define the necessary functions
-    EMIT(env, "void out() {\n\tputchar(a[n]);\n\tlc = a[n];\n}\n\n");
-    EMIT(env, "void in() {\n\tif (lc != '\\n')\n\t\tprintf(\"\\n\");\n\tprintf(\"(Input for cell %s) :: \", n);\n\ta[n] = getc(stdin);\n\tfflush(stdin);\n}\n\n", "%d")
-
+    // Extern-s to the core lib functions
+    EMIT(env, "extern void bf_init();\n");
+    EMIT(env, "extern char bf_end();\n");
+    EMIT(env, "extern void bf_ptr_inc_n(size_t);\n");
+    EMIT(env, "extern void bf_ptr_dec_n(size_t);\n");
+    EMIT(env, "extern void bf_set(char);\n");
+    EMIT(env, "extern char bf_get();\n");
+    EMIT(env, "extern void bf_in();\n");
+    EMIT(env, "extern void bf_out();\n\n");
 }
 
 static int _compile_next(struct CompilerEnv *env) {
@@ -76,7 +77,7 @@ static int _compile_next(struct CompilerEnv *env) {
 
     char op = env->src[env->offset];
 
-    unsigned int rep = countcs(env->offset, env->src, op);
+    size_t rep = countcs(env->offset, env->src, op);
 
     if (IS_QUANTIFIABLE(op)) {
         if (rep > 1)
@@ -92,24 +93,24 @@ static int _compile_next(struct CompilerEnv *env) {
             return EXIT_SUCCESS;
 
         case '+': {
-            EMIT(env, "a[n] += %d;\n", rep)
+            EMIT(env, "bf_set(bf_get() + %ld);\n", rep)
             break;
         }
         case '-': {
-            EMIT(env, "a[n] -= %d;\n", rep);
+            EMIT(env, "bf_set(bf_get() - %ld);\n", rep);
             break;
         }
         case '>': {
-            EMIT(env, "n += %d;\n", rep);
+            EMIT(env, "bf_ptr_inc_n(%ld);\n", rep);
             break;
         }
         case '<': {
-            EMIT(env, "n -= %d;\n", rep);
+            EMIT(env, "bf_ptr_dec_n(%ld);\n", rep);
             break;
         }
         case '[': {
             _loop_add(env);
-            EMIT(env, "while (a[n]) {\n");
+            EMIT(env, "while (bf_get()) {\n");
             env->op_ct++; /* In case of loops: We only count one of the two operators as an operation (in this case the opening bracket) */
             env->loop_ct++;
             env->indent++;
@@ -126,13 +127,13 @@ static int _compile_next(struct CompilerEnv *env) {
             break;
         }
         case '.': {
-            env->op_ct ++;
-            EMIT(env, "out();\n");
+            env->op_ct++;
+            EMIT(env, "bf_out();\n");
             break;
         }
         case ',': {
-            env->op_ct ++;
-            EMIT(env, "in();\n");
+            env->op_ct++;
+            EMIT(env, "bf_in();\n");
             break;
         }
     }
