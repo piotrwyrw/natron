@@ -86,8 +86,21 @@ char bf_get() {
     return arr[arr_ix];
 }
 
+void bf_inc_arr(size_t n) {
+    bf_set(bf_get() + n);
+}
+
+void bf_dec_arr(size_t n) {
+    bf_set(bf_get() - n);
+}
+
 void bf_out() {
     putchar(arr[arr_ix]);
+}
+
+void bf_out_n(size_t n) {
+    for (size_t i = 0; i < n; i ++)
+        bf_out();
 }
 
 void bf_in() {

@@ -36,7 +36,13 @@ void bf_set(char);
 
 char bf_get();
 
+void bf_inc_arr(size_t);
+
+void bf_dec_arr(size_t);
+
 void bf_out();
+
+void bf_out_n(size_t);
 
 void bf_in();
 

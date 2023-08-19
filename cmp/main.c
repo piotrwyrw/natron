@@ -39,10 +39,9 @@ int main(int argc, char **argv) {
             .out = outf,
             .src = src,
             .includes = {
-                    "stdio.h",
                     "stdlib.h"
             },
-            .includes_ct = 2
+            .includes_ct = 1
     };
 
     int cmp_status = compile(&env);
