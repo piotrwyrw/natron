@@ -24,14 +24,14 @@ int main(int argc, char **argv) {
     src = file_rd(params.in);
 
     if (!src) {
-        printf("Failed to open input file '%s' for reading: %s\n", params.in, strerror(errno));
+        printf("[ERR] Failed to open input file '%s' for reading: %s\n", params.in, strerror(errno));
         goto fail_and_quit;
     }
 
     outf = fopen(params.out, "w");
 
     if (!outf) {
-        printf("Cannot open output file '%s' for writing: %s\n", params.out, strerror(errno));
+        printf("[ERR] Cannot open output file '%s' for writing: %s\n", params.out, strerror(errno));
         goto fail_and_quit;
     }
 
@@ -49,9 +49,9 @@ int main(int argc, char **argv) {
 
     if (cmp_status == EXIT_FAILURE) {
         if (remove(params.out) < 0)
-            printf("Failed to remove flawed compiled output: %s.\n", strerror(errno));
+            printf("[ERR] Failed to remove flawed compiler output: %s.\n", strerror(errno));
     } else {
-        printf("Compilation successful with %d operations.\n", env.op_ct);
+        printf("[OK] Compilation successful with %d operations.\n", env.op_ct);
     }
 
     return cmp_status;

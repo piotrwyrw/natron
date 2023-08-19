@@ -44,7 +44,7 @@ int compile(struct CompilerEnv *env) {
     EMIT(env, "}\n")
 
     if (env->loop_ct != 0) {
-        printf("Syntax error: There are unclosed loops.\n");
+        printf("[ERR] Syntax error: There are unclosed loops.\n");
         return EXIT_FAILURE;
     }
 
@@ -77,7 +77,7 @@ static void _gen_preamble(struct CompilerEnv *env) {
 static int _compile_next(struct CompilerEnv *env) {
 
     if (env->offset >= env->len) {
-        printf("Error: Offset is pointing outside of the source code.\n");
+        printf("[ERR] Offset is pointing outside of the source code.\n");
         return EXIT_FAILURE;
     }
 
@@ -126,7 +126,7 @@ static int _compile_next(struct CompilerEnv *env) {
             env->indent--;
             env->loop_ct--;
             if (env->loop_ct < 0) {
-                printf("Syntax error: There are unclosed loops.\n");
+                printf("[ERR] Syntax error: There are unclosed loops.\n");
                 return EXIT_FAILURE;
             }
             EMIT(env, "} // -- %d\n", _loop_del(env));

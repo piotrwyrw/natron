@@ -25,6 +25,10 @@ static void _bf_alloc_nxt() {
 
     if (!arr) {
         arr = calloc(arr_len, sizeof(char));
+        if (!arr) {
+            printf("Initial buffer allocation failed.\n");
+            goto _sigterm;
+        }
         return;
     }
 
@@ -41,6 +45,8 @@ static void _bf_alloc_nxt() {
 
     printf("Reallocation to next step (%ld bytes) failed.\n", arr_len);
     free(_arr);
+
+    _sigterm:
     raise(SIGTERM);
 
     // Wait forever to give the signal the best chances of being caught

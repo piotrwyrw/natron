@@ -46,12 +46,12 @@ struct Clip parse_clip(int argc, char **argv) {
 
 int clip_chk_integrity(struct Clip *clip) {
     if (!clip->out) {
-        printf("Required parameter not set: --output\n");
+        printf("[ERR] Required parameter not set: --output\n");
         return EXIT_FAILURE;
     }
 
     if (!clip->in) {
-        printf("Required parameter not set: --source\n");
+        printf("[ERR] Required parameter not set: --source\n");
         return EXIT_FAILURE;
     }
 
