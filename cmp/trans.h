@@ -7,15 +7,31 @@
 
 #include <stdio.h>
 
+#include "util.h"
+
 #define BRAINFUCK_MAX_LOOPS 100
 #define BRAINFUCK_MAX_INCLUDES 2
 #define BRAINFUCK_MAIN_FUNCTION "main"
 #define BRAINFUCK_CELL_COUNT 30000
 
+#define EMIT(env, ...) {\
+            fprintf(env->out, "%s", _ctimes('\t', env->indent));               \
+            fprintf(env->out, __VA_ARGS__); \
+        }
+
+#define IS_PRIMITIVE(c) (c == '>' || c == '<' || c == '+' || c == '-' || c == '.')
+
+#define ENV_CURR(id) \
+        if (env->offset >= env->len) { \
+            printf("[ERR] Offset is pointing outside of the source code.\n"); \
+            return EXIT_FAILURE; \
+        }            \
+        char id = env->src[env->offset];
+
 struct CompilerEnv {
     char *src;
-    unsigned int offset; /* Offset from the base of the source string */
-    unsigned int len; /* Length of the source string */
+    size_t offset; /* Offset from the base of the source string */
+    size_t len; /* Length of the source string */
     FILE *out;
 
     unsigned int indent; /* Keeps track of the indentation */
@@ -35,16 +51,18 @@ struct CompilerEnv {
     unsigned int op_ct; /* Just for the final success message. Yep, no other purpose. */
 };
 
+int _chk_env(struct CompilerEnv *);
+
 int compile(struct CompilerEnv *);
 
-static void _gen_preamble(struct CompilerEnv *);
+void _gen_preamble(struct CompilerEnv *);
 
-static int _compile_next(struct CompilerEnv *);
+int _compile_next(struct CompilerEnv *);
 
-static void _loop_rel(struct CompilerEnv *);
+void _loop_rel(struct CompilerEnv *);
 
-static unsigned int _loop_add(struct CompilerEnv *);
+unsigned int _loop_add(struct CompilerEnv *);
 
-static unsigned int _loop_del(struct CompilerEnv *);
+unsigned int _loop_del(struct CompilerEnv *);
 
 #endif //BFCMP_TRANS_H

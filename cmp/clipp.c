@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 unsigned int arg_ix = 0;
 unsigned int arg_ct = 0;
@@ -17,10 +18,18 @@ char **arg_vec = NULL;
 #define BIND_CLI_PARAM(tag, dst) \
         if (strcmp(arg_vec[arg_ix], tag) == 0) { \
             if (arg_ix + 1 >= arg_ct) {          \
-                return (struct Clip) {NULL, NULL};\
+                return (struct Clip) {};\
             }                    \
             dst = malloc(strlen(arg_vec[arg_ix + 1]) + 1);                     \
             strcpy(dst, arg_vec[++ arg_ix]);     \
+            arg_ix ++;                     \
+            continue;\
+        }
+
+
+#define BIND_CLI_PARAM_ENUM(tag, dst, val) \
+        if (strcmp(arg_vec[arg_ix], tag) == 0) { \
+            dst = val;                     \
             arg_ix ++;                     \
             continue;\
         }
@@ -33,18 +42,36 @@ struct Clip parse_clip(int argc, char **argv) {
 
     tmp_clip = (struct Clip) {};
 
+    tmp_clip.parse_ok = true;
+
+    if (argc < 2)
+        return tmp_clip;
+
+    // The default mode of operation should be compilation
+    tmp_clip.mode = MODE_COMPILE;
+
     eternal {
-        if (arg_ix + 1 >= arg_ct)
+
+        if (arg_ix >= arg_ct)
             break;
 
         BIND_CLI_PARAM("--source", tmp_clip.in);
         BIND_CLI_PARAM("--output", tmp_clip.out);
+
+        BIND_CLI_PARAM_ENUM("--compile", tmp_clip.mode, MODE_COMPILE)
+        BIND_CLI_PARAM_ENUM("--reformat", tmp_clip.mode, MODE_REFORMAT)
+
+        printf("[ERR] Unknown command line parameter: %s.\n", arg_vec[arg_ix]);
+        return (struct Clip) {.parse_ok = false};
     };
 
     return tmp_clip;
 }
 
 int clip_chk_integrity(struct Clip *clip) {
+    if (!clip->parse_ok)
+        return EXIT_FAILURE;
+
     if (!clip->out) {
         printf("[ERR] Required parameter not set: --output\n");
         return EXIT_FAILURE;
