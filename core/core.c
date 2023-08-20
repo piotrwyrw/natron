@@ -13,139 +13,121 @@ size_t arr_len = 0;
 size_t arr_ix = 0;
 char lc = 0xA;
 
-void
-bf_init()
+static void _bf_allocate_next()
 {
-    arr_len = 0;
-    arr_ix = 0;
-    _bf_alloc_nxt();
-}
+        size_t _arr_len = arr_len;
+        arr_len += BF_ALLOC_STEP_SIZE;
 
-static void
-_bf_alloc_nxt()
-{
-    size_t _arr_len = arr_len;
-    arr_len += BF_ALLOC_STEP_SIZE;
-
-    if (!arr)
-    {
-        arr = calloc(arr_len, sizeof(char));
-        if (!arr)
-        {
-            printf("Initial buffer allocation failed.\n");
-            goto _sigterm;
+        if (!arr) {
+                arr = calloc(arr_len, sizeof(char));
+                if (!arr) {
+                        printf("Initial buffer allocation failed.\n");
+                        goto _sigterm;
+                }
+                return;
         }
-        return;
-    }
 
-    void *_arr = arr;
+        void *_arr = arr;
 
-    arr = realloc(arr, arr_len);
+        arr = realloc(arr, arr_len);
 
-    if (arr)
-    {
-        // Only fill the newly-allocated portion with 0's
-        memset(arr + _arr_len, 0, BF_ALLOC_STEP_SIZE);
+        if (arr) {
+                // Only fill the newly-allocated portion with 0's
+                memset(arr + _arr_len, 0, BF_ALLOC_STEP_SIZE);
 
-        return;
-    }
+                return;
+        }
 
-    printf("Reallocation to next step (%ld bytes) failed.\n", arr_len);
-    free(_arr);
+        printf("Reallocation to next step (%ld bytes) failed.\n", arr_len);
+        free(_arr);
 
-    _sigterm:
-    raise(SIGTERM);
+        _sigterm:
+        raise(SIGTERM);
 
-    // Wait forever to give the signal the best chances of being caught
-    BLOCK_EXEC
+        // Wait forever to give the signal the best chances of being caught
+        BLOCK_EXEC
 }
 
-char
-bf_end()
+void bf_init()
 {
-    char _c = arr[arr_ix];
-    free(arr);
-    arr = NULL;
-    return _c;
+        arr_len = 0;
+        arr_ix = 0;
+        _bf_allocate_next();
 }
 
-void
-bf_ptr_inc()
+char bf_end()
 {
-    if (arr_ix + 1 < arr_len)
-        arr_ix++;
-    else
-    {
-        _bf_alloc_nxt();
-        bf_ptr_inc();
-    }
+        char _c = arr[arr_ix];
+        free(arr);
+        arr = NULL;
+        return _c;
 }
 
-void
-bf_ptr_dec()
+static void bf_ptr_inc()
 {
-    if (arr_ix - 1 >= 0)
-        arr_ix--;
+        if (arr_ix + 1 < arr_len)
+                arr_ix++;
+        else {
+                _bf_allocate_next();
+                bf_ptr_inc();
+        }
 }
 
-void
-bf_ptr_inc_n(size_t n)
+static void bf_ptr_dec()
 {
-    for (size_t i = 0; i < n; i++)
-        bf_ptr_inc();
+        if (arr_ix - 1 >= 0)
+                arr_ix--;
 }
 
-void
-bf_ptr_dec_n(size_t n)
+void bf_ptr_inc_n(size_t n)
 {
-    for (size_t i = 0; i < n; i++)
-        bf_ptr_dec();
+        for (size_t i = 0; i < n; i++)
+                bf_ptr_inc();
 }
 
-void
-bf_set(char c)
+void bf_ptr_dec_n(size_t n)
 {
-    arr[arr_ix] = c;
+        for (size_t i = 0; i < n; i++)
+                bf_ptr_dec();
 }
 
-char
-bf_get()
+void bf_set(char c)
 {
-    return arr[arr_ix];
+        arr[arr_ix] = c;
 }
 
-void
-bf_inc_arr(size_t n)
+char bf_get()
 {
-    bf_set(bf_get() + n);
+        return arr[arr_ix];
 }
 
-void
-bf_dec_arr(size_t n)
+void bf_inc_arr(size_t n)
 {
-    bf_set(bf_get() - n);
+        bf_set(bf_get() + n);
 }
 
-void
-bf_out()
+void bf_dec_arr(size_t n)
 {
-    putchar(arr[arr_ix]);
+        bf_set(bf_get() - n);
 }
 
-void
-bf_out_n(size_t n)
+static void bf_out()
 {
-    for (size_t i = 0; i < n; i++)
-        bf_out();
+        putchar(arr[arr_ix]);
 }
 
-void
-bf_in()
+void bf_out_n(size_t n)
 {
-    if (lc != '\n')
-        putchar('\n');
+        for (size_t i = 0; i < n; i++)
+                bf_out();
+}
 
-    printf("@%ld :: ", arr_ix);
-    arr[arr_ix] = getc(stdin);
-    fflush(stdin);
+void bf_in()
+{
+        if (lc != '\n')
+                putchar('\n');
+
+        printf("@%ld :: ", arr_ix);
+        arr[arr_ix] = getc(stdin);
+        fflush(stdin);
 }

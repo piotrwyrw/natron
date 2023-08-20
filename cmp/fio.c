@@ -9,47 +9,44 @@
 /**
  * Warning: This will reset the file position !
  */
-static size_t
-_file_ln(FILE *fptr)
+static size_t file_length(FILE *fptr)
 {
-    if (!fptr)
-        return 0;
+        if (!fptr)
+                return 0;
 
-    fseek(fptr, 0, SEEK_END);
+        fseek(fptr, 0, SEEK_END);
 
-    size_t len = ftell(fptr);
+        size_t len = ftell(fptr);
 
-    // Reset the pointer
-    rewind(fptr);
+        // Reset the pointer
+        rewind(fptr);
 
-    return len;
+        return len;
 }
 
-static char *
-_file_rd_direct(FILE *fptr)
+static char *file_read_direct(FILE *fptr)
 {
-    size_t ln = _file_ln(fptr);
+        size_t ln = file_length(fptr);
 
-    char *buffer = calloc(ln, sizeof(char));
+        char *buffer = calloc(ln, sizeof(char));
 
-    if (!buffer)
-        return NULL;
+        if (!buffer)
+                return NULL;
 
-    fread(buffer, sizeof(char), ln, fptr);
-    return buffer;
+        fread(buffer, sizeof(char), ln, fptr);
+        return buffer;
 }
 
-char *
-file_rd(char *path)
+char *file_read(char *path)
 {
-    FILE *fptr = fopen(path, "r");
+        FILE *fptr = fopen(path, "r");
 
-    if (!fptr)
-        return NULL;
+        if (!fptr)
+                return NULL;
 
-    char *buff = _file_rd_direct(fptr);
+        char *buff = file_read_direct(fptr);
 
-    fclose(fptr);
+        fclose(fptr);
 
-    return buff;
+        return buff;
 }

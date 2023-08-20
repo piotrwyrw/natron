@@ -7,10 +7,8 @@
 
 #include "../trans.h"
 
-int
-reformat(struct CompilerEnv *);
+int reformat(struct CompilerEnv *env);
 
-int
-_reformat_next(struct CompilerEnv *);
+int _reformat_next(struct CompilerEnv *env);
 
 #endif //BFCMP_FMT_H

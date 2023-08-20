@@ -18,46 +18,24 @@ extern size_t arr_len; /* The number of cells / size of the above array. Should 
 extern size_t arr_ix; /* Current index [cell number] */
 extern char lc; /* Last character printed by `bf_in()` */
 
-void
-bf_init();
+void bf_init();
 
-static void
-_bf_alloc_nxt();
+char bf_end();
 
-char
-bf_end();
+void bf_ptr_inc_n(size_t);
 
-void
-bf_ptr_inc();
+void bf_ptr_dec_n(size_t);
 
-void
-bf_ptr_dec();
+void bf_set(char);
 
-void
-bf_ptr_inc_n(size_t);
+char bf_get();
 
-void
-bf_ptr_dec_n(size_t);
+void bf_inc_arr(size_t);
 
-void
-bf_set(char);
+void bf_dec_arr(size_t);
 
-char
-bf_get();
+void bf_out_n(size_t);
 
-void
-bf_inc_arr(size_t);
-
-void
-bf_dec_arr(size_t);
-
-void
-bf_out();
-
-void
-bf_out_n(size_t);
-
-void
-bf_in();
+void bf_in();
 
 #endif //BFCMP_CORE_H
