@@ -15,28 +15,36 @@
 static struct Clip cli_params;
 static struct CompilerEnv env;
 
-int _compile() {
+int
+_compile()
+{
     int cmp_status = compile(&env);
     fclose(env.out);
 
-    if (cmp_status == EXIT_FAILURE) {
+    if (cmp_status == EXIT_FAILURE)
+    {
         if (remove(cli_params.out) < 0)
             printf("[ERR] Failed to remove flawed compiler output: %s.\n", strerror(errno));
-    } else {
+    } else
+    {
         printf("[OK] Compilation successful with %d operations.\n", env.op_ct);
     }
 
     return cmp_status;
 }
 
-int _reformat() {
+int
+_reformat()
+{
     int fmt_status = reformat(&env);
     fclose(env.out);
 
-    if (fmt_status == EXIT_FAILURE) {
+    if (fmt_status == EXIT_FAILURE)
+    {
         if (remove(cli_params.out) < 0)
             printf("[ERR] Failed to remove flawed reformatted output: %s.\n", strerror(errno));
-    } else {
+    } else
+    {
         printf("[OK] Reformatting successful.\n");
     }
 
@@ -44,7 +52,9 @@ int _reformat() {
 }
 
 
-int main(int argc, char **argv) {
+int
+main(int argc, char **argv)
+{
 
     char *src = NULL;
     FILE *outf = NULL;
@@ -56,14 +66,16 @@ int main(int argc, char **argv) {
 
     src = file_rd(cli_params.in);
 
-    if (!src) {
+    if (!src)
+    {
         printf("[ERR] Failed to open input file '%s' for reading: %s\n", cli_params.in, strerror(errno));
         goto fail_and_quit;
     }
 
     outf = fopen(cli_params.out, "w");
 
-    if (!outf) {
+    if (!outf)
+    {
         printf("[ERR] Cannot open output file '%s' for writing: %s\n", cli_params.out, strerror(errno));
         goto fail_and_quit;
     }

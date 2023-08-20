@@ -7,10 +7,13 @@
 
 #include <stdlib.h>
 
-char *_ctimes(char, size_t);
+char *
+_ctimes(char, size_t);
 
-size_t countcs(unsigned int, char *, char);
+size_t
+countcs(unsigned int, char *, char);
 
-void _loop_id(char * const, unsigned int);
+void
+_loop_id(char *const, unsigned int);
 
 #endif //BFCMP_UTIL_H

@@ -9,13 +9,16 @@
 
 static char lastC = 0;
 
-int reformat(struct CompilerEnv *env) {
+int
+reformat(struct CompilerEnv *env)
+{
     _chk_env(env);
 
     for (; env->offset < env->len; env->offset++)
         if (_reformat_next(env)) return EXIT_FAILURE;
 
-    if (env->loop_ct != 0) {
+    if (env->loop_ct != 0)
+    {
         printf("[ERR] There are unclosed loops left in the code.\n");
         return EXIT_FAILURE;
     }
@@ -23,7 +26,9 @@ int reformat(struct CompilerEnv *env) {
     return EXIT_SUCCESS;
 }
 
-int _reformat_next(struct CompilerEnv *env) {
+int
+_reformat_next(struct CompilerEnv *env)
+{
     ENV_CURR(c)
 
     static _Bool newline;
@@ -37,20 +42,23 @@ int _reformat_next(struct CompilerEnv *env) {
 
     // If the last character is a loop character, we want to add
     // some fitting indentation
-    if (newline) {
+    if (newline)
+    {
         fprintf(env->out, "%s", _ctimes('\t', (c == ']') ? env->indent - 1 : env->indent));
         newline = false;
     }
 
     // If the character is primitive (+-><.,) just print it as-is, since the above conditional
     // will take care of the indentation
-    if (IS_PRIMITIVE(c)) {
+    if (IS_PRIMITIVE(c))
+    {
         fprintf(env->out, "%c", c);
         goto exit_ok;
     }
 
     // In case of a loop-opening symbol, go to the next line and increment the indentation step
-    if (c == '[') {
+    if (c == '[')
+    {
         if (IS_PRIMITIVE(lastC))
             fprintf(env->out, " ");
         fprintf(env->out, "[\n");
@@ -59,7 +67,8 @@ int _reformat_next(struct CompilerEnv *env) {
         goto exit_ok;
     }
 
-    if (c == ']') {
+    if (c == ']')
+    {
         if (lastC != '[' && !newline_long)
             fprintf(env->out, "\n");
         fprintf(env->out, "]\n");

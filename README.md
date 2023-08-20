@@ -16,6 +16,7 @@
 A minimalist transpiler for the Brainfuck programming language.
 
 ### CLI Usage
+
 ```shell
 ./bfcmp
  --source src_file    # The input file containing the source code

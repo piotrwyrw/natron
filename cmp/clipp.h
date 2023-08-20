@@ -5,7 +5,8 @@
 #ifndef BFCMP_CLIPP_H
 #define BFCMP_CLIPP_H
 
-enum OperationMode {
+enum OperationMode
+{
     MODE_COMPILE,
     MODE_REFORMAT
 };
@@ -13,7 +14,8 @@ enum OperationMode {
 /**
  * Commandline Parameters
  */
-struct Clip {
+struct Clip
+{
     char *in; /* Input file name */
     char *out; /* Output file name */
     enum OperationMode mode; /* What should this instance do? */
@@ -24,8 +26,10 @@ extern unsigned int arg_ix;
 extern unsigned int arg_ct;
 extern char **arg_vec;
 
-struct Clip parse_clip(int, char **);
+struct Clip
+parse_clip(int, char **);
 
-int clip_chk_integrity(struct Clip *);
+int
+clip_chk_integrity(struct Clip *);
 
 #endif //BFCMP_CLIPP_H

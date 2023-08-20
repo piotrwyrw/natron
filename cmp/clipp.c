@@ -35,7 +35,9 @@ char **arg_vec = NULL;
         }
 
 
-struct Clip parse_clip(int argc, char **argv) {
+struct Clip
+parse_clip(int argc, char **argv)
+{
     arg_ix = 1; // Start at the second index, since the index 0 is occupied by default
     arg_ct = argc;
     arg_vec = argv;
@@ -50,7 +52,8 @@ struct Clip parse_clip(int argc, char **argv) {
     // The default mode of operation should be compilation
     tmp_clip.mode = MODE_COMPILE;
 
-    eternal {
+    eternal
+    {
 
         if (arg_ix >= arg_ct)
             break;
@@ -68,16 +71,20 @@ struct Clip parse_clip(int argc, char **argv) {
     return tmp_clip;
 }
 
-int clip_chk_integrity(struct Clip *clip) {
+int
+clip_chk_integrity(struct Clip *clip)
+{
     if (!clip->parse_ok)
         return EXIT_FAILURE;
 
-    if (!clip->out) {
+    if (!clip->out)
+    {
         printf("[ERR] Required parameter not set: --output\n");
         return EXIT_FAILURE;
     }
 
-    if (!clip->in) {
+    if (!clip->in)
+    {
         printf("[ERR] Required parameter not set: --source\n");
         return EXIT_FAILURE;
     }

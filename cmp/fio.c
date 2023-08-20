@@ -9,7 +9,9 @@
 /**
  * Warning: This will reset the file position !
  */
-static size_t _file_ln(FILE *fptr) {
+static size_t
+_file_ln(FILE *fptr)
+{
     if (!fptr)
         return 0;
 
@@ -23,7 +25,9 @@ static size_t _file_ln(FILE *fptr) {
     return len;
 }
 
-static char *_file_rd_direct(FILE *fptr) {
+static char *
+_file_rd_direct(FILE *fptr)
+{
     size_t ln = _file_ln(fptr);
 
     char *buffer = calloc(ln, sizeof(char));
@@ -35,7 +39,9 @@ static char *_file_rd_direct(FILE *fptr) {
     return buffer;
 }
 
-char *file_rd(char *path) {
+char *
+file_rd(char *path)
+{
     FILE *fptr = fopen(path, "r");
 
     if (!fptr)

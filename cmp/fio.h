@@ -10,10 +10,13 @@
 
 #include <stdio.h>
 
-static size_t _file_ln(FILE *);
+static size_t
+_file_ln(FILE *);
 
-static char *_file_rd_direct(FILE *);
+static char *
+_file_rd_direct(FILE *);
 
-char *file_rd(char *);
+char *
+file_rd(char *);
 
 #endif //BFCMP_FIO_H

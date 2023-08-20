@@ -28,7 +28,8 @@
         }            \
         char id = env->src[env->offset];
 
-struct CompilerEnv {
+struct CompilerEnv
+{
     char *src;
     size_t offset; /* Offset from the base of the source string */
     size_t len; /* Length of the source string */
@@ -51,18 +52,25 @@ struct CompilerEnv {
     unsigned int op_ct; /* Just for the final success message. Yep, no other purpose. */
 };
 
-int _chk_env(struct CompilerEnv *);
+int
+_chk_env(struct CompilerEnv *);
 
-int compile(struct CompilerEnv *);
+int
+compile(struct CompilerEnv *);
 
-void _gen_preamble(struct CompilerEnv *);
+void
+_gen_preamble(struct CompilerEnv *);
 
-int _compile_next(struct CompilerEnv *);
+int
+_compile_next(struct CompilerEnv *);
 
-void _loop_rel(struct CompilerEnv *);
+void
+_loop_rel(struct CompilerEnv *);
 
-unsigned int _loop_add(struct CompilerEnv *);
+unsigned int
+_loop_add(struct CompilerEnv *);
 
-unsigned int _loop_del(struct CompilerEnv *);
+unsigned int
+_loop_del(struct CompilerEnv *);
 
 #endif //BFCMP_TRANS_H

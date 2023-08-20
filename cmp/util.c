@@ -7,7 +7,9 @@
 #include <string.h>
 #include <stdio.h>
 
-char *_ctimes(char c, size_t n) {
+char *
+_ctimes(char c, size_t n)
+{
     char *arr = calloc(n + 1, sizeof(char));
     for (size_t i = 0; i < n; i++)
         arr[i] = c;
@@ -17,7 +19,9 @@ char *_ctimes(char c, size_t n) {
 /**
  * Count continuous sequence
  */
-size_t countcs(unsigned int org, char *str, char c) {
+size_t
+countcs(unsigned int org, char *str, char c)
+{
     size_t n = 0;
 
     size_t len = strlen(str);
@@ -34,7 +38,9 @@ size_t countcs(unsigned int org, char *str, char c) {
 /**
  * Requires a buffer of 12 bytes (characters)
  */
-void _loop_id(char * const buff, unsigned int i) {
+void
+_loop_id(char *const buff, unsigned int i)
+{
     memset(buff, 0, 12);
     sprintf(buff, "l%d", i);
 }
