@@ -96,27 +96,27 @@ void bf_ptr_dec_n(size_t n)
                 bf_ptr_dec();
 }
 
-inline void bf_set(char c)
+void bf_set(char c)
 {
         arr[arr_ix] = c;
 }
 
-inline char bf_get(void)
+char bf_get(void)
 {
         return arr[arr_ix];
 }
 
-inline void bf_inc_arr(size_t n)
+void bf_inc_arr(size_t n)
 {
         bf_set(bf_get() + n);
 }
 
-inline void bf_dec_arr(size_t n)
+void bf_dec_arr(size_t n)
 {
         bf_set(bf_get() - n);
 }
 
-inline static void bf_out(void)
+static void bf_out(void)
 {
         last_out = arr[arr_ix];
         putchar(last_out);
