@@ -16,10 +16,13 @@
 A minimalist transpiler for the Brainfuck programming language.
 
 ### CLI Usage
-```bash
+```shell
 ./bfcmp
- --source file_name   # The input file containing the source code
- --output file_name   # The file to write the transpiler's output to
+ --source src_file    # The input file containing the source code
+ --output out_file    # The output file
+ 
+ --compile            # Compile brainfuck source code to C
+ --reformat           # Reformat the brainfuck source code
 ```
 
-_Tested on MacOS Ventura 13.4 as well as on Ubuntu 22.04_
+_Tested on macOS Ventura 13.4 as well as on Ubuntu 22.04_
