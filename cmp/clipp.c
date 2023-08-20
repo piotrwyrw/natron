@@ -13,8 +13,6 @@ unsigned int arg_i = 0;
 unsigned int arg_ct = 0;
 char **arg_vec = NULL;
 
-#define eternal for (;;)
-
 #define BIND_CLI_PARAM(tag, dst) \
         if (strcmp(arg_vec[arg_i], tag) == 0) { \
             if (arg_i + 1 >= arg_ct) {          \
@@ -51,7 +49,7 @@ struct Clip parse_clip(int argc, char **argv)
         // The default mode of operation should be compilation
         tmp_clip.mode = MODE_COMPILE;
 
-        eternal {
+        for (;;) {
                 if (arg_i >= arg_ct)
                         break;
 

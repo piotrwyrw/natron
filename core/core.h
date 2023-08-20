@@ -11,16 +11,9 @@
 #   define BF_ALLOC_STEP_SIZE 10
 #endif
 
-#define BLOCK_EXEC for (;;) {}
+void bf_init(void);
 
-extern unsigned char *arr; /* The cells the brainfuck program will operate on */
-extern size_t arr_len; /* The number of cells / size of the above array. Should not be modified once set. */
-extern size_t arr_ix; /* Current index [cell number] */
-extern char lc; /* Last character printed by `bf_in()` */
-
-void bf_init();
-
-char bf_end();
+char bf_end(void);
 
 void bf_ptr_inc_n(size_t);
 
@@ -28,7 +21,7 @@ void bf_ptr_dec_n(size_t);
 
 void bf_set(char);
 
-char bf_get();
+char bf_get(void);
 
 void bf_inc_arr(size_t);
 
@@ -36,6 +29,6 @@ void bf_dec_arr(size_t);
 
 void bf_out_n(size_t);
 
-void bf_in();
+void bf_in(void);
 
 #endif //BFCMP_CORE_H

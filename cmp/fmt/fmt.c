@@ -26,7 +26,7 @@ int reformat(struct CompilerEnv *env)
 
 int _reformat_next(struct CompilerEnv *env)
 {
-        ENV_CURR(c)
+        CURRENT_CHAR(c)
 
         static _Bool newline;
         static _Bool newline_long;

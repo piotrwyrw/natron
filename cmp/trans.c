@@ -21,7 +21,7 @@ int sanity_check_env(struct CompilerEnv *env)
                 return EXIT_FAILURE;
 
         env->offset = 0;
-        env->_loop_sub_zero = true; /* We start at "-1" */
+        env->loop_sub_zero = true; /* We start at "-1" */
         env->len = strlen(env->src);
         env->op_ct = 0;
 
@@ -81,7 +81,7 @@ static void gen_preamble(struct CompilerEnv *env)
 
 static int compile_next(struct CompilerEnv *env)
 {
-        ENV_CURR(op)
+        CURRENT_CHAR(op)
 
         size_t rep = count_following(env->offset, env->src, op);
 
@@ -147,8 +147,8 @@ static int compile_next(struct CompilerEnv *env)
 
 static void refresh_loop_number(struct CompilerEnv *env)
 {
-        if (env->_loop_index >= 0) {
-                env->loop_no = env->loops[env->_loop_index];
+        if (env->loop_index >= 0) {
+                env->loop_no = env->loops[env->loop_index];
         } else {
                 env->loop_no = -1;
         }
@@ -156,14 +156,14 @@ static void refresh_loop_number(struct CompilerEnv *env)
 
 unsigned int add_loop(struct CompilerEnv *env)
 {
-        if (!env->_loop_sub_zero)
-                env->_loop_index++;
+        if (!env->loop_sub_zero)
+                env->loop_index++;
         else
-                env->_loop_sub_zero = false;
+                env->loop_sub_zero = false;
 
-        env->loops[env->_loop_index] = ++env->_max_loop;
+        env->loops[env->loop_index] = ++env->max_loop;
 
-        unsigned int last_no = env->_max_loop;
+        unsigned int last_no = env->max_loop;
 
         refresh_loop_number(env);
 
@@ -172,10 +172,10 @@ unsigned int add_loop(struct CompilerEnv *env)
 
 unsigned int delete_loop(struct CompilerEnv *env)
 {
-        if (env->_loop_index == 0)
-                env->_loop_sub_zero = true;
+        if (env->loop_index == 0)
+                env->loop_sub_zero = true;
         else
-                env->_loop_index--;
+                env->loop_index--;
 
         unsigned int last_no = env->loop_no;
 

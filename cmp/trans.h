@@ -12,7 +12,6 @@
 #define BRAINFUCK_MAX_LOOPS 100
 #define BRAINFUCK_MAX_INCLUDES 2
 #define BRAINFUCK_MAIN_FUNCTION "main"
-#define BRAINFUCK_CELL_COUNT 30000
 
 #define EMIT(env, ...) {\
             fprintf(env->out, "%s", repeat('\t', env->indent));               \
@@ -21,7 +20,7 @@
 
 #define IS_PRIMITIVE(c) (c == '>' || c == '<' || c == '+' || c == '-' || c == '.')
 
-#define ENV_CURR(id) \
+#define CURRENT_CHAR(id) \
         if (env->offset >= env->len) { \
             printf("[ERR] Offset is pointing outside of the source code.\n"); \
             return EXIT_FAILURE; \
@@ -43,9 +42,9 @@ struct CompilerEnv {
         // Only use with the wrapper functions `refresh_loop_number()`, `add_loop()` and `delete_loop()` !
         unsigned int loops[BRAINFUCK_MAX_LOOPS]; /* Keep track of loop numbering */
         unsigned int loop_no; /* The current loop number. Updated automatically - Do not overwrite manually! */
-        _Bool _loop_sub_zero; /* True - If you delete the 0th loop. Emulates a negative number. Managed automatically - don't alter manually. */
-        unsigned int _loop_index; /* The index pointing to the current loop number. Don't touch! */
-        unsigned int _max_loop; /* Max loop number. Do not mess with this. */
+        _Bool loop_sub_zero; /* True - If you delete the 0th loop. Emulates a negative number. Managed automatically - don't alter manually. */
+        unsigned int loop_index; /* The index pointing to the current loop number. Don't touch! */
+        unsigned int max_loop; /* Max loop number. Do not mess with this. */
         unsigned int loop_ct; /* For keeping track of (un)closed loops */
 
         unsigned int op_ct; /* Just for the final success message. Yep, no other purpose. */

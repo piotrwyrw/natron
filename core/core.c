@@ -8,12 +8,17 @@
 #include <signal.h>
 #include <string.h>
 
-unsigned char *arr = NULL;
-size_t arr_len = 0;
-size_t arr_ix = 0;
-char lc = 0xA;
+static unsigned char *arr = NULL;
+static size_t arr_len = 0;
+static size_t arr_ix = 0;
+static char last_out = 0xA;
 
-static void _bf_allocate_next()
+_Noreturn static inline void block_forever(void)
+{
+        for (;;);
+}
+
+static void bf_allocate_next(void)
 {
         size_t _arr_len = arr_len;
         arr_len += BF_ALLOC_STEP_SIZE;
@@ -44,18 +49,18 @@ static void _bf_allocate_next()
         _sigterm:
         raise(SIGTERM);
 
-        // Wait forever to give the signal the best chances of being caught
-        BLOCK_EXEC
+        // Wait forever to give the signal the best chances of getting caught
+        block_forever();
 }
 
-void bf_init()
+void bf_init(void)
 {
         arr_len = 0;
         arr_ix = 0;
-        _bf_allocate_next();
+        bf_allocate_next();
 }
 
-char bf_end()
+char bf_end(void)
 {
         char _c = arr[arr_ix];
         free(arr);
@@ -63,17 +68,17 @@ char bf_end()
         return _c;
 }
 
-static void bf_ptr_inc()
+static void bf_ptr_inc(void)
 {
         if (arr_ix + 1 < arr_len)
                 arr_ix++;
         else {
-                _bf_allocate_next();
+                bf_allocate_next();
                 bf_ptr_inc();
         }
 }
 
-static void bf_ptr_dec()
+static void bf_ptr_dec(void)
 {
         if (arr_ix - 1 >= 0)
                 arr_ix--;
@@ -96,7 +101,7 @@ void bf_set(char c)
         arr[arr_ix] = c;
 }
 
-char bf_get()
+char bf_get(void)
 {
         return arr[arr_ix];
 }
@@ -111,9 +116,10 @@ void bf_dec_arr(size_t n)
         bf_set(bf_get() - n);
 }
 
-static void bf_out()
+static void bf_out(void)
 {
-        putchar(arr[arr_ix]);
+        last_out = arr[arr_ix];
+        putchar(last_out);
 }
 
 void bf_out_n(size_t n)
@@ -122,9 +128,9 @@ void bf_out_n(size_t n)
                 bf_out();
 }
 
-void bf_in()
+void bf_in(void)
 {
-        if (lc != '\n')
+        if (last_out != '\n')
                 putchar('\n');
 
         printf("@%ld :: ", arr_ix);

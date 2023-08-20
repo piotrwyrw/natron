@@ -15,7 +15,7 @@
 static struct Clip cli_params;
 static struct CompilerEnv env;
 
-static int compile_source()
+static int compile_source(void)
 {
         int cmp_status = compile(&env);
         fclose(env.out);
@@ -30,7 +30,7 @@ static int compile_source()
         return cmp_status;
 }
 
-static int reformat_source()
+static int reformat_source(void)
 {
         int fmt_status = reformat(&env);
         fclose(env.out);
