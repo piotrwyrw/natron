@@ -19,13 +19,13 @@ void bf_ptr_inc_n(size_t);
 
 void bf_ptr_dec_n(size_t);
 
-void bf_set(char);
+inline void bf_set(char);
 
-char bf_get(void);
+inline char bf_get(void);
 
-void bf_inc_arr(size_t);
+inline void bf_inc_arr(size_t);
 
-void bf_dec_arr(size_t);
+inline void bf_dec_arr(size_t);
 
 void bf_out_n(size_t);
 
