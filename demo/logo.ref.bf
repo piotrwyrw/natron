@@ -466,6 +466,8 @@
 >-.- [
 	--->++++<
 ]
->..----...... [
-	-
+>..----...... 
+# To ensure an exit status of 0, make sure the value in the last cell is 0.
+[
+	- # Decrement the current cell's value until it is > 0
 ]

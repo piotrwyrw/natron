@@ -20,9 +20,18 @@
 
 #define IS_PRIMITIVE(c) (c == '>' || c == '<' || c == '+' || c == '-' || c == '.')
 
+#define IS_SPACE(c) (c == ' ' || c == '\t')
+
+#define ILLEGAL_OP(c) (!IS_PRIMITIVE(c) && c != '[' && c != ']' && !IS_SPACE(c) && c != '\n')
+
+#define FAIL_WRONG_OP(id) {\
+               CLR_PRINTF(ANSI_COLOR_RED, "[ERR] Unknown operator: '%c'\n", id);\
+                return EXIT_FAILURE;\
+        }
+
 #define CURRENT_CHAR(id) \
         if (env->offset >= env->len) { \
-            printf("[ERR] Offset is pointing outside of the source code.\n"); \
+            CLR_PRINTF(ANSI_COLOR_RED, "[ERR] Offset is pointing outside of the source code.\n"); \
             return EXIT_FAILURE; \
         }            \
         char id = env->src[env->offset];
@@ -53,6 +62,10 @@ struct CompilerEnv {
 int sanity_check_env(struct CompilerEnv *env);
 
 int compile(struct CompilerEnv *env);
+
+size_t skip_comment(struct CompilerEnv *env);
+
+_Bool is_comment_line(struct CompilerEnv *env);
 
 unsigned int add_loop(struct CompilerEnv *env);
 

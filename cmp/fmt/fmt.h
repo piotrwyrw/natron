@@ -9,6 +9,4 @@
 
 int reformat(struct CompilerEnv *env);
 
-int _reformat_next(struct CompilerEnv *env);
-
 #endif //BFCMP_FMT_H

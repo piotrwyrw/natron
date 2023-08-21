@@ -11,6 +11,7 @@
 #include "fio.h"
 #include "trans.h"
 #include "fmt/fmt.h"
+#include "color.h"
 
 static struct Clip cli_params;
 static struct CompilerEnv env;
@@ -21,10 +22,12 @@ static int compile_source(void)
         fclose(env.out);
 
         if (cmp_status == EXIT_FAILURE) {
-                if (remove(cli_params.out) < 0)
-                        printf("[ERR] Failed to remove flawed compiler output: %s.\n", strerror(errno));
+                if (remove(cli_params.out) < 0) {
+                        CLR_PRINTF(ANSI_COLOR_RED, "[ERR] Failed to remove flawed compiler output: %s.\n", strerror(errno));
+                }
         } else {
-                printf("[OK] Compilation successful with %d operations.\n", env.op_ct);
+                CLR_PRINTF(ANSI_COLOR_GREEN, "[OK] Compilation successful with %d operations: (%s) -> (%s)\n", env.op_ct, cli_params.in,
+                       cli_params.out);
         }
 
         return cmp_status;
@@ -36,10 +39,11 @@ static int reformat_source(void)
         fclose(env.out);
 
         if (fmt_status == EXIT_FAILURE) {
-                if (remove(cli_params.out) < 0)
-                        printf("[ERR] Failed to remove flawed reformatted output: %s.\n", strerror(errno));
+                if (remove(cli_params.out) < 0) {
+                        CLR_PRINTF(ANSI_COLOR_RED, "[ERR] Failed to remove flawed reformatted output: %s.\n", strerror(errno));
+                }
         } else {
-                printf("[OK] Reformatting successful.\n");
+                CLR_PRINTF(ANSI_COLOR_GREEN, "[OK] Reformatting successful: (%s) -> (%s0\n", cli_params.in, cli_params.out);
         }
 
         return fmt_status;
@@ -60,14 +64,14 @@ int main(int argc, char **argv)
         src = file_read(cli_params.in);
 
         if (!src) {
-                printf("[ERR] Failed to open input file '%s' for reading: %s\n", cli_params.in, strerror(errno));
+                CLR_PRINTF(ANSI_COLOR_RED, "[ERR] Failed to open input file '%s' for reading: %s\n", cli_params.in, strerror(errno));
                 goto fail_and_quit;
         }
 
         outf = fopen(cli_params.out, "w");
 
         if (!outf) {
-                printf("[ERR] Cannot open output file '%s' for writing: %s\n", cli_params.out, strerror(errno));
+                CLR_PRINTF(ANSI_COLOR_RED, "[ERR] Cannot open output file '%s' for writing: %s\n", cli_params.out, strerror(errno));
                 goto fail_and_quit;
         }
 
