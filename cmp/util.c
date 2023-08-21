@@ -7,12 +7,14 @@
 #include <string.h>
 #include <stdio.h>
 
+char tmp_buffer[TMP_BUFFER_SIZE] = { 0 };
+
 char *repeat(char c, size_t n)
 {
-        char *arr = calloc(n + 1, sizeof(char));
+        memset(tmp_buffer, 0, TMP_BUFFER_SIZE);
         for (size_t i = 0; i < n; i++)
-                arr[i] = c;
-        return arr;
+                tmp_buffer[i] = c;
+        return tmp_buffer;
 }
 
 /**

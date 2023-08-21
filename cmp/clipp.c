@@ -67,6 +67,12 @@ struct Clip parse_clip(int argc, char **argv)
         return tmp_clip;
 }
 
+void free_clip(struct Clip *clip)
+{
+        free(clip->out);
+        free(clip->in);
+}
+
 int clip_check_integrity(struct Clip *clip)
 {
         if (!clip->parse_ok)

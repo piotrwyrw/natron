@@ -19,6 +19,8 @@ add_executable(cmp cmp/main.c cmp/clipp.c
         cmp/fmt/fmt.h
         cmp/fmt/fmt.c
         cmp/color.h
+        cmp/parse.h
+        cmp/parse.c
 )
 
 # Reformat the brainfuck source code using the compiler's built-in functionality

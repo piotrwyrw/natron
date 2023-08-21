@@ -93,5 +93,6 @@ int main(int argc, char **argv)
         fail_and_quit:
         free(src);
         fclose(outf);
+        free_clip(&cli_params);
         return EXIT_FAILURE;
 }
