@@ -78,7 +78,7 @@ char *isolate_till(char c, struct CompilerEnv *env)
 
         /* Remember: We did not alter env->offset yet, so it will act as out string's origin */
         memccpy(buff, env->src + env->offset, i, sizeof(char));
-        
+
         env->offset += i;
 
         return buff;

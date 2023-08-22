@@ -12,6 +12,7 @@
 #include "trans.h"
 #include "fmt/fmt.h"
 #include "color.h"
+#include "help.h"
 
 static struct Clip cli_params;
 static struct CompilerEnv env;
@@ -52,6 +53,11 @@ static int reformat_source(void)
 
 int main(int argc, char **argv)
 {
+
+        if (argc < 2) {
+                show_help();
+                return 0;
+        }
 
         char *src = NULL;
         FILE *outf = NULL;
