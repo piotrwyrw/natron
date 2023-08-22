@@ -60,7 +60,7 @@ struct Clip parse_clip(int argc, char **argv)
                 BIND_CLI_PARAM_ENUM("--compile", tmp_clip.mode, MODE_COMPILE)
                 BIND_CLI_PARAM_ENUM("--reformat", tmp_clip.mode, MODE_REFORMAT)
 
-                CLR_PRINTF(ANSI_COLOR_RED, "[ERR] Unknown command line parameter: %s.\n", arg_vec[arg_i]);
+                ERROR("Unknown command line parameter: %s.\n", arg_vec[arg_i]);
                 return (struct Clip) {.parse_ok = false};
         };
 
@@ -79,12 +79,12 @@ int clip_check_integrity(struct Clip *clip)
                 return EXIT_FAILURE;
 
         if (!clip->out) {
-                CLR_PRINTF(ANSI_COLOR_RED, "[ERR] Required parameter not set: --output\n");
+                ERROR("Required parameter not set: --output\n");
                 return EXIT_FAILURE;
         }
 
         if (!clip->in) {
-                CLR_PRINTF(ANSI_COLOR_RED, "[ERR] Required parameter not set: --source\n");
+                ERROR("Required parameter not set: --source\n");
                 return EXIT_FAILURE;
         }
 

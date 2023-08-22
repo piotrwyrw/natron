@@ -23,4 +23,14 @@
         printf("%s", ANSI_COLOR_RESET);\
 }
 
+#define ERROR(...) { \
+        CLR_PRINTF(ANSI_COLOR_RED, "[ERR] ")             \
+        CLR_PRINTF(ANSI_COLOR_RED, __VA_ARGS__) \
+}
+
+#define OK(...) { \
+        CLR_PRINTF(ANSI_COLOR_GREEN, "[OK] ")          \
+        CLR_PRINTF(ANSI_COLOR_GREEN, __VA_ARGS__) \
+}
+
 #endif //BFCMP_COLOR_H

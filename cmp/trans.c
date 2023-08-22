@@ -51,7 +51,7 @@ int compile(struct CompilerEnv *env)
         EMIT(env, "}\n")
 
         if (env->loop_ct != 0) {
-                CLR_PRINTF(ANSI_COLOR_RED, "[ERR] Syntax error: There are unclosed loops.\n");
+                ERROR("Syntax error: There are unclosed loops.\n");
                 return EXIT_FAILURE;
         }
 
@@ -219,7 +219,7 @@ static int compile_next(struct CompilerEnv *env)
                         env->indent--;
                         env->loop_ct--;
                         if (env->loop_ct < 0) {
-                                CLR_PRINTF(ANSI_COLOR_RED, "[ERR] Syntax error: There are unclosed loops.\n");
+                                ERROR("Syntax error: There are unclosed loops.\n");
                                 return EXIT_FAILURE;
                         }
                         EMIT(env, "} // -- %d\n", delete_loop(env));

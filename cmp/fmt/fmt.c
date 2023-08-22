@@ -20,7 +20,7 @@ int reformat(struct CompilerEnv *env)
                 if (reformat_next(env)) return EXIT_FAILURE;
 
         if (env->loop_ct != 0) {
-                CLR_PRINTF(ANSI_COLOR_RED, "[ERR] There are unclosed loops left in the code.\n");
+                ERROR("There are unclosed loops left in the code.\n");
                 return EXIT_FAILURE;
         }
 

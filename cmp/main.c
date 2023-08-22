@@ -23,10 +23,10 @@ static int compile_source(void)
 
         if (cmp_status == EXIT_FAILURE) {
                 if (remove(cli_params.out) < 0) {
-                        CLR_PRINTF(ANSI_COLOR_RED, "[ERR] Failed to remove flawed compiler output: %s.\n", strerror(errno));
+                        ERROR("Failed to remove flawed compiler output: %s.\n", strerror(errno));
                 }
         } else {
-                CLR_PRINTF(ANSI_COLOR_GREEN, "[OK] Compilation successful with %d operations: (%s) -> (%s)\n", env.op_ct, cli_params.in,
+                OK("Compilation successful with %d operations: (%s) -> (%s)\n", env.op_ct, cli_params.in,
                        cli_params.out);
         }
 
@@ -40,10 +40,10 @@ static int reformat_source(void)
 
         if (fmt_status == EXIT_FAILURE) {
                 if (remove(cli_params.out) < 0) {
-                        CLR_PRINTF(ANSI_COLOR_RED, "[ERR] Failed to remove flawed reformatted output: %s.\n", strerror(errno));
+                        ERROR("Failed to remove flawed reformatted output: %s.\n", strerror(errno));
                 }
         } else {
-                CLR_PRINTF(ANSI_COLOR_GREEN, "[OK] Reformatting successful: (%s) -> (%s0\n", cli_params.in, cli_params.out);
+                OK("Reformatting successful: (%s) -> (%s0\n", cli_params.in, cli_params.out);
         }
 
         return fmt_status;
@@ -64,14 +64,14 @@ int main(int argc, char **argv)
         src = file_read(cli_params.in);
 
         if (!src) {
-                CLR_PRINTF(ANSI_COLOR_RED, "[ERR] Failed to open input file '%s' for reading: %s\n", cli_params.in, strerror(errno));
+                ERROR("Failed to open input file '%s' for reading: %s\n", cli_params.in, strerror(errno));
                 goto fail_and_quit;
         }
 
         outf = fopen(cli_params.out, "w");
 
         if (!outf) {
-                CLR_PRINTF(ANSI_COLOR_RED, "[ERR] Cannot open output file '%s' for writing: %s\n", cli_params.out, strerror(errno));
+                ERROR("Cannot open output file '%s' for writing: %s\n", cli_params.out, strerror(errno));
                 goto fail_and_quit;
         }
 

@@ -8,6 +8,7 @@
 #include <stdio.h>
 
 #include "util.h"
+#include "color.h"
 
 #define BRAINFUCK_MAX_LOOPS 100
 #define BRAINFUCK_MAX_INCLUDES 2
@@ -22,17 +23,19 @@
 
 #define IS_SPACE(c) (c == ' ' || c == '\t')
 
+#define IS_SPACE_EXT(c) (IS_SPACE(c) || c == '\n')
+
 #define ILLEGAL_OP(c) (!IS_PRIMITIVE(c) && c != '[' && c != ']' && !IS_SPACE(c) && c != '\n')
 
 #define FAIL_WRONG_OP(id) {\
-               CLR_PRINTF(ANSI_COLOR_RED, "[ERR] Unknown operator: '%c'\n", id);\
+                ERROR("Unknown operator: '%c'\n", id);\
                 return EXIT_FAILURE;\
         }
 
 #define CURRENT_CHAR(id) \
         if (env->offset >= env->len) { \
-            CLR_PRINTF(ANSI_COLOR_RED, "[ERR] Offset is pointing outside of the source code.\n"); \
-            return EXIT_FAILURE; \
+                ERROR("Offset is pointing outside of the source code.\n"); \
+                return EXIT_FAILURE; \
         }            \
         char id = env->src[env->offset];
 
