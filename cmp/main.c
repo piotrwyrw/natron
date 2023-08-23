@@ -30,7 +30,7 @@ static int compile_source(void)
                 }
                 ERROR("Compilation failed.\n")
         } else {
-                OK("Compilation successful with %d operations: [%s -> %s]\n", env.op_ct, cli_params.in,
+                OK("Compilation successful with %ld operations: [%s -> %s]\n", env.op_ct, cli_params.in,
                    cli_params.out)
         }
 

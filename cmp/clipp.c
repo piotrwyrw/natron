@@ -10,8 +10,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-unsigned int arg_i = 0;
-unsigned int arg_ct = 0;
+size_t arg_i = 0;
+size_t arg_ct = 0;
 char **arg_vec = NULL;
 
 #define BIND_CLI_PARAM(tag, dst) \

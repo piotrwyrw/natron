@@ -189,7 +189,9 @@ static void gen_preamble(struct CompilerEnv *env)
                   " */\n\n")
 
         /* Include all requested headers */
-        for (unsigned int i = 0; i < env->includes_ct; i++) EMIT(env, "#include <%s>\n", env->includes[i])
+        for (size_t i = 0; i < env->includes_ct; i++) {
+                EMIT(env, "#include <%s>\n", env->includes[i])
+        }
 
         EMIT(env, "\n")
 
@@ -284,30 +286,31 @@ static void refresh_loop_number(struct CompilerEnv *env)
         }
 }
 
-unsigned int add_loop(struct CompilerEnv *env)
+size_t add_loop(struct CompilerEnv *env)
 {
-        if (!env->loop_sub_zero)
+        if (!env->loop_sub_zero) {
                 env->loop_index++;
-        else
+        } else {
                 env->loop_sub_zero = false;
+        }
 
         env->loops[env->loop_index] = ++env->max_loop;
 
-        unsigned int last_no = env->max_loop;
+        size_t last_no = env->max_loop;
 
         refresh_loop_number(env);
 
         return last_no;
 }
 
-unsigned int delete_loop(struct CompilerEnv *env)
+size_t delete_loop(struct CompilerEnv *env)
 {
         if (env->loop_index == 0)
                 env->loop_sub_zero = true;
         else
                 env->loop_index--;
 
-        unsigned int last_no = env->loop_no;
+        size_t last_no = env->loop_no;
 
         refresh_loop_number(env);
 

@@ -5,6 +5,8 @@
 #ifndef BFCMP_CLIPP_H
 #define BFCMP_CLIPP_H
 
+#include <stdio.h>
+
 enum OperationMode {
         MODE_COMPILE,
         MODE_REFORMAT
@@ -21,8 +23,8 @@ struct Clip {
         _Bool ack_reformat;
 } tmp_clip;
 
-extern unsigned int arg_i;
-extern unsigned int arg_ct;
+extern size_t arg_i;
+extern size_t arg_ct;
 extern char **arg_vec;
 
 struct Clip parse_clip(int argc, char **argv);

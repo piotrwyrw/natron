@@ -65,18 +65,18 @@ struct CompilerEnv {
         unsigned int indent; /* Keeps track of the indentation */
 
         char *includes[BRAINFUCK_MAX_INCLUDES]; /* The headers to include in the resulting C file */
-        unsigned int includes_ct; /* Size of the include array */
+        size_t includes_ct; /* Size of the include array */
 
         // The following section is dedicated to keeping track of the loops.
         // Only use with the wrapper functions `refresh_loop_number()`, `add_loop()` and `delete_loop()` !
-        unsigned int loops[BRAINFUCK_MAX_LOOPS]; /* Keep track of loop numbering */
-        unsigned int loop_no; /* The current loop number. Updated automatically - Do not overwrite manually! */
+        size_t loops[BRAINFUCK_MAX_LOOPS]; /* Keep track of loop numbering */
+        size_t loop_no; /* The current loop number. Updated automatically - Do not overwrite manually! */
         _Bool loop_sub_zero; /* True - If you delete the 0th loop. Emulates a negative number. Managed automatically - don't alter manually. */
-        unsigned int loop_index; /* The index pointing to the current loop number. Don't touch! */
-        unsigned int max_loop; /* Max loop number. Do not mess with this. */
-        unsigned int loop_ct; /* For keeping track of (un)closed loops */
+        size_t loop_index; /* The index pointing to the current loop number. Don't touch! */
+        size_t max_loop; /* Max loop number. Do not mess with this. */
+        size_t loop_ct; /* For keeping track of (un)closed loops */
 
-        unsigned int op_ct; /* Just for the final success message. Yep, no other purpose. */
+        size_t op_ct; /* Just for the final success message. Yep, no other purpose. */
 
         _Bool main_set; /* True if 'main' contains a valid function name */
         char main[MAX_IDEN_LENGTH]; /* Name of the main function / section */
@@ -95,8 +95,8 @@ int sanity_check_env(struct CompilerEnv *env);
 
 int compile(struct CompilerEnv *env);
 
-unsigned int add_loop(struct CompilerEnv *env);
+size_t add_loop(struct CompilerEnv *env);
 
-unsigned int delete_loop(struct CompilerEnv *env);
+size_t delete_loop(struct CompilerEnv *env);
 
 #endif //BFCMP_TRANS_H

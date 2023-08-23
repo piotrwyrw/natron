@@ -20,7 +20,7 @@ char *repeat(char c, size_t n)
 /**
  * Count continuous sequence
  */
-size_t count_following(unsigned int org, char *str, char c)
+size_t count_following(size_t org, char *str, char c)
 {
         size_t n = 0;
 
