@@ -2,13 +2,14 @@
 // Created by Piotr Krzysztof Wyrwas on 16.08.23.
 //
 
-#include "trans.h"
-#include "util.h"
-#include "color.h"
-
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+
+#include "trans.h"
+#include "util.h"
+#include "color.h"
+#include "parse.h"
 
 static void gen_preamble(struct CompilerEnv *);
 
@@ -30,6 +31,14 @@ int sanity_check_env(struct CompilerEnv *env)
         return EXIT_SUCCESS;
 }
 
+enum status {
+        STATUS_OK,
+        STATUS_EOF,
+        STATUS_ERR
+};
+
+static enum status compile_unit(struct CompilerEnv *env);
+
 int compile(struct CompilerEnv *env)
 {
         if (sanity_check_env(env))
@@ -37,26 +46,100 @@ int compile(struct CompilerEnv *env)
 
         gen_preamble(env);
 
-        EMIT(env, "int %s(void) {\n", BRAINFUCK_MAIN_FUNCTION)
-        env->indent++;
+        enum status last_status;
 
-        EMIT(env, "bf_init();\n");
+        /* Compile all units */
+        while ((last_status = compile_unit(env)) == STATUS_OK) {}
 
-        for (; env->offset < env->len; env->offset++)
-                if (compile_next(env)) return EXIT_FAILURE;
-
-        EMIT(env, "return bf_end();\n")
-
-        env->indent--;
-        EMIT(env, "}\n")
-
-        if (env->loop_ct != 0) {
-                ERROR("Syntax error: There are unclosed loops.\n");
+        if (last_status == STATUS_ERR) {
                 return EXIT_FAILURE;
         }
 
         return EXIT_SUCCESS;
 }
+
+#define HANDLE(f, ...) \
+        if (f(env) == EXIT_FAILURE) { \
+                ERROR(__VA_ARGS__) \
+                return STATUS_ERR; \
+        }
+
+#define EXPECT(c, ...) \
+        if (env->src[env->offset] != c) { \
+                ERROR(__VA_ARGS__)        \
+                return STATUS_ERR; \
+        }
+
+static enum status compile_unit(struct CompilerEnv *env)
+{
+
+        if (env->offset >= env->len) {
+                return STATUS_EOF; /* We're at the end of the file; Nothing left to do. */
+        }
+
+        /* Unit header */
+        HANDLE(skip_spaces, "Could not parse: Reached end of file.\n")
+        HANDLE(identifier, "Expected identifier, got '%c'\n", env->src[env->offset])
+        HANDLE(skip_spaces, "Could not parse: Reached end of file after identifier '%s'.\n", last_identifier)
+        EXPECT('{', "Expected '{' after identifier '%s'. Got '%c' instead.\n", last_identifier, env->src[env->offset])
+
+        env->offset++; /* Skip the '{' */
+        if (env->offset >= env->len) {
+                ERROR("Expected brainfuck code after '{' in unit '%s'. Reached end of file while parsing.\n",
+                      last_identifier);
+                return STATUS_ERR;
+        }
+
+        char *id = strdup(last_identifier);
+
+        /* Compile the brainfuck itself */
+        if (strcmp(id, "main") == 0) {
+                EMIT(env, "int main(void)\n{\n")
+                env->indent++;
+                EMIT(env, "bf_init();\n")
+        } else {
+                EMIT(env, "void %s(void)\n{\n", last_identifier);
+                env->indent++;
+        }
+
+        for (; env->offset < env->len; env->offset++) {
+                if (env->src[env->offset] == '}') {
+                        break;
+                }
+                if (compile_next(env)) {
+                        free(id);
+                        return STATUS_ERR;
+                }
+        }
+
+        if (env->loop_ct != 0) {
+                ERROR("There are unclosed loops in unit '%s'.\n", id);
+                free(id);
+                return STATUS_ERR;
+        }
+
+        if (strcmp(id, "main") == 0) {
+                EMIT(env, "return bf_end();\n")
+        }
+
+        env->indent--;
+        EMIT(env, "}\n\n");
+
+        if (env->src[env->offset] != '}') {
+                ERROR("Expected '}' aft the end of unit '%s'. Got '%c' instead.\n", id, env->src[env->offset])
+                free(id);
+                return STATUS_ERR;
+        }
+
+        free(id);
+
+        env->offset++; /* Skip the '}' */
+
+        return STATUS_OK;
+}
+
+#undef EXPECT
+#undef HANDLE
 
 _Bool is_comment_line(struct CompilerEnv *env)
 {
@@ -94,7 +177,7 @@ _Bool is_comment_line(struct CompilerEnv *env)
                 if (c == '\n')
                         return true;
 
-                if (IS_SPACE(c))
+                if (is_space(c))
                         continue;
 
                 if (c == '#')
@@ -176,13 +259,13 @@ static int compile_next(struct CompilerEnv *env)
 
         rep = count_following(env->offset, env->src, op);
 
-        if (IS_PRIMITIVE(op)) {
+        if (is_primitive(op)) {
                 if (rep > 1)
                         env->offset += rep - 1;
                 env->op_ct += rep;
         }
 
-        if (ILLEGAL_OP(op)) {
+        if (is_illegal_op(op)) {
                 FAIL_WRONG_OP(op) /* See `trans.h` */
         }
 

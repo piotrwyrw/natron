@@ -19,14 +19,6 @@
             fprintf(env->out, __VA_ARGS__); \
         }
 
-#define IS_PRIMITIVE(c) (c == '>' || c == '<' || c == '+' || c == '-' || c == '.')
-
-#define IS_SPACE(c) (c == ' ' || c == '\t')
-
-#define IS_SPACE_EXT(c) (IS_SPACE(c) || c == '\n')
-
-#define ILLEGAL_OP(c) (!IS_PRIMITIVE(c) && c != '[' && c != ']' && !IS_SPACE(c) && c != '\n')
-
 #define FAIL_WRONG_OP(id) {\
                 ERROR("Unknown operator: '%c'\n", id);\
                 return EXIT_FAILURE;\
@@ -38,6 +30,31 @@
                 return EXIT_FAILURE; \
         }            \
         char id = env->src[env->offset];
+
+inline static _Bool is_primitive(char c)
+{
+        return c == '>' || c == '<' || c == '+' || c == '-' || c == '.';
+}
+
+inline static _Bool is_space(char c)
+{
+        return c == ' ' || c == '\t';
+}
+
+inline static _Bool is_letter(char c)
+{
+        return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_';
+}
+
+inline static _Bool is_space_ext(char c)
+{
+        return is_space(c) || c == '\n';
+}
+
+inline static _Bool is_illegal_op(char c)
+{
+        return !is_primitive(c) && c != '[' && c != ']' && !is_space(c) && c != '\n';
+}
 
 struct CompilerEnv {
         char *src;

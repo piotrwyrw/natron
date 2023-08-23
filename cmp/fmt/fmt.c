@@ -76,7 +76,7 @@ static int reformat_next(struct CompilerEnv *env)
         not_a_comment:
 
         /* Non-brainfuck characters are not allowed in the source code - We have comments for that */
-        if (ILLEGAL_OP(c)) {
+        if (is_illegal_op(c)) {
                 FAIL_WRONG_OP(c) /* See `trans.h` */
         }
 
@@ -89,14 +89,14 @@ static int reformat_next(struct CompilerEnv *env)
 
         /* If the character is primitive (+-><.,) just print it as-is, as the condition above */
         /* will take care of the indentation */
-        if (IS_PRIMITIVE(c)) {
+        if (is_primitive(c)) {
                 fprintf(env->out, "%c", c);
                 goto exit_ok;
         }
 
         /* In case of a loop-opening symbol, go to the next line and increment the indentation step */
         if (c == '[') {
-                if (IS_PRIMITIVE(lastC) && !newline_long)
+                if (is_primitive(lastC) && !newline_long)
                         fprintf(env->out, " ");
                 fprintf(env->out, "[\n");
                 newline = true;

@@ -51,8 +51,17 @@ static int reformat_source(void)
 }
 
 
-int main(int argc, char **argv)
+int main(void)
 {
+
+        int argc = 5;
+        char *argv[] = {
+                "",
+                "--source",
+                "../../demo/units.bf",
+                "--output",
+                "../../demo/units.c"
+        };
 
         if (argc < 2) {
                 show_help();

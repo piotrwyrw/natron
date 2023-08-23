@@ -10,7 +10,7 @@ char last_identifier[MAX_IDEN_LENGTH] = {0};
 
 int identifier(struct CompilerEnv *env)
 {
-        if (!IS_LETTER(env->src[env->offset])) {
+        if (!is_letter(env->src[env->offset])) {
                 return EXIT_FAILURE;
         }
 
@@ -21,7 +21,7 @@ int identifier(struct CompilerEnv *env)
         size_t i = 0;
         char *ptr = last_identifier;
 
-        while (IS_LETTER((c = env->src[env->offset + (i++)]))) {
+        while (is_letter((c = env->src[env->offset + (i++)]))) {
                 *(ptr++) = c;
                 if (ptr > last_identifier + MAX_IDEN_LENGTH) {
                         ERROR("Identifier too long: An identifier must be shorter than %ld characters.\n",
@@ -35,21 +35,17 @@ int identifier(struct CompilerEnv *env)
         return EXIT_SUCCESS;
 }
 
-int skip_spaces_till(char c, struct CompilerEnv *env)
+int skip_spaces(struct CompilerEnv *env)
 {
-        char curr;
         size_t i = 0;
 
-        while (IS_SPACE_EXT((curr = env->src[env->offset + (i++)]))) {
-                continue;
+        while (is_space_ext(env->src[env->offset + (i++)])) {
+                if (env->offset + i >= env->len) {
+                        return EXIT_FAILURE;
+                }
         }
 
-        if (curr != c) {
-                ERROR("Expected '%c', got '%c'.\n", c, curr);
-                return EXIT_FAILURE;
-        }
-
-        env->offset += i;
+        env->offset += i - 1;
 
         return EXIT_SUCCESS;
 }
