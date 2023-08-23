@@ -75,7 +75,7 @@ end of the line (Or _EOF_ if _EOL_ is not available)
 
 #### Units
 A unit definition looks as follows:
-```
+```ebnf
 [ "&" ] identifier "{" brainfuck-code "}"
 ```
 Every unit must have its own unique `identifier`. If the identifier is preceded with an ampersand (`&`),
@@ -83,7 +83,7 @@ the unit gets marked the main entry point of the program. Classic brainfuck code
 is located between the curly brackets.
 
 #### Unit calls
-```
+```ebnf
 "@" identifier
 ```
 _Note: The identifier must "stick" directly to the "@": There may not be any spaces separating the two tokens._
