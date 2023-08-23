@@ -140,7 +140,7 @@ int parse_unit_header(struct unit_header *ptr, struct CompilerEnv *env)
 
         if (main) {
                 if (env->main_set) {
-                        ERROR("There may only be a single main function. Previous: '%s'.\n", env->main)
+                        ERROR("There may only be a single main unit. Previous: '%s'.\n", env->main)
                         return EXIT_FAILURE;
                 }
                 env->main_set = true;

@@ -79,7 +79,7 @@ int compile(struct CompilerEnv *env)
         }
 
         if (!env->main_set) {
-                WARN("For the program to be standalone, it requires a main function to be set. However, in this program, no function is marked as such.\n")
+                WARN("For the program to be standalone, it requires a main unit to be set. However, in this program, no unit is marked as such.\n")
         } else {
                 EMIT(env, "int main(void)\n"
                           "{\n"
@@ -112,8 +112,14 @@ static enum status compile_unit(struct CompilerEnv *env)
 
         char *id = header.id;
 
+        if (unit_exists(id, env)) {
+                ERROR("The identifier of a unit must be unique: Attempted redefinition of '%s'.\n", id);
+                free(id);
+                return STATUS_ERR;
+        }
+
         if (add_unit_env(env, id)) {
-                ERROR("Not enough memory to store function '%s'. The compiler allows up to %ld function definitions.\n",
+                ERROR("Not enough memory to store unit '%s'. The compiler allows up to %ld unit definitions.\n",
                       id, MAX_UNITS_COUNT)
                 free(id);
                 return STATUS_ERR;
@@ -136,11 +142,11 @@ static enum status compile_unit(struct CompilerEnv *env)
                         }
 
                         if (strcmp(call.id, id) == 0) {
-                                WARN("On function call '%s' in '%s': Recursion is not recommended.\n", call.id, id)
+                                WARN("On unit call '%s' in '%s': Recursion is not recommended.\n", call.id, id)
                         }
 
                         if (!unit_exists(call.id, env)) {
-                                ERROR("Attempting to call undefined function '%s' from within '%s'.\n", call.id, id)
+                                ERROR("Attempting to call undefined unit '%s' from within '%s'.\n", call.id, id)
                                 free(call.id);
                                 return STATUS_ERR;
                         }
@@ -259,7 +265,7 @@ static int compile_next(struct CompilerEnv *env)
                                 ERROR("Syntax error: There are unclosed loops.\n")
                                 return EXIT_FAILURE;
                         }
-                        EMIT(env, "} // -- %d\n", delete_loop(env))
+                        EMIT(env, "} // -- %ld\n", delete_loop(env))
                         break;
                 }
                 case '.': {

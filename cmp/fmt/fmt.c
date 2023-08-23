@@ -33,7 +33,7 @@ int reformat(struct CompilerEnv *env)
         }
 
         if (!env->main_set) {
-                WARN("For the program to be standalone, it requires a main function to be set. However, in this program, no function is marked as such.\n")
+                WARN("For the program to be standalone, it requires a main unit to be set. However, in this program, no unit is marked as such.\n")
         }
 
         return EXIT_SUCCESS;
@@ -63,8 +63,13 @@ static enum status reformat_unit(struct CompilerEnv *env)
         strcpy(_id, id);
         free(id);
 
+        if (unit_exists(_id, env)) {
+                ERROR("The identifier of a unit must be unique: Attempted redefinition of '%s'.\n", _id);
+                return STATUS_ERR;
+        }
+
         if (add_unit_env(env, _id)) {
-                ERROR("Not enough memory to store function '%s'. The compiler allows up to %ld function definitions.\n",
+                ERROR("Not enough memory to store unit '%s'. The compiler allows up to %ld unit definitions.\n",
                       id, MAX_UNITS_COUNT)
                 return STATUS_ERR;
         }
@@ -92,11 +97,11 @@ static enum status reformat_unit(struct CompilerEnv *env)
                         }
 
                         if (strcmp(call.id, _id) == 0) {
-                                WARN("On function call '%s' in '%s': Recursion is not recommended.\n", call.id, _id)
+                                WARN("On unit call '%s' in '%s': Recursion is not recommended.\n", call.id, _id)
                         }
 
                         if (!unit_exists(call.id, env)) {
-                                ERROR("Attempting to call undefined function '%s' from within '%s'.\n", call.id, id)
+                                ERROR("Attempting to call undefined unit '%s' from within '%s'.\n", call.id, id)
                                 free(call.id);
                                 return STATUS_ERR;
                         }
@@ -148,7 +153,7 @@ static int reformat_next(struct CompilerEnv *env)
 {
         CURRENT_CHAR(c)
 
-        static _Bool newline_long; /* A snapshot of `newline` from the beginning of the function. Occasionally useful */
+        static _Bool newline_long; /* A snapshot of `newline` from the beginning of the unit. Occasionally useful */
         newline_long = newline;
 
         if (lastC == '[' && c != ']') {
