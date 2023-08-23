@@ -28,6 +28,7 @@ static int compile_source(void)
                 if (remove(cli_params.out) < 0) {
                         ERROR("Failed to remove flawed compiler output: %s.\n", strerror(errno));
                 }
+                ERROR("Compilation failed.\n")
         } else {
                 OK("Compilation successful with %d operations: [%s -> %s]\n", env.op_ct, cli_params.in,
                    cli_params.out);
@@ -45,6 +46,7 @@ static int reformat_source(void)
                 if (remove(cli_params.out) < 0) {
                         ERROR("Failed to remove flawed reformatted output: %s.\n", strerror(errno));
                 }
+                ERROR("Reformatting failed.\n")
         } else {
                 OK("Reformatting successful: [%s -> %s]\n", cli_params.in, cli_params.out);
         }
@@ -105,4 +107,5 @@ __attribute__((destructor, used)) void finalize_allocations()
         free(src);
         fclose(outf);
         free_clip(&cli_params);
+        free_units_env(&env);
 }

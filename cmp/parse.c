@@ -32,7 +32,7 @@ int identifier(struct CompilerEnv *env)
                 }
         }
 
-        env->offset += i;
+        env->offset += i - 1;
 
         return EXIT_SUCCESS;
 }
@@ -140,6 +140,21 @@ int parse_unit_header(struct unit_header *ptr, struct CompilerEnv *env)
                 env->main_set = true;
                 strcpy(env->main, last_identifier);
         }
+
+        return EXIT_SUCCESS;
+}
+
+int parse_unit_call(struct unit_call *ptr, struct CompilerEnv *env)
+{
+        EXPECT('@', "Illegal state.")
+
+        env->offset++; /* Skip the '@' */
+
+        /* There should be no spaces between the '@' and the identifier. */
+
+        HANDLE(identifier, "Expected identifier immediately after '@', got '%c'\n", env->src[env->offset])
+
+        ptr->id = strdup(last_identifier);
 
         return EXIT_SUCCESS;
 }

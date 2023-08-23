@@ -1621,9 +1621,14 @@ void fun_logo(void)
 	} // -- 157
 }
 
+void fun_entry(void)
+{
+	fun_logo();
+}
+
 int main(void)
 {
 	bf_init();
-	fun_logo();
+	fun_entry();
 	return bf_end();
 }

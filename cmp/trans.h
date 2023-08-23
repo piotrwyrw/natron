@@ -81,7 +81,16 @@ struct CompilerEnv {
 
         _Bool main_set; /* True if 'main' contains a valid function name */
         char main[MAX_IDEN_LENGTH]; /* Name of the main function / section */
+
+        char *units[MAX_UNITS_COUNT]; /* Array of all defined functions up until this point */
+        size_t units_ct; /* Number of units already defined */
 };
+
+void free_units_env(struct CompilerEnv *env);
+
+int add_unit_env(struct CompilerEnv *env, char *id);
+
+_Bool unit_exists(char *id, struct CompilerEnv *env);
 
 int sanity_check_env(struct CompilerEnv *env);
 

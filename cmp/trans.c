@@ -15,6 +15,34 @@ static void gen_preamble(struct CompilerEnv *);
 
 static int compile_next(struct CompilerEnv *);
 
+void free_units_env(struct CompilerEnv *env)
+{
+        for (size_t i = 0; i < env->units_ct; i++) {
+                free(env->units[i]);
+        }
+}
+
+int add_unit_env(struct CompilerEnv *env, char *id)
+{
+        if (env->units_ct >= MAX_UNITS_COUNT) {
+                return EXIT_FAILURE;
+        }
+
+        env->units[env->units_ct++] = strdup(id);
+        return EXIT_SUCCESS;
+}
+
+_Bool unit_exists(char *id, struct CompilerEnv *env)
+{
+        for (size_t i = 0; i < env->units_ct; i++) {
+                if (strcmp(env->units[i], id) == 0) {
+                        return true;
+                }
+        }
+
+        return false;
+}
+
 int sanity_check_env(struct CompilerEnv *env)
 {
         if (!env->src)
@@ -27,6 +55,7 @@ int sanity_check_env(struct CompilerEnv *env)
         env->loop_sub_zero = true; /* We start at "-1" */
         env->len = strlen(env->src);
         env->op_ct = 0;
+        env->units_ct = 0;
 
         return EXIT_SUCCESS;
 }
@@ -83,11 +112,41 @@ static enum status compile_unit(struct CompilerEnv *env)
 
         char *id = header.id;
 
+        if (add_unit_env(env, id)) {
+                ERROR("Not enough memory to store function '%s'. The compiler allows up to %ld function definitions.\n",
+                      id, MAX_UNITS_COUNT);
+                free(id);
+                return STATUS_ERR;
+        }
+
         /* Compile the brainfuck itself */
         EMIT(env, "void fun_%s(void)\n{\n", id);
         env->indent++;
 
+        struct unit_call call;
+
         for (; env->offset < env->len; env->offset++) {
+                if (env->src[env->offset] == '@') {
+                        if (parse_unit_call(&call, env)) {
+                                return STATUS_ERR;
+                        }
+
+                        if (strcmp(call.id, id) == 0) {
+                                WARN("On function call '%s' in '%s': Recursion is not recommended.\n", call.id, id);
+                        }
+
+                        if (!unit_exists(call.id, env)) {
+                                ERROR("Attempting to call undefined function '%s' from within '%s'.\n", call.id, id);
+                                free(call.id);
+                                return STATUS_ERR;
+                        }
+
+                        EMIT(env, "fun_%s();\n", call.id);
+                        free(call.id);
+
+                        env->offset --;
+                        continue;
+                }
                 if (env->src[env->offset] == '}') {
                         break;
                 }
@@ -225,6 +284,10 @@ static int compile_next(struct CompilerEnv *env)
 
         size_t rep;
 
+        if (is_space_ext(op)) {
+                return EXIT_SUCCESS;
+        }
+
         /* Check for comments and skip if necessary*/
         if (op != '#')
                 goto not_a_comment;
@@ -250,7 +313,8 @@ static int compile_next(struct CompilerEnv *env)
         switch (op) {
 
                 default:
-                        break;
+                        ERROR("Not a brainfuck operator: '%c'\n", op);
+                        return EXIT_FAILURE;
 
                 case '+': {
                         EMIT(env, "bf_inc_arr(%ld);\n", rep)

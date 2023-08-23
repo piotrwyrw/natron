@@ -64,6 +64,12 @@ static enum status reformat_unit(struct CompilerEnv *env)
         strcpy(_id, id);
         free(id);
 
+        if (add_unit_env(env, _id)) {
+                ERROR("Not enough memory to store function '%s'. The compiler allows up to %ld function definitions.\n",
+                      id, MAX_UNITS_COUNT);
+                return STATUS_ERR;
+        }
+
         if (header.main) {
                 fprintf(env->out, "&");
         }
@@ -74,7 +80,34 @@ static enum status reformat_unit(struct CompilerEnv *env)
 
         newline = true;
 
+        struct unit_call call;
+
         for (; env->offset < env->len; env->offset++) {
+                if (env->src[env->offset] == '@') {
+                        if (parse_unit_call(&call, env)) {
+                                return STATUS_ERR;
+                        }
+
+                        if (strcmp(call.id, _id) == 0) {
+                                WARN("On function call '%s' in '%s': Recursion is not recommended.\n", call.id, _id);
+                        }
+
+                        if (!unit_exists(call.id, env)) {
+                                ERROR("Attempting to call undefined function '%s' from within '%s'.\n", call.id, id);
+                                free(call.id);
+                                return STATUS_ERR;
+                        }
+
+                        if (!newline) {
+                                fprintf(env->out, "\n");
+                        }
+
+                        fprintf(env->out, "%s@%s\n", repeat('\t', env->indent), call.id);
+                        newline = true;
+                        free(call.id);
+                        env->offset --;
+                        continue;
+                }
                 if (env->src[env->offset] == '}') {
                         break;
                 }
@@ -95,10 +128,14 @@ static enum status reformat_unit(struct CompilerEnv *env)
 
         env->offset++; /* Skip '}' */
 
-        fprintf(env->out, "\n}");
-
         if (!newline) {
                 fprintf(env->out, "\n");
+        }
+
+        fprintf(env->out, "}");
+
+        if (skip_spaces(env) != EXIT_WARNING) {
+                fprintf(env->out, "\n\n");
         }
 
         return STATUS_OK;
@@ -108,9 +145,17 @@ static int reformat_next(struct CompilerEnv *env)
 {
         CURRENT_CHAR(c)
 
+        if (is_space_ext(c)) {
+                return EXIT_SUCCESS;
+        }
+
         static _Bool newline_long; /* A snapshot of `newline` from the beginning of the function. Occasionally useful */
 
         newline_long = newline;
+
+        if (lastC == '[' && c != ']') {
+                fprintf(env->out, "\n%s", repeat('\t', env->indent));
+        }
 
         /* Check for comments */
         if (c != '#') {
@@ -149,8 +194,7 @@ static int reformat_next(struct CompilerEnv *env)
         if (c == '[') {
                 if (is_primitive(lastC) && !newline_long)
                         fprintf(env->out, " ");
-                fprintf(env->out, "[\n");
-                newline = true;
+                fprintf(env->out, "[");
                 env->indent++;
                 goto exit_ok;
         }
@@ -161,7 +205,7 @@ static int reformat_next(struct CompilerEnv *env)
                         fprintf(env->out, "\n");
                         newline = true;
                 }
-                fprintf(env->out, "%s]", repeat('\t', newline ? (--env->indent) : 0));
+                fprintf(env->out, "%s]", repeat('\t', (lastC != '[') ? (--env->indent) : 0));
                 if (!newline) {
                         env->indent--;
                 }
