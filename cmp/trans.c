@@ -79,14 +79,14 @@ int compile(struct CompilerEnv *env)
         }
 
         if (!env->main_set) {
-                WARN("For the program to be standalone, it requires a main function to be set. However, in this program, no function is marked as such.\n");
+                WARN("For the program to be standalone, it requires a main function to be set. However, in this program, no function is marked as such.\n")
         } else {
                 EMIT(env, "int main(void)\n"
                           "{\n"
                           "\tbf_init();\n"
                           "\tfun_%s();\n"
                           "\treturn bf_end();\n"
-                          "}", env->main);
+                          "}", env->main)
         }
 
         return EXIT_SUCCESS;
@@ -114,37 +114,41 @@ static enum status compile_unit(struct CompilerEnv *env)
 
         if (add_unit_env(env, id)) {
                 ERROR("Not enough memory to store function '%s'. The compiler allows up to %ld function definitions.\n",
-                      id, MAX_UNITS_COUNT);
+                      id, MAX_UNITS_COUNT)
                 free(id);
                 return STATUS_ERR;
         }
 
         /* Compile the brainfuck itself */
-        EMIT(env, "void fun_%s(void)\n{\n", id);
+        EMIT(env, "void fun_%s(void)\n{\n", id)
         env->indent++;
 
         struct unit_call call;
 
         for (; env->offset < env->len; env->offset++) {
+                if (skip_spaces(env)) {
+                        continue;
+                }
+
                 if (env->src[env->offset] == '@') {
                         if (parse_unit_call(&call, env)) {
                                 return STATUS_ERR;
                         }
 
                         if (strcmp(call.id, id) == 0) {
-                                WARN("On function call '%s' in '%s': Recursion is not recommended.\n", call.id, id);
+                                WARN("On function call '%s' in '%s': Recursion is not recommended.\n", call.id, id)
                         }
 
                         if (!unit_exists(call.id, env)) {
-                                ERROR("Attempting to call undefined function '%s' from within '%s'.\n", call.id, id);
+                                ERROR("Attempting to call undefined function '%s' from within '%s'.\n", call.id, id)
                                 free(call.id);
                                 return STATUS_ERR;
                         }
 
-                        EMIT(env, "fun_%s();\n", call.id);
+                        EMIT(env, "fun_%s();\n", call.id)
                         free(call.id);
 
-                        env->offset --;
+                        env->offset--;
                         continue;
                 }
                 if (env->src[env->offset] == '}') {
@@ -157,13 +161,13 @@ static enum status compile_unit(struct CompilerEnv *env)
         }
 
         if (env->loop_ct != 0) {
-                ERROR("There are unclosed loops in unit '%s'.\n", id);
+                ERROR("There are unclosed loops in unit '%s'.\n", id)
                 free(id);
                 return STATUS_ERR;
         }
 
         env->indent--;
-        EMIT(env, "}\n\n");
+        EMIT(env, "}\n\n")
 
         if (env->src[env->offset] != '}') {
                 ERROR("Expected '}' at the end of unit '%s'. Reached end of file while parsing.\n", id)
@@ -178,88 +182,11 @@ static enum status compile_unit(struct CompilerEnv *env)
         return STATUS_OK;
 }
 
-__attribute__((unused)) _Bool is_comment_line(struct CompilerEnv *env)
-{
-        size_t org = 0;
-        char c;
-
-        /* Find the origin -> Index 0 || the character after the last \n */
-        if (env->offset == 0) {
-                org = 0;
-                goto scan_line;
-        }
-
-        for (size_t i = env->offset; true; i--) {
-                if (env->src[i] == '\n') {
-                        org = i + 1;
-                        break;
-                }
-
-                if (i == 0) {
-                        break;
-                }
-        }
-
-        scan_line:;
-
-        /* Scan the entire line (from `org` to the next \n) and check if there is anything before a comment symbol (#) */
-        /* If there is nothing besides (white)spaces, the comment occupies the entire line -> return true */
-        /* Otherwise, it is an inline comment -> return false */
-
-        for (size_t i = org; i < env->len; i++) {
-                c = env->src[i];
-
-                /* This line is empty. This is a weird return value, as it shouldn't ever happen under regular circumstances. */
-                /* We are however not going to return false, as this would confuse the reformatting module */
-                if (c == '\n')
-                        return true;
-
-                if (is_space(c))
-                        continue;
-
-                if (c == '#')
-                        return true;
-
-                /* If we encounter any other characters on the line -> false */
-                return false;
-        }
-
-        return true;
-}
-
-size_t skip_comment(struct CompilerEnv *env)
-{
-        CURRENT_CHAR(c)
-
-        size_t skip = 0;
-
-        /* Not a comment. */
-        if (c != '#')
-                return 0;
-
-        /* If the comment symbol is the last character in the file, return 1 (just to skip it) */
-        if (env->offset + 1 >= env->len)
-                return 1;
-
-        skip++;
-
-        /* Loop through all remaining characters until reaching a new-line */
-        for (; env->offset + skip < env->len; skip++) {
-                c = env->src[env->offset + skip];
-
-                if (c == '\n') {
-                        break;
-                }
-        }
-
-        return skip;
-}
-
 static void gen_preamble(struct CompilerEnv *env)
 {
         EMIT(env, "/**\n"
                   " * Generated by bf-cmp\n"
-                  " */\n\n");
+                  " */\n\n")
 
         /* Include all requested headers */
         for (unsigned int i = 0; i < env->includes_ct; i++) EMIT(env, "#include <%s>\n", env->includes[i])
@@ -267,38 +194,22 @@ static void gen_preamble(struct CompilerEnv *env)
         EMIT(env, "\n")
 
         /* Extern-s to the core lib functions */
-        EMIT(env, "extern void bf_init();\n");
-        EMIT(env, "extern char bf_end();\n");
-        EMIT(env, "extern void bf_ptr_inc_n(size_t);\n");
-        EMIT(env, "extern void bf_ptr_dec_n(size_t);\n");
-        EMIT(env, "extern void bf_inc_arr(size_t);\n");
-        EMIT(env, "extern char bf_dec_arr(size_t);\n");
-        EMIT(env, "extern void bf_in();\n");
-        EMIT(env, "extern void bf_out_n(size_t);\n");
-        EMIT(env, "extern char bf_get();\n\n");
+        EMIT(env, "extern void bf_init();\n")
+        EMIT(env, "extern char bf_end();\n")
+        EMIT(env, "extern void bf_ptr_inc_n(size_t);\n")
+        EMIT(env, "extern void bf_ptr_dec_n(size_t);\n")
+        EMIT(env, "extern void bf_inc_arr(size_t);\n")
+        EMIT(env, "extern char bf_dec_arr(size_t);\n")
+        EMIT(env, "extern void bf_in();\n")
+        EMIT(env, "extern void bf_out_n(size_t);\n")
+        EMIT(env, "extern char bf_get();\n\n")
 }
 
 static int compile_next(struct CompilerEnv *env)
 {
         CURRENT_CHAR(op)
 
-        size_t rep;
-
-        if (is_space_ext(op)) {
-                return EXIT_SUCCESS;
-        }
-
-        /* Check for comments and skip if necessary*/
-        if (op != '#')
-                goto not_a_comment;
-
-        env->offset += skip_comment(env);
-
-        return EXIT_SUCCESS;
-
-        not_a_comment:
-
-        rep = count_following(env->offset, env->src, op);
+        size_t rep = count_following(env->offset, env->src, op);
 
         if (is_primitive(op)) {
                 if (rep > 1)
@@ -312,8 +223,7 @@ static int compile_next(struct CompilerEnv *env)
 
         switch (op) {
 
-                default:
-                        ERROR("Not a brainfuck operator: '%c'\n", op);
+                default: ERROR("Not a brainfuck operator: '%c'\n", op)
                         return EXIT_FAILURE;
 
                 case '+': {
@@ -321,20 +231,20 @@ static int compile_next(struct CompilerEnv *env)
                         break;
                 }
                 case '-': {
-                        EMIT(env, "bf_dec_arr(%ld);\n", rep);
+                        EMIT(env, "bf_dec_arr(%ld);\n", rep)
                         break;
                 }
                 case '>': {
-                        EMIT(env, "bf_ptr_inc_n(%ld);\n", rep);
+                        EMIT(env, "bf_ptr_inc_n(%ld);\n", rep)
                         break;
                 }
                 case '<': {
-                        EMIT(env, "bf_ptr_dec_n(%ld);\n", rep);
+                        EMIT(env, "bf_ptr_dec_n(%ld);\n", rep)
                         break;
                 }
                 case '[': {
                         add_loop(env);
-                        EMIT(env, "while (bf_get()) {\n");
+                        EMIT(env, "while (bf_get()) {\n")
                         env->op_ct++; /* In case of loops: We only count one of the two operators as an operation (in this case the opening bracket) */
                         env->loop_ct++;
                         env->indent++;
@@ -344,20 +254,20 @@ static int compile_next(struct CompilerEnv *env)
                         env->indent--;
                         env->loop_ct--;
                         if (env->loop_ct < 0) {
-                                ERROR("Syntax error: There are unclosed loops.\n");
+                                ERROR("Syntax error: There are unclosed loops.\n")
                                 return EXIT_FAILURE;
                         }
-                        EMIT(env, "} // -- %d\n", delete_loop(env));
+                        EMIT(env, "} // -- %d\n", delete_loop(env))
                         break;
                 }
                 case '.': {
                         env->op_ct += rep;
-                        EMIT(env, "bf_out_n(%ld);\n", rep);
+                        EMIT(env, "bf_out_n(%ld);\n", rep)
                         break;
                 }
                 case ',': {
                         env->op_ct++;
-                        EMIT(env, "bf_in();\n");
+                        EMIT(env, "bf_in();\n")
                         break;
                 }
         }

@@ -54,10 +54,16 @@ int skip_spaces(struct CompilerEnv *env)
         while (is_space_ext(env->src[env->offset + (i++)]) || comment) {
                 c = env->src[env->offset + i - 1];
 
-                if (env->offset + 1 < env->len) {
-                        if (env->src[env->offset + 1] == '#') {
+                /* Is the next char a comment-init ? */
+                if (env->offset + i < env->len) {
+                        if (env->src[env->offset + i] == '#') {
                                 comment = true;
+                                continue;
                         }
+                }
+
+                if (c == '#') {
+                        comment = true;
                 }
 
                 if (comment && c == '\n') {
@@ -125,7 +131,7 @@ int parse_unit_header(struct unit_header *ptr, struct CompilerEnv *env)
         env->offset++; /* Skip the '{' */
         if (env->offset >= env->len) {
                 ERROR("Expected brainfuck code after '{' in unit '%s'. Reached end of file while parsing.\n",
-                      last_identifier);
+                      last_identifier)
                 return EXIT_FAILURE;
         }
 
@@ -178,7 +184,7 @@ char *isolate_till(char c, struct CompilerEnv *env)
                 len++;
         }
 
-        ERROR("Could not find following '%c'.\n", c);
+        ERROR("Could not find following '%c'.\n", c)
         return NULL;
 
         len_estab:

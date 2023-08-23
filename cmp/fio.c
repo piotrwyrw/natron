@@ -11,9 +11,6 @@
  */
 static size_t file_length(FILE *fptr)
 {
-        if (!fptr)
-                return 0;
-
         fseek(fptr, 0, SEEK_END);
 
         size_t len = ftell(fptr);

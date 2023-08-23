@@ -34,12 +34,3 @@ size_t count_following(unsigned int org, char *str, char c)
 
         return n;
 }
-
-/**
- * Requires a buffer of 12 bytes (characters)
- */
-void loop_id(char *const buff, unsigned int i)
-{
-        memset(buff, 0, 12);
-        sprintf(buff, "l%d", i);
-}

@@ -26,12 +26,12 @@ static int compile_source(void)
 
         if (cmp_status == EXIT_FAILURE) {
                 if (remove(cli_params.out) < 0) {
-                        ERROR("Failed to remove flawed compiler output: %s.\n", strerror(errno));
+                        ERROR("Failed to remove flawed compiler output: %s.\n", strerror(errno))
                 }
                 ERROR("Compilation failed.\n")
         } else {
                 OK("Compilation successful with %d operations: [%s -> %s]\n", env.op_ct, cli_params.in,
-                   cli_params.out);
+                   cli_params.out)
         }
 
         return cmp_status;
@@ -44,11 +44,11 @@ static int reformat_source(void)
 
         if (fmt_status == EXIT_FAILURE) {
                 if (remove(cli_params.out) < 0) {
-                        ERROR("Failed to remove flawed reformatted output: %s.\n", strerror(errno));
+                        ERROR("Failed to remove flawed reformatted output: %s.\n", strerror(errno))
                 }
                 ERROR("Reformatting failed.\n")
         } else {
-                OK("Reformatting successful: [%s -> %s]\n", cli_params.in, cli_params.out);
+                OK("Reformatting successful: [%s -> %s]\n", cli_params.in, cli_params.out)
         }
 
         return fmt_status;
@@ -74,14 +74,14 @@ int main(int argc, char **argv)
         src = file_read(cli_params.in);
 
         if (!src) {
-                ERROR("Failed to open input file '%s' for reading: %s\n", cli_params.in, strerror(errno));
+                ERROR("Failed to open input file '%s' for reading: %s\n", cli_params.in, strerror(errno))
                 return EXIT_FAILURE;
         }
 
         outf = fopen(cli_params.out, "w");
 
         if (!outf) {
-                ERROR("Cannot open output file '%s' for writing: %s\n", cli_params.out, strerror(errno));
+                ERROR("Cannot open output file '%s' for writing: %s\n", cli_params.out, strerror(errno))
                 return EXIT_FAILURE;
         }
 

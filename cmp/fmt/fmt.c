@@ -7,7 +7,6 @@
 #include <string.h>
 
 #include "fmt.h"
-#include "../color.h"
 #include "../parse.h"
 
 static char lastC = 0;
@@ -34,7 +33,7 @@ int reformat(struct CompilerEnv *env)
         }
 
         if (!env->main_set) {
-                WARN("For the program to be standalone, it requires a main function to be set. However, in this program, no function is marked as such.\n");
+                WARN("For the program to be standalone, it requires a main function to be set. However, in this program, no function is marked as such.\n")
         }
 
         return EXIT_SUCCESS;
@@ -66,7 +65,7 @@ static enum status reformat_unit(struct CompilerEnv *env)
 
         if (add_unit_env(env, _id)) {
                 ERROR("Not enough memory to store function '%s'. The compiler allows up to %ld function definitions.\n",
-                      id, MAX_UNITS_COUNT);
+                      id, MAX_UNITS_COUNT)
                 return STATUS_ERR;
         }
 
@@ -83,17 +82,21 @@ static enum status reformat_unit(struct CompilerEnv *env)
         struct unit_call call;
 
         for (; env->offset < env->len; env->offset++) {
+                if (skip_spaces(env)) {
+                        continue;
+                }
+
                 if (env->src[env->offset] == '@') {
                         if (parse_unit_call(&call, env)) {
                                 return STATUS_ERR;
                         }
 
                         if (strcmp(call.id, _id) == 0) {
-                                WARN("On function call '%s' in '%s': Recursion is not recommended.\n", call.id, _id);
+                                WARN("On function call '%s' in '%s': Recursion is not recommended.\n", call.id, _id)
                         }
 
                         if (!unit_exists(call.id, env)) {
-                                ERROR("Attempting to call undefined function '%s' from within '%s'.\n", call.id, id);
+                                ERROR("Attempting to call undefined function '%s' from within '%s'.\n", call.id, id)
                                 free(call.id);
                                 return STATUS_ERR;
                         }
@@ -105,7 +108,7 @@ static enum status reformat_unit(struct CompilerEnv *env)
                         fprintf(env->out, "%s@%s\n", repeat('\t', env->indent), call.id);
                         newline = true;
                         free(call.id);
-                        env->offset --;
+                        env->offset--;
                         continue;
                 }
                 if (env->src[env->offset] == '}') {
@@ -122,7 +125,7 @@ static enum status reformat_unit(struct CompilerEnv *env)
         }
 
         if (env->loop_ct != 0) {
-                ERROR("There are unclosed loops left in the code.\n");
+                ERROR("There are unclosed loops left in the code.\n")
                 return EXIT_FAILURE;
         }
 
@@ -145,31 +148,12 @@ static int reformat_next(struct CompilerEnv *env)
 {
         CURRENT_CHAR(c)
 
-        if (is_space_ext(c)) {
-                return EXIT_SUCCESS;
-        }
-
         static _Bool newline_long; /* A snapshot of `newline` from the beginning of the function. Occasionally useful */
-
         newline_long = newline;
 
         if (lastC == '[' && c != ']') {
                 fprintf(env->out, "\n%s", repeat('\t', env->indent));
         }
-
-        /* Check for comments */
-        if (c != '#') {
-                goto not_a_comment;
-        }
-
-        size_t skip = skip_comment(env);
-
-        /* 'Jump over' the comment with the offset variable */
-        env->offset += skip;
-
-        return EXIT_SUCCESS;
-
-        not_a_comment:
 
         /* Non-brainfuck characters are not allowed in the source code - We have comments for that */
         if (is_illegal_op(c)) {

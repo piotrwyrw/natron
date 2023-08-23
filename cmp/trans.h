@@ -13,7 +13,6 @@
 
 #define BRAINFUCK_MAX_LOOPS 100
 #define BRAINFUCK_MAX_INCLUDES 2
-#define BRAINFUCK_MAIN_FUNCTION "main"
 
 #define EMIT(env, ...) {\
             fprintf(env->out, "%s", repeat('\t', env->indent));               \
@@ -30,7 +29,7 @@
                 ERROR("Offset is pointing outside of the source code.\n"); \
                 return EXIT_FAILURE; \
         }            \
-        char id = env->src[env->offset];
+        char (id) = env->src[env->offset];
 
 inline static _Bool is_primitive(char c)
 {
@@ -95,10 +94,6 @@ _Bool unit_exists(char *id, struct CompilerEnv *env);
 int sanity_check_env(struct CompilerEnv *env);
 
 int compile(struct CompilerEnv *env);
-
-size_t skip_comment(struct CompilerEnv *env);
-
-_Bool is_comment_line(struct CompilerEnv *env);
 
 unsigned int add_loop(struct CompilerEnv *env);
 
