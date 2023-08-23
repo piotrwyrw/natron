@@ -24,6 +24,9 @@ A minimalist transpiler for the Brainfuck programming language.
  
  --compile            # Compile brainfuck source code to C
  --reformat           # Reformat the brainfuck source code
+ 
+ --acknowledge-reformatting-damage  # Confirm that you do indeed want the reformatting step to remove
+                                    # all brainfuck source code comments.
 ```
 
 _Tested on macOS Ventura 13.4 as well as on Ubuntu 22.04_
