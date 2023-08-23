@@ -14,7 +14,7 @@ extern void bf_in();
 extern void bf_out_n(size_t);
 extern char bf_get();
 
-void another_name_for_the_identifier_i_mean_the_unit(void)
+void fun_logo(void)
 {
 	bf_inc_arr(4);
 	while (bf_get()) {
@@ -1621,3 +1621,9 @@ void another_name_for_the_identifier_i_mean_the_unit(void)
 	} // -- 157
 }
 
+int main(void)
+{
+	bf_init();
+	fun_logo();
+	return bf_end();
+}

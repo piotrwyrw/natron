@@ -3,6 +3,7 @@
 //
 
 #include "parse.h"
+#include "defs.h"
 
 #include <string.h>
 #include <stdbool.h>
@@ -38,9 +39,17 @@ int identifier(struct CompilerEnv *env)
 
 int skip_spaces(struct CompilerEnv *env)
 {
+        if (env->offset >= env->len) {
+                return EXIT_WARNING;
+        }
+
         size_t i = 0;
         _Bool comment = false;
         char c;
+
+        if (env->src[env->offset] == '#') {
+                comment = true;
+        }
 
         while (is_space_ext(env->src[env->offset + (i++)]) || comment) {
                 c = env->src[env->offset + i - 1];
@@ -86,6 +95,23 @@ int parse_unit_header(struct unit_header *ptr, struct CompilerEnv *env)
                 return EXIT_WARNING;
         }
 
+        _Bool main = false;
+
+        /* Look for the main flag */
+        if (env->src[env->offset] == '&') {
+                main = true;
+
+                env->offset++; /* Skip the attribute ('&') */
+
+                last_status = skip_spaces(env);
+                if (last_status == EXIT_WARNING) {
+                        ERROR("Could not parse: Reached end of file after main attribute of unit '%s'.\n",
+                              last_identifier)
+                        return EXIT_FAILURE;
+                }
+
+        }
+
         HANDLE(last_status = identifier, "Expected identifier, got '%c'\n", env->src[env->offset])
 
         last_status = skip_spaces(env);
@@ -104,7 +130,16 @@ int parse_unit_header(struct unit_header *ptr, struct CompilerEnv *env)
         }
 
         ptr->id = strdup(last_identifier);
-        ptr->main = false;
+        ptr->main = main;
+
+        if (main) {
+                if (env->main_set) {
+                        ERROR("There may only be a single main function. Previous: '%s'.\n", env->main)
+                        return EXIT_FAILURE;
+                }
+                env->main_set = true;
+                strcpy(env->main, last_identifier);
+        }
 
         return EXIT_SUCCESS;
 }

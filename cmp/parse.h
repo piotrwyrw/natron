@@ -7,9 +7,6 @@
 
 #include "trans.h"
 
-#define EXIT_WARNING 2
-#define MAX_IDEN_LENGTH ((size_t) 100)
-
 enum status {
         STATUS_OK,
         STATUS_EOF,

@@ -9,6 +9,7 @@
 
 #include "util.h"
 #include "color.h"
+#include "defs.h"
 
 #define BRAINFUCK_MAX_LOOPS 100
 #define BRAINFUCK_MAX_INCLUDES 2
@@ -77,6 +78,9 @@ struct CompilerEnv {
         unsigned int loop_ct; /* For keeping track of (un)closed loops */
 
         unsigned int op_ct; /* Just for the final success message. Yep, no other purpose. */
+
+        _Bool main_set; /* True if 'main' contains a valid function name */
+        char main[MAX_IDEN_LENGTH]; /* Name of the main function / section */
 };
 
 int sanity_check_env(struct CompilerEnv *env);

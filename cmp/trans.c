@@ -49,12 +49,22 @@ int compile(struct CompilerEnv *env)
                 return EXIT_FAILURE;
         }
 
+        if (!env->main_set) {
+                WARN("For the program to be standalone, it requires a main function to be set. However, in this program, no function is marked as such.\n");
+        } else {
+                EMIT(env, "int main(void)\n"
+                          "{\n"
+                          "\tbf_init();\n"
+                          "\tfun_%s();\n"
+                          "\treturn bf_end();\n"
+                          "}", env->main);
+        }
+
         return EXIT_SUCCESS;
 }
 
 static enum status compile_unit(struct CompilerEnv *env)
 {
-
         if (env->offset >= env->len) {
                 return STATUS_EOF; /* We're at the end of the file; Nothing left to do. */
         }
@@ -74,14 +84,8 @@ static enum status compile_unit(struct CompilerEnv *env)
         char *id = header.id;
 
         /* Compile the brainfuck itself */
-        if (strcmp(id, "main") == 0) {
-                EMIT(env, "int main(void)\n{\n")
-                env->indent++;
-                EMIT(env, "bf_init();\n")
-        } else {
-                EMIT(env, "void %s(void)\n{\n", last_identifier);
-                env->indent++;
-        }
+        EMIT(env, "void fun_%s(void)\n{\n", id);
+        env->indent++;
 
         for (; env->offset < env->len; env->offset++) {
                 if (env->src[env->offset] == '}') {
@@ -99,15 +103,11 @@ static enum status compile_unit(struct CompilerEnv *env)
                 return STATUS_ERR;
         }
 
-        if (strcmp(id, "main") == 0) {
-                EMIT(env, "return bf_end();\n")
-        }
-
         env->indent--;
         EMIT(env, "}\n\n");
 
         if (env->src[env->offset] != '}') {
-                ERROR("Expected '}' aft the end of unit '%s'. Reached end of file while parsing.\n", id)
+                ERROR("Expected '}' at the end of unit '%s'. Reached end of file while parsing.\n", id)
                 free(id);
                 return STATUS_ERR;
         }

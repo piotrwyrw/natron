@@ -23,10 +23,18 @@ int reformat(struct CompilerEnv *env)
 
         enum status last_status;
 
-        while ((last_status = reformat_unit(env)) == STATUS_OK) {}
+        do {
+                if (skip_spaces(env) == EXIT_WARNING) {
+                        return EXIT_SUCCESS;
+                }
+        } while ((last_status = reformat_unit(env)) == STATUS_OK);
 
         if (last_status == STATUS_ERR) {
                 return EXIT_FAILURE;
+        }
+
+        if (!env->main_set) {
+                WARN("For the program to be standalone, it requires a main function to be set. However, in this program, no function is marked as such.\n");
         }
 
         return EXIT_SUCCESS;
@@ -55,6 +63,10 @@ static enum status reformat_unit(struct CompilerEnv *env)
         /* Move dynamic string to stack to save us some headache */
         strcpy(_id, id);
         free(id);
+
+        if (header.main) {
+                fprintf(env->out, "&");
+        }
 
         fprintf(env->out, "%s\n{\n", _id);
 
