@@ -5,6 +5,7 @@
 #include "parse.h"
 
 #include <string.h>
+#include <stdbool.h>
 
 char last_identifier[MAX_IDEN_LENGTH] = {0};
 
@@ -38,10 +39,24 @@ int identifier(struct CompilerEnv *env)
 int skip_spaces(struct CompilerEnv *env)
 {
         size_t i = 0;
+        _Bool comment = false;
+        char c;
 
-        while (is_space_ext(env->src[env->offset + (i++)])) {
+        while (is_space_ext(env->src[env->offset + (i++)]) || comment) {
+                c = env->src[env->offset + i - 1];
+
+                if (env->offset + 1 < env->len) {
+                        if (env->src[env->offset + 1] == '#') {
+                                comment = true;
+                        }
+                }
+
+                if (comment && c == '\n') {
+                        comment = false;
+                }
+
                 if (env->offset + i >= env->len) {
-                        return EXIT_FAILURE;
+                        return EXIT_WARNING;
                 }
         }
 
@@ -49,6 +64,54 @@ int skip_spaces(struct CompilerEnv *env)
 
         return EXIT_SUCCESS;
 }
+
+#define HANDLE(f, ...) \
+        if ((f(env)) == EXIT_FAILURE) { \
+                ERROR(__VA_ARGS__) \
+                return EXIT_FAILURE; \
+        }
+
+#define EXPECT(c, ...) \
+        if (env->src[env->offset] != c) { \
+                ERROR(__VA_ARGS__)        \
+                return EXIT_FAILURE; \
+        }
+
+int parse_unit_header(struct unit_header *ptr, struct CompilerEnv *env)
+{
+        int last_status;
+
+        last_status = skip_spaces(env);
+        if (last_status == EXIT_WARNING) {
+                return EXIT_WARNING;
+        }
+
+        HANDLE(last_status = identifier, "Expected identifier, got '%c'\n", env->src[env->offset])
+
+        last_status = skip_spaces(env);
+        if (last_status == EXIT_WARNING) {
+                ERROR("Could not parse: Reached end of file after identifier '%s'.\n", last_identifier)
+                return EXIT_FAILURE;
+        }
+
+        EXPECT('{', "Expected '{' after identifier '%s'. Got '%c' instead.\n", last_identifier, env->src[env->offset])
+
+        env->offset++; /* Skip the '{' */
+        if (env->offset >= env->len) {
+                ERROR("Expected brainfuck code after '{' in unit '%s'. Reached end of file while parsing.\n",
+                      last_identifier);
+                return EXIT_FAILURE;
+        }
+
+        ptr->id = strdup(last_identifier);
+        ptr->main = false;
+
+        return EXIT_SUCCESS;
+}
+
+#undef HANDLE
+#undef EXPECT
+
 
 char *isolate_till(char c, struct CompilerEnv *env)
 {

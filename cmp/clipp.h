@@ -18,6 +18,7 @@ struct Clip {
         char *out; /* Output file name */
         enum OperationMode mode; /* What should this instance do? */
         _Bool parse_ok; /* False if any syntax errors were encountered during parsing */
+        _Bool ack_reformat;
 } tmp_clip;
 
 extern unsigned int arg_i;

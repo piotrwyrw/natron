@@ -26,7 +26,7 @@ char **arg_vec = NULL;
         }
 
 
-#define BIND_CLI_PARAM_ENUM(tag, dst, val) \
+#define BIND_CLI_PARAM_SIMPLE(tag, dst, val) \
         if (strcmp(arg_vec[arg_i], tag) == 0) { \
             dst = val;                     \
             arg_i ++;                     \
@@ -57,8 +57,10 @@ struct Clip parse_clip(int argc, char **argv)
                 BIND_CLI_PARAM("--source", tmp_clip.in);
                 BIND_CLI_PARAM("--output", tmp_clip.out);
 
-                BIND_CLI_PARAM_ENUM("--compile", tmp_clip.mode, MODE_COMPILE)
-                BIND_CLI_PARAM_ENUM("--reformat", tmp_clip.mode, MODE_REFORMAT)
+                BIND_CLI_PARAM_SIMPLE("--compile", tmp_clip.mode, MODE_COMPILE)
+                BIND_CLI_PARAM_SIMPLE("--reformat", tmp_clip.mode, MODE_REFORMAT)
+
+                BIND_CLI_PARAM_SIMPLE("--acknowledge-reformatting-damage", tmp_clip.ack_reformat, true)
 
                 ERROR("Unknown command line parameter: %s.\n", arg_vec[arg_i]);
                 return (struct Clip) {.parse_ok = false};
@@ -85,6 +87,16 @@ int clip_check_integrity(struct Clip *clip)
 
         if (!clip->in) {
                 ERROR("Required parameter not set: --source\n");
+                return EXIT_FAILURE;
+        }
+
+        if (strcmp(clip->in, clip->out) == 0) {
+                ERROR("The input and output file must not be the same.\n");
+                return EXIT_FAILURE;
+        }
+
+        if (clip->mode == MODE_REFORMAT && !clip->ack_reformat) {
+                WARN("Reformatting the brainfuck code will lead to the removal of all comments from your source code. If you are willing to accept this damage, rerun with '--acknowledge-reformatting-damage'.")
                 return EXIT_FAILURE;
         }
 

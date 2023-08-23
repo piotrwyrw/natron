@@ -29,7 +29,7 @@ static int compile_source(void)
                         ERROR("Failed to remove flawed compiler output: %s.\n", strerror(errno));
                 }
         } else {
-                OK("Compilation successful with %d operations: (%s) -> (%s)\n", env.op_ct, cli_params.in,
+                OK("Compilation successful with %d operations: [%s -> %s]\n", env.op_ct, cli_params.in,
                    cli_params.out);
         }
 
@@ -46,7 +46,7 @@ static int reformat_source(void)
                         ERROR("Failed to remove flawed reformatted output: %s.\n", strerror(errno));
                 }
         } else {
-                OK("Reformatting successful: (%s) -> (%s0\n", cli_params.in, cli_params.out);
+                OK("Reformatting successful: [%s -> %s]\n", cli_params.in, cli_params.out);
         }
 
         return fmt_status;
@@ -92,14 +92,15 @@ int main(int argc, char **argv)
                 .includes_ct = 1
         };
 
-        if (cli_params.mode == MODE_COMPILE)
+        if (cli_params.mode == MODE_COMPILE) {
                 return compile_source();
-        else
+        } else {
                 return reformat_source();
+        }
 }
 
 /* Clean up the memory alloc-s */
-__attribute__((destructor)) void finalize()
+__attribute__((destructor, used)) void finalize_allocations()
 {
         free(src);
         fclose(outf);

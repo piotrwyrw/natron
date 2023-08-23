@@ -26,7 +26,7 @@ add_executable(cmp cmp/main.c cmp/clipp.c
 )
 
 # Reformat the brainfuck source code using the compiler's built-in functionality
-add_custom_target(reformat-sample DEPENDS cmp DEPENDS ${CMAKE_SOURCE_DIR}/demo/logo.bf COMMAND ${CMAKE_BINARY_DIR}/${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cmp --source ${CMAKE_SOURCE_DIR}/demo/logo.bf --output ${CMAKE_SOURCE_DIR}/demo/logo.ref.bf --reformat VERBATIM)
+add_custom_target(reformat-sample DEPENDS cmp DEPENDS ${CMAKE_SOURCE_DIR}/demo/logo.bf COMMAND ${CMAKE_BINARY_DIR}/${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cmp --source ${CMAKE_SOURCE_DIR}/demo/logo.bf --output ${CMAKE_SOURCE_DIR}/demo/logo.ref.bf --reformat --acknowledge-reformatting-damage VERBATIM)
 
 # Use the compiler to compile a sample brainfuck program
 add_custom_target(compile-sample DEPENDS reformat-sample COMMAND ${CMAKE_BINARY_DIR}/${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cmp --source ${CMAKE_SOURCE_DIR}/demo/logo.ref.bf --output ${CMAKE_SOURCE_DIR}/demo/logo.c VERBATIM)

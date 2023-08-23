@@ -33,4 +33,9 @@
         CLR_PRINTF(ANSI_COLOR_GREEN, __VA_ARGS__) \
 }
 
+#define WARN(...) { \
+        CLR_PRINTF(ANSI_COLOR_YELLOW, "[WARN] "); \
+        CLR_PRINTF(ANSI_COLOR_YELLOW, __VA_ARGS__);\
+}
+
 #endif //BFCMP_COLOR_H

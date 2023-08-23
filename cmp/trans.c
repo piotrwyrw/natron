@@ -31,12 +31,6 @@ int sanity_check_env(struct CompilerEnv *env)
         return EXIT_SUCCESS;
 }
 
-enum status {
-        STATUS_OK,
-        STATUS_EOF,
-        STATUS_ERR
-};
-
 static enum status compile_unit(struct CompilerEnv *env);
 
 int compile(struct CompilerEnv *env)
@@ -58,18 +52,6 @@ int compile(struct CompilerEnv *env)
         return EXIT_SUCCESS;
 }
 
-#define HANDLE(f, ...) \
-        if (f(env) == EXIT_FAILURE) { \
-                ERROR(__VA_ARGS__) \
-                return STATUS_ERR; \
-        }
-
-#define EXPECT(c, ...) \
-        if (env->src[env->offset] != c) { \
-                ERROR(__VA_ARGS__)        \
-                return STATUS_ERR; \
-        }
-
 static enum status compile_unit(struct CompilerEnv *env)
 {
 
@@ -78,19 +60,18 @@ static enum status compile_unit(struct CompilerEnv *env)
         }
 
         /* Unit header */
-        HANDLE(skip_spaces, "Could not parse: Reached end of file.\n")
-        HANDLE(identifier, "Expected identifier, got '%c'\n", env->src[env->offset])
-        HANDLE(skip_spaces, "Could not parse: Reached end of file after identifier '%s'.\n", last_identifier)
-        EXPECT('{', "Expected '{' after identifier '%s'. Got '%c' instead.\n", last_identifier, env->src[env->offset])
+        struct unit_header header;
+        int parse_status;
 
-        env->offset++; /* Skip the '{' */
-        if (env->offset >= env->len) {
-                ERROR("Expected brainfuck code after '{' in unit '%s'. Reached end of file while parsing.\n",
-                      last_identifier);
+        if ((parse_status = parse_unit_header(&header, env)) == EXIT_FAILURE) {
                 return STATUS_ERR;
         }
 
-        char *id = strdup(last_identifier);
+        if (parse_status == EXIT_WARNING) {
+                return STATUS_EOF;
+        }
+
+        char *id = header.id;
 
         /* Compile the brainfuck itself */
         if (strcmp(id, "main") == 0) {
@@ -126,7 +107,7 @@ static enum status compile_unit(struct CompilerEnv *env)
         EMIT(env, "}\n\n");
 
         if (env->src[env->offset] != '}') {
-                ERROR("Expected '}' aft the end of unit '%s'. Got '%c' instead.\n", id, env->src[env->offset])
+                ERROR("Expected '}' aft the end of unit '%s'. Reached end of file while parsing.\n", id)
                 free(id);
                 return STATUS_ERR;
         }
@@ -138,10 +119,7 @@ static enum status compile_unit(struct CompilerEnv *env)
         return STATUS_OK;
 }
 
-#undef EXPECT
-#undef HANDLE
-
-_Bool is_comment_line(struct CompilerEnv *env)
+__attribute__((unused)) _Bool is_comment_line(struct CompilerEnv *env)
 {
         size_t org = 0;
         char c;

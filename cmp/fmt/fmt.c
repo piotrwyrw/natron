@@ -4,11 +4,16 @@
 
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 #include "fmt.h"
 #include "../color.h"
+#include "../parse.h"
 
 static char lastC = 0;
+static _Bool newline;
+
+static enum status reformat_unit(struct CompilerEnv *env);
 
 static int reformat_next(struct CompilerEnv *env);
 
@@ -16,26 +21,84 @@ int reformat(struct CompilerEnv *env)
 {
         sanity_check_env(env);
 
-        for (; env->offset < env->len; env->offset++)
-                if (reformat_next(env)) return EXIT_FAILURE;
+        enum status last_status;
 
-        if (env->loop_ct != 0) {
-                ERROR("There are unclosed loops left in the code.\n");
+        while ((last_status = reformat_unit(env)) == STATUS_OK) {}
+
+        if (last_status == STATUS_ERR) {
                 return EXIT_FAILURE;
         }
 
         return EXIT_SUCCESS;
 }
 
+static enum status reformat_unit(struct CompilerEnv *env)
+{
+        if (env->offset >= env->len) {
+                return STATUS_EOF;
+        }
+
+        struct unit_header header;
+        enum status parse_status;
+
+        if ((parse_status = parse_unit_header(&header, env)) == EXIT_FAILURE) {
+                return STATUS_ERR;
+        }
+
+        if (parse_status == EXIT_WARNING) {
+                return STATUS_EOF;
+        }
+
+        char *id = header.id;
+        char _id[MAX_IDEN_LENGTH];
+
+        /* Move dynamic string to stack to save us some headache */
+        strcpy(_id, id);
+        free(id);
+
+        fprintf(env->out, "%s\n{\n", _id);
+
+        env->indent = 1;
+
+        newline = true;
+
+        for (; env->offset < env->len; env->offset++) {
+                if (env->src[env->offset] == '}') {
+                        break;
+                }
+                if (reformat_next(env)) {
+                        return STATUS_ERR;
+                }
+        }
+
+        if (env->src[env->offset] != '}') {
+                ERROR("Expected '}' at the end of unit '%s'.\n", _id)
+                return STATUS_ERR;
+        }
+
+        if (env->loop_ct != 0) {
+                ERROR("There are unclosed loops left in the code.\n");
+                return EXIT_FAILURE;
+        }
+
+        env->offset++; /* Skip '}' */
+
+        fprintf(env->out, "\n}");
+
+        if (!newline) {
+                fprintf(env->out, "\n");
+        }
+
+        return STATUS_OK;
+}
+
 static int reformat_next(struct CompilerEnv *env)
 {
         CURRENT_CHAR(c)
 
-        static _Bool newline;
         static _Bool newline_long; /* A snapshot of `newline` from the beginning of the function. Occasionally useful */
 
         newline_long = newline;
-
 
         /* Check for comments */
         if (c != '#') {
@@ -44,32 +107,8 @@ static int reformat_next(struct CompilerEnv *env)
 
         size_t skip = skip_comment(env);
 
-        /* If the last character written to the output was a newline, we just have to write the indentation tabs */
-        if (newline) {
-                fprintf(env->out, "%s", repeat('\t', env->indent));
-        } else {
-                /* Or if a newline wasn't present, write a single space to visually separate the comment form the code */
-                fprintf(env->out, " ");
-        }
-
-        /* If the comment occupies the entire line in the origin source code, let it do so here as well */
-        if (!newline && is_comment_line(env) && lastC) {
-                fprintf(env->out, "\n%s", repeat('\t', env->indent));
-        }
-
-        /* Just print the comment step-by-step */
-        for (size_t i = env->offset; i < skip + env->offset; i++) {
-                c = env->src[i];
-                fprintf(env->out, "%c", c);
-        }
-
-        /* Since this is a line comment, we need to switch to a new line afterward to prevent commenting out code */
-        fprintf(env->out, "\n");
-
         /* 'Jump over' the comment with the offset variable */
         env->offset += skip;
-
-        newline = true;
 
         return EXIT_SUCCESS;
 
@@ -106,10 +145,15 @@ static int reformat_next(struct CompilerEnv *env)
 
         /* Close the loop in a similarly visually appealing manner */
         if (c == ']') {
-                if (lastC != '[' && !newline_long)
+                if (lastC != '[' && !newline_long) {
                         fprintf(env->out, "\n");
-                fprintf(env->out, "]\n");
-                env->indent--;
+                        newline = true;
+                }
+                fprintf(env->out, "%s]", repeat('\t', newline ? (--env->indent) : 0));
+                if (!newline) {
+                        env->indent--;
+                }
+                fprintf(env->out, "\n");
                 newline = true;
                 goto exit_ok;
         }
