@@ -16,6 +16,8 @@
 
 static struct Clip cli_params;
 static struct CompilerEnv env;
+static char *src;
+static FILE *outf;
 
 static int compile_source(void)
 {
@@ -28,7 +30,7 @@ static int compile_source(void)
                 }
         } else {
                 OK("Compilation successful with %d operations: (%s) -> (%s)\n", env.op_ct, cli_params.in,
-                       cli_params.out);
+                   cli_params.out);
         }
 
         return cmp_status;
@@ -51,43 +53,34 @@ static int reformat_source(void)
 }
 
 
-int main(void)
+int main(int argc, char **argv)
 {
-
-        int argc = 5;
-        char *argv[] = {
-                "",
-                "--source",
-                "../../demo/units.bf",
-                "--output",
-                "../../demo/units.c"
-        };
-
         if (argc < 2) {
                 show_help();
                 return 0;
         }
 
-        char *src = NULL;
-        FILE *outf = NULL;
+        src = NULL;
+        outf = NULL;
 
         cli_params = parse_clip(argc, argv);
 
-        if (clip_check_integrity(&cli_params))
-                goto fail_and_quit;
+        if (clip_check_integrity(&cli_params)) {
+                return EXIT_FAILURE;
+        }
 
         src = file_read(cli_params.in);
 
         if (!src) {
                 ERROR("Failed to open input file '%s' for reading: %s\n", cli_params.in, strerror(errno));
-                goto fail_and_quit;
+                return EXIT_FAILURE;
         }
 
         outf = fopen(cli_params.out, "w");
 
         if (!outf) {
                 ERROR("Cannot open output file '%s' for writing: %s\n", cli_params.out, strerror(errno));
-                goto fail_and_quit;
+                return EXIT_FAILURE;
         }
 
         env = (struct CompilerEnv) {
@@ -103,11 +96,12 @@ int main(void)
                 return compile_source();
         else
                 return reformat_source();
+}
 
-        // Only meant to be used in case of an irrecoverable failure
-        fail_and_quit:
+/* Clean up the memory alloc-s */
+__attribute__((destructor)) void finalize()
+{
         free(src);
         fclose(outf);
         free_clip(&cli_params);
-        return EXIT_FAILURE;
 }

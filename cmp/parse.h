@@ -13,6 +13,7 @@ extern char last_identifier[];
 
 int identifier(struct CompilerEnv *env);
 int skip_spaces(struct CompilerEnv *env);
-char *isolate_till(char c, struct CompilerEnv *env);
+
+__attribute__((unused)) char *isolate_till(char c, struct CompilerEnv *env);
 
 #endif //BFCMP_PARSE_H
