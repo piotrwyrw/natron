@@ -2,8 +2,8 @@
 // Created by Piotr Krzysztof Wyrwas on 21.08.23.
 //
 
-#ifndef BFCMP_COLOR_H
-#define BFCMP_COLOR_H
+#ifndef NATRON_COLOR_H
+#define NATRON_COLOR_H
 
 /**
  * Credit: https://stackoverflow.com/questions/3219393/stdlib-and-colored-output-in-c
@@ -38,4 +38,4 @@
         CLR_PRINTF(ANSI_COLOR_YELLOW, __VA_ARGS__);\
 }
 
-#endif //BFCMP_COLOR_H
+#endif //NATRON_COLOR_H

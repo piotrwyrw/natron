@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 
-static const char *help_page = "bfcmp\n"
+static const char *help_page = "natron\n"
                                "    --source file_name    | Source file   } The purpose of these files remains the same,\n"
                                "    --output file_name    | Output file   } no matter the mode of operation.\n"
                                "\n"

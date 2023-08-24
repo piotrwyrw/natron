@@ -18,7 +18,7 @@ A minimalist transpiler for a steroid brainfuck variant.
 ### CLI Usage
 
 ```shell
-./bfcmp
+natron
  --source src_file    # The input file containing the source code
  --output out_file    # The output file
  

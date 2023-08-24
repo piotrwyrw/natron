@@ -2,8 +2,8 @@
 // Created by Piotr Krzysztof Wyrwas on 18.08.23.
 //
 
-#ifndef BFCMP_CORE_H
-#define BFCMP_CORE_H
+#ifndef NATRON_CORE_H
+#define NATRON_CORE_H
 
 #include <stdlib.h>
 
@@ -31,4 +31,4 @@ void bf_out_n(size_t);
 
 void bf_in(void);
 
-#endif //BFCMP_CORE_H
+#endif //NATRON_CORE_H

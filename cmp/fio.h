@@ -5,11 +5,11 @@
 /**
  * File I/O
  */
-#ifndef BFCMP_FIO_H
-#define BFCMP_FIO_H
+#ifndef NATRON_FIO_H
+#define NATRON_FIO_H
 
 #include <stdio.h>
 
 char *file_read(char *path);
 
-#endif //BFCMP_FIO_H
+#endif //NATRON_FIO_H

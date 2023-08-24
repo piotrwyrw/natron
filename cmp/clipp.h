@@ -2,8 +2,8 @@
 // Created by Piotr Krzysztof Wyrwas on 15.08.23.
 //
 
-#ifndef BFCMP_CLIPP_H
-#define BFCMP_CLIPP_H
+#ifndef NATRON_CLIPP_H
+#define NATRON_CLIPP_H
 
 #include <stdio.h>
 
@@ -32,4 +32,4 @@ void free_clip(struct Clip *clip);
 
 int clip_check_integrity(struct Clip *clip);
 
-#endif //BFCMP_CLIPP_H
+#endif //NATRON_CLIPP_H

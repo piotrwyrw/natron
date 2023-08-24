@@ -2,8 +2,8 @@
 // Created by Piotr Krzysztof Wyrwas on 15.08.23.
 //
 
-#ifndef BFCMP_TRANS_H
-#define BFCMP_TRANS_H
+#ifndef NATRON_TRANS_H
+#define NATRON_TRANS_H
 
 #include <stdio.h>
 
@@ -99,4 +99,4 @@ size_t add_loop(struct CompilerEnv *env);
 
 size_t delete_loop(struct CompilerEnv *env);
 
-#endif //BFCMP_TRANS_H
+#endif //NATRON_TRANS_H
