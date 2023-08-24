@@ -4,6 +4,7 @@
 
 #include "clipp.h"
 #include "color.h"
+#include "defs.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -78,27 +79,27 @@ void free_clip(struct Clip *clip)
 int clip_check_integrity(struct Clip *clip)
 {
         if (!clip->parse_ok)
-                return EXIT_FAILURE;
+                return FAILURE;
 
         if (!clip->out) {
                 ERROR("Required parameter not set: --output\n")
-                return EXIT_FAILURE;
+                return FAILURE;
         }
 
         if (!clip->in) {
                 ERROR("Required parameter not set: --source\n")
-                return EXIT_FAILURE;
+                return FAILURE;
         }
 
         if (strcmp(clip->in, clip->out) == 0) {
                 ERROR("The input and output file must not be the same.\n")
-                return EXIT_FAILURE;
+                return FAILURE;
         }
 
         if (clip->mode == MODE_REFORMAT && !clip->ack_reformat) {
                 WARN("Reformatting the brainfuck code will lead to the removal of all comments from your source code. If you are willing to accept this damage, rerun with '--acknowledge-reformatting-damage'.")
-                return EXIT_FAILURE;
+                return FAILURE;
         }
 
-        return EXIT_SUCCESS;
+        return SUCCESS;
 }

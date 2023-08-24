@@ -25,11 +25,11 @@ void free_units_env(struct CompilerEnv *env)
 int add_unit_env(struct CompilerEnv *env, char *id)
 {
         if (env->units_ct >= MAX_UNITS_COUNT) {
-                return EXIT_FAILURE;
+                return FAILURE;
         }
 
         env->units[env->units_ct++] = strdup(id);
-        return EXIT_SUCCESS;
+        return SUCCESS;
 }
 
 _Bool unit_exists(char *id, struct CompilerEnv *env)
@@ -45,11 +45,13 @@ _Bool unit_exists(char *id, struct CompilerEnv *env)
 
 int sanity_check_env(struct CompilerEnv *env)
 {
-        if (!env->src)
-                return EXIT_FAILURE;
+        if (!env->src) {
+                return FAILURE;
+        }
 
-        if (!env->out)
-                return EXIT_FAILURE;
+        if (!env->out) {
+                return FAILURE;
+        }
 
         env->offset = 0;
         env->loop_sub_zero = true; /* We start at "-1" */
@@ -57,15 +59,16 @@ int sanity_check_env(struct CompilerEnv *env)
         env->op_ct = 0;
         env->units_ct = 0;
 
-        return EXIT_SUCCESS;
+        return SUCCESS;
 }
 
 static enum status compile_unit(struct CompilerEnv *env);
 
 int compile(struct CompilerEnv *env)
 {
-        if (sanity_check_env(env))
-                return EXIT_FAILURE;
+        if (!sanity_check_env(env)) {
+                return FAILURE;
+        }
 
         gen_preamble(env);
 
@@ -75,7 +78,7 @@ int compile(struct CompilerEnv *env)
         while ((last_status = compile_unit(env)) == STATUS_OK) {}
 
         if (last_status == STATUS_ERR) {
-                return EXIT_FAILURE;
+                return FAILURE;
         }
 
         if (!env->main_set) {
@@ -89,7 +92,7 @@ int compile(struct CompilerEnv *env)
                           "}", env->main)
         }
 
-        return EXIT_SUCCESS;
+        return SUCCESS;
 }
 
 static enum status compile_unit(struct CompilerEnv *env)
@@ -102,11 +105,11 @@ static enum status compile_unit(struct CompilerEnv *env)
         struct unit_header header;
         int parse_status;
 
-        if ((parse_status = parse_unit_header(&header, env)) == EXIT_FAILURE) {
+        if (!(parse_status = parse_unit_header(&header, env))) {
                 return STATUS_ERR;
         }
 
-        if (parse_status == EXIT_WARNING) {
+        if (parse_status == WARNING) {
                 return STATUS_EOF;
         }
 
@@ -118,7 +121,7 @@ static enum status compile_unit(struct CompilerEnv *env)
                 return STATUS_ERR;
         }
 
-        if (add_unit_env(env, id)) {
+        if (!add_unit_env(env, id)) {
                 ERROR("Not enough memory to store unit '%s'. The compiler allows up to %ld unit definitions.\n",
                       id, MAX_UNITS_COUNT)
                 free(id);
@@ -132,12 +135,12 @@ static enum status compile_unit(struct CompilerEnv *env)
         struct unit_call call;
 
         for (; env->offset < env->len; env->offset++) {
-                if (skip_spaces(env)) {
+                if (skip_spaces(env) == WARNING) {
                         continue;
                 }
 
                 if (env->src[env->offset] == '@') {
-                        if (parse_unit_call(&call, env)) {
+                        if (!parse_unit_call(&call, env)) {
                                 return STATUS_ERR;
                         }
 
@@ -160,7 +163,7 @@ static enum status compile_unit(struct CompilerEnv *env)
                 if (env->src[env->offset] == '}') {
                         break;
                 }
-                if (compile_next(env)) {
+                if (!compile_next(env)) {
                         free(id);
                         return STATUS_ERR;
                 }
@@ -232,7 +235,7 @@ static int compile_next(struct CompilerEnv *env)
         switch (op) {
 
                 default: ERROR("Not a brainfuck operator: '%c'\n", op)
-                        return EXIT_FAILURE;
+                        return FAILURE;
 
                 case '+': {
                         EMIT(env, "bf_inc_arr(%ld);\n", rep)
@@ -263,7 +266,7 @@ static int compile_next(struct CompilerEnv *env)
                         env->loop_ct--;
                         if (env->loop_ct < 0) {
                                 ERROR("Syntax error: There are unclosed loops.\n")
-                                return EXIT_FAILURE;
+                                return FAILURE;
                         }
                         EMIT(env, "} // -- %ld\n", delete_loop(env))
                         break;
@@ -280,7 +283,7 @@ static int compile_next(struct CompilerEnv *env)
                 }
         }
 
-        return EXIT_SUCCESS;
+        return SUCCESS;
 }
 
 static void refresh_loop_number(struct CompilerEnv *env)

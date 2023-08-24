@@ -24,7 +24,7 @@ static int compile_source(void)
         int cmp_status = compile(&env);
         fclose(env.out);
 
-        if (cmp_status == EXIT_FAILURE) {
+        if (!cmp_status) {
                 if (remove(cli_params.out) < 0) {
                         ERROR("Failed to remove flawed compiler output: %s.\n", strerror(errno))
                 }
@@ -34,7 +34,7 @@ static int compile_source(void)
                    cli_params.out)
         }
 
-        return cmp_status;
+        return !cmp_status;
 }
 
 static int reformat_source(void)
@@ -42,7 +42,7 @@ static int reformat_source(void)
         int fmt_status = reformat(&env);
         fclose(env.out);
 
-        if (fmt_status == EXIT_FAILURE) {
+        if (!fmt_status) {
                 if (remove(cli_params.out) < 0) {
                         ERROR("Failed to remove flawed reformatted output: %s.\n", strerror(errno))
                 }
@@ -51,7 +51,7 @@ static int reformat_source(void)
                 OK("Reformatting successful: [%s -> %s]\n", cli_params.in, cli_params.out)
         }
 
-        return fmt_status;
+        return !fmt_status;
 }
 
 
@@ -67,7 +67,7 @@ int main(int argc, char **argv)
 
         cli_params = parse_clip(argc, argv);
 
-        if (clip_check_integrity(&cli_params)) {
+        if (!clip_check_integrity(&cli_params)) {
                 return EXIT_FAILURE;
         }
 

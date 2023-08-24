@@ -18,25 +18,27 @@ static int reformat_next(struct CompilerEnv *env);
 
 int reformat(struct CompilerEnv *env)
 {
-        sanity_check_env(env);
+        if (!sanity_check_env(env)) {
+                return FAILURE;
+        }
 
         enum status last_status;
 
         do {
-                if (skip_spaces(env) == EXIT_WARNING) {
-                        return EXIT_SUCCESS;
+                if (skip_spaces(env) == WARNING) {
+                        return SUCCESS;
                 }
         } while ((last_status = reformat_unit(env)) == STATUS_OK);
 
         if (last_status == STATUS_ERR) {
-                return EXIT_FAILURE;
+                return FAILURE;
         }
 
         if (!env->main_set) {
                 WARN("For the program to be standalone, it requires a main unit to be set. However, in this program, no unit is marked as such.\n")
         }
 
-        return EXIT_SUCCESS;
+        return SUCCESS;
 }
 
 static enum status reformat_unit(struct CompilerEnv *env)
@@ -48,11 +50,11 @@ static enum status reformat_unit(struct CompilerEnv *env)
         struct unit_header header;
         enum status parse_status;
 
-        if ((parse_status = parse_unit_header(&header, env)) == EXIT_FAILURE) {
+        if (!(parse_status = parse_unit_header(&header, env))) {
                 return STATUS_ERR;
         }
 
-        if (parse_status == EXIT_WARNING) {
+        if (parse_status == WARNING) {
                 return STATUS_EOF;
         }
 
@@ -68,7 +70,7 @@ static enum status reformat_unit(struct CompilerEnv *env)
                 return STATUS_ERR;
         }
 
-        if (add_unit_env(env, _id)) {
+        if (!add_unit_env(env, _id)) {
                 ERROR("Not enough memory to store unit '%s'. The compiler allows up to %ld unit definitions.\n",
                       id, MAX_UNITS_COUNT)
                 return STATUS_ERR;
@@ -87,12 +89,12 @@ static enum status reformat_unit(struct CompilerEnv *env)
         struct unit_call call;
 
         for (; env->offset < env->len; env->offset++) {
-                if (skip_spaces(env)) {
+                if (skip_spaces(env) == WARNING) {
                         continue;
                 }
 
                 if (env->src[env->offset] == '@') {
-                        if (parse_unit_call(&call, env)) {
+                        if (!parse_unit_call(&call, env)) {
                                 return STATUS_ERR;
                         }
 
@@ -119,7 +121,7 @@ static enum status reformat_unit(struct CompilerEnv *env)
                 if (env->src[env->offset] == '}') {
                         break;
                 }
-                if (reformat_next(env)) {
+                if (!reformat_next(env)) {
                         return STATUS_ERR;
                 }
         }
@@ -131,7 +133,7 @@ static enum status reformat_unit(struct CompilerEnv *env)
 
         if (env->loop_ct != 0) {
                 ERROR("There are unclosed loops left in the code.\n")
-                return EXIT_FAILURE;
+                return STATUS_ERR;
         }
 
         env->offset++; /* Skip '}' */
@@ -142,7 +144,7 @@ static enum status reformat_unit(struct CompilerEnv *env)
 
         fprintf(env->out, "}");
 
-        if (skip_spaces(env) != EXIT_WARNING) {
+        if (skip_spaces(env) != WARNING) {
                 fprintf(env->out, "\n\n");
         }
 
@@ -205,5 +207,5 @@ static int reformat_next(struct CompilerEnv *env)
 
         exit_ok:
         lastC = c;
-        return EXIT_SUCCESS;
+        return SUCCESS;
 }

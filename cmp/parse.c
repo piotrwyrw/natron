@@ -13,7 +13,7 @@ char last_identifier[MAX_IDEN_LENGTH] = {0};
 int identifier(struct CompilerEnv *env)
 {
         if (!is_letter(env->src[env->offset])) {
-                return EXIT_FAILURE;
+                return FAILURE;
         }
 
         /* Clear the last identifier buffer before writing to it */
@@ -28,19 +28,19 @@ int identifier(struct CompilerEnv *env)
                 if (ptr > last_identifier + MAX_IDEN_LENGTH) {
                         ERROR("Identifier too long: An identifier must be shorter than %ld characters.\n",
                               MAX_IDEN_LENGTH)
-                        return EXIT_FAILURE; /* We're out of memory for the identifier */
+                        return FAILURE; /* We're out of memory for the identifier */
                 }
         }
 
         env->offset += i - 1;
 
-        return EXIT_SUCCESS;
+        return SUCCESS;
 }
 
 int skip_spaces(struct CompilerEnv *env)
 {
         if (env->offset >= env->len) {
-                return EXIT_WARNING;
+                return WARNING;
         }
 
         size_t i = 0;
@@ -71,25 +71,25 @@ int skip_spaces(struct CompilerEnv *env)
                 }
 
                 if (env->offset + i >= env->len) {
-                        return EXIT_WARNING;
+                        return WARNING;
                 }
         }
 
         env->offset += i - 1;
 
-        return EXIT_SUCCESS;
+        return SUCCESS;
 }
 
 #define HANDLE(f, ...) \
-        if ((f(env)) == EXIT_FAILURE) { \
+        if ((f(env)) == FAILURE) { \
                 ERROR(__VA_ARGS__) \
-                return EXIT_FAILURE; \
+                return FAILURE; \
         }
 
 #define EXPECT(c, ...) \
         if (env->src[env->offset] != c) { \
                 ERROR(__VA_ARGS__)        \
-                return EXIT_FAILURE; \
+                return FAILURE; \
         }
 
 int parse_unit_header(struct unit_header *ptr, struct CompilerEnv *env)
@@ -97,8 +97,8 @@ int parse_unit_header(struct unit_header *ptr, struct CompilerEnv *env)
         int last_status;
 
         last_status = skip_spaces(env);
-        if (last_status == EXIT_WARNING) {
-                return EXIT_WARNING;
+        if (last_status == WARNING) {
+                return WARNING;
         }
 
         _Bool main = false;
@@ -110,10 +110,10 @@ int parse_unit_header(struct unit_header *ptr, struct CompilerEnv *env)
                 env->offset++; /* Skip the attribute ('&') */
 
                 last_status = skip_spaces(env);
-                if (last_status == EXIT_WARNING) {
+                if (last_status == WARNING) {
                         ERROR("Could not parse: Reached end of file after main attribute of unit '%s'.\n",
                               last_identifier)
-                        return EXIT_FAILURE;
+                        return FAILURE;
                 }
 
         }
@@ -121,9 +121,9 @@ int parse_unit_header(struct unit_header *ptr, struct CompilerEnv *env)
         HANDLE(last_status = identifier, "Expected identifier, got '%c'\n", env->src[env->offset])
 
         last_status = skip_spaces(env);
-        if (last_status == EXIT_WARNING) {
+        if (last_status == WARNING) {
                 ERROR("Could not parse: Reached end of file after identifier '%s'.\n", last_identifier)
-                return EXIT_FAILURE;
+                return FAILURE;
         }
 
         EXPECT('{', "Expected '{' after identifier '%s'. Got '%c' instead.\n", last_identifier, env->src[env->offset])
@@ -132,7 +132,7 @@ int parse_unit_header(struct unit_header *ptr, struct CompilerEnv *env)
         if (env->offset >= env->len) {
                 ERROR("Expected brainfuck code after '{' in unit '%s'. Reached end of file while parsing.\n",
                       last_identifier)
-                return EXIT_FAILURE;
+                return FAILURE;
         }
 
         ptr->id = strdup(last_identifier);
@@ -141,13 +141,13 @@ int parse_unit_header(struct unit_header *ptr, struct CompilerEnv *env)
         if (main) {
                 if (env->main_set) {
                         ERROR("There may only be a single main unit. Previous: '%s'.\n", env->main)
-                        return EXIT_FAILURE;
+                        return FAILURE;
                 }
                 env->main_set = true;
                 strcpy(env->main, last_identifier);
         }
 
-        return EXIT_SUCCESS;
+        return SUCCESS;
 }
 
 int parse_unit_call(struct unit_call *ptr, struct CompilerEnv *env)
@@ -162,7 +162,7 @@ int parse_unit_call(struct unit_call *ptr, struct CompilerEnv *env)
 
         ptr->id = strdup(last_identifier);
 
-        return EXIT_SUCCESS;
+        return SUCCESS;
 }
 
 #undef HANDLE

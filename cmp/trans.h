@@ -21,13 +21,13 @@
 
 #define FAIL_WRONG_OP(id) {\
                 ERROR("Unknown operator: '%c'\n", id);\
-                return EXIT_FAILURE;\
+                return FAILURE;\
         }
 
 #define CURRENT_CHAR(id) \
         if (env->offset >= env->len) { \
                 ERROR("Offset is pointing outside of the source code.\n"); \
-                return EXIT_FAILURE; \
+                return FAILURE; \
         }            \
         char (id) = env->src[env->offset];
 
