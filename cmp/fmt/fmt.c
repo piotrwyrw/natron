@@ -26,29 +26,19 @@ int reformat(struct CompilerEnv *env)
 
         enum status last_status;
 
+        int status;
+
         do {
-                if (skip_spaces(env) == WARNING) {
-                        return SUCCESS;
-                }
-
-                if (identifier(env, true) != SUCCESS) {
+                status = exec_on_externalize(env, reformat_externalize);
+                if (status == WARNING) {
                         continue;
+                } else if (!status) {
+                        return FAILURE;
                 }
-
-                if (strcmp(last_identifier, "externalize") == 0) {
-                        if (!reformat_externalize(env)) {
-                                return FAILURE;
-                        }
-                }
-
         } while ((last_status = reformat_unit(env)) == STATUS_OK);
 
         if (last_status == STATUS_ERR) {
                 return FAILURE;
-        }
-
-        if (!env->main_set) {
-                WARN("For the program to be standalone, it requires a main unit to be set. However, in this program, no unit is marked as such.\n")
         }
 
         return SUCCESS;

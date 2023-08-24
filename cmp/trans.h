@@ -93,6 +93,8 @@ _Bool unit_exists(char *id, struct CompilerEnv *env);
 
 int sanity_check_env(struct CompilerEnv *env);
 
+int exec_on_externalize(struct CompilerEnv *env, int (fun(struct CompilerEnv *)));
+
 int compile(struct CompilerEnv *env);
 
 size_t add_loop(struct CompilerEnv *env);

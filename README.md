@@ -114,4 +114,4 @@ across the project's files. It is recommended to use natron's built-in externali
 After this statement, the externalized unit may be run as if it was defined in the same file as you'd usually do.
 However, the fact that natron won't complain, doesn't necessarily mean that you won't encounter any further issues down
 the line; It is important to note that you will need to link the resulting files together using a C compiler and/or
-linker to produce a runnable standalone piece of software. Take a look in the `demo/` directory for inspiration.
+linker to produce a runnable standalone piece of software. Take a look in the `demo/` directory for inspiration.›

@@ -66,6 +66,25 @@ static int compile_externalize(struct CompilerEnv *env);
 
 static enum status compile_unit(struct CompilerEnv *env);
 
+int exec_on_externalize(struct CompilerEnv *env, int (fun(struct CompilerEnv *)))
+{
+        if (skip_spaces(env) == WARNING) {
+                return WARNING;
+        }
+
+        if (identifier(env, true) != SUCCESS) {
+                return SUCCESS;
+        }
+
+        if (strcmp(last_identifier, "externalize") == 0) {
+                if (!fun(env)) {
+                        return FAILURE;
+                }
+        }
+
+        return SUCCESS;
+}
+
 int compile(struct CompilerEnv *env)
 {
         if (!sanity_check_env(env)) {
@@ -75,22 +94,15 @@ int compile(struct CompilerEnv *env)
         gen_preamble(env);
 
         enum status last_status;
+        int status;
 
         do {
-                if (skip_spaces(env) == WARNING) {
-                        break;
-                }
-
-                if (identifier(env, true) != SUCCESS) {
+                status = exec_on_externalize(env, compile_externalize);
+                if (status == WARNING) {
                         continue;
+                } else if (!status) {
+                        return FAILURE;
                 }
-
-                if (strcmp(last_identifier, "externalize") == 0) {
-                        if (!compile_externalize(env)) {
-                                return FAILURE;
-                        }
-                }
-
         } while ((last_status = compile_unit(env)) == STATUS_OK);
 
         if (last_status == STATUS_ERR) {

@@ -57,6 +57,12 @@ static int reformat_source(void)
 
 int main(int argc, char **argv)
 {
+
+        char *string = "bar";
+        char* foo = string;
+        char* pascal = string;
+
+
         if (argc < 2) {
                 show_help();
                 return 0;
