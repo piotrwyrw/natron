@@ -81,3 +81,13 @@ is located between the curly brackets.
 "@" identifier
 ```
 _Note: The identifier must "stick" directly to the "@": There may not be any spaces separating the two tokens._
+
+#### Native C calls
+You may directly call a native C function if you choose. Doing so, however, is not recommended, as the compiler (natron) cannot guarantee
+that the function to be called (callee) is in fact present at the time of calling, or if it matches the required signature.
+
+```ebnf
+"$" identifier
+```
+
+_Note: The identifier must "stick" directly to the "$": There may not be any spaces separating the two tokens._
