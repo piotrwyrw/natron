@@ -139,22 +139,29 @@ static enum status compile_unit(struct CompilerEnv *env)
                         continue;
                 }
 
-                if (env->src[env->offset] == '@') {
+                if (env->src[env->offset] == '@' || env->src[env->offset] == '$') {
+                        char c = env->src[env->offset];
+
                         if (!parse_unit_call(&call, env)) {
                                 return STATUS_ERR;
                         }
 
-                        if (strcmp(call.id, id) == 0) {
+                        if (c == '@' && strcmp(call.id, id) == 0) {
                                 WARN("On unit call '%s' in '%s': Recursion is not recommended.\n", call.id, id)
                         }
 
-                        if (!unit_exists(call.id, env)) {
+                        if (c == '@' && !unit_exists(call.id, env)) {
                                 ERROR("Attempting to call undefined unit '%s' from within '%s'.\n", call.id, id)
                                 free(call.id);
                                 return STATUS_ERR;
                         }
 
-                        EMIT(env, "fun_%s();\n", call.id)
+                        if (c == '@') {
+                                EMIT(env, "fun_%s();\n", call.id)
+                        } else {
+                                EMIT(env, "%s();\n", call.id)
+                        }
+
                         free(call.id);
 
                         env->offset--;

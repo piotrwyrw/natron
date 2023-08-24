@@ -93,16 +93,23 @@ static enum status reformat_unit(struct CompilerEnv *env)
                         continue;
                 }
 
-                if (env->src[env->offset] == '@') {
+                if (env->src[env->offset] == '@' || env->src[env->offset] == '$') {
+                        char c = env->src[env->offset];
+
                         if (!parse_unit_call(&call, env)) {
                                 return STATUS_ERR;
                         }
 
-                        if (strcmp(call.id, _id) == 0) {
+                        if (c == '@' && strcmp(call.id, _id) == 0) {
                                 WARN("On unit call '%s' in '%s': Recursion is not recommended.\n", call.id, _id)
                         }
 
-                        if (!unit_exists(call.id, env)) {
+                        if (c == '$') {
+                                WARN("On native call '%s' in '%s': It is not recommended to use native C calls; doing so may cause unexpected behaviour, as natron cannot guarantee the presence of the callee.\n",
+                                     call.id, _id)
+                        }
+
+                        if (c == '@' && !unit_exists(call.id, env)) {
                                 ERROR("Attempting to call undefined unit '%s' from within '%s'.\n", call.id, id)
                                 free(call.id);
                                 return STATUS_ERR;
@@ -112,7 +119,7 @@ static enum status reformat_unit(struct CompilerEnv *env)
                                 fprintf(env->out, "\n");
                         }
 
-                        fprintf(env->out, "%s@%s\n", repeat('\t', env->indent), call.id);
+                        fprintf(env->out, "%s%c%s\n", repeat('\t', env->indent), c, call.id);
                         newline = true;
                         free(call.id);
                         env->offset--;

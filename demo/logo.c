@@ -1246,9 +1246,14 @@ void fun_logo(void)
 	bf_out_n(34);
 }
 
-void fun_entry(void)
+void fun_proxy_run_logo(void)
 {
 	fun_logo();
+}
+
+void fun_entry(void)
+{
+	fun_proxy_run_logo();
 }
 
 int main(void)

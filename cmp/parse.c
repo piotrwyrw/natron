@@ -152,13 +152,17 @@ int parse_unit_header(struct unit_header *ptr, struct CompilerEnv *env)
 
 int parse_unit_call(struct unit_call *ptr, struct CompilerEnv *env)
 {
-        EXPECT('@', "Illegal state.")
+        char c = env->src[env->offset];
+        if (c != '@' && c != '$') {
+                ERROR("Illegal state.");
+                return FAILURE;
+        }
 
-        env->offset++; /* Skip the '@' */
+        env->offset++; /* Skip the '@' or '$' */
 
-        /* There should be no spaces between the '@' and the identifier. */
+        /* There should be no spaces between the '@' ('$') and the identifier. */
 
-        HANDLE(identifier, "Expected identifier immediately after '@', got '%c'\n", env->src[env->offset])
+        HANDLE(identifier, "Expected identifier immediately after '%c', got '%c'\n", c, env->src[env->offset])
 
         ptr->id = strdup(last_identifier);
 

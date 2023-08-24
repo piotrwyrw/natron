@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.26)
-project(natron C)
+project(bf-natron C)
 
 set(CMAKE_C_STANDARD 11)
 
@@ -10,7 +10,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "lib")
 option(BUILD_DEMO_PROGRAM "Compile the demo program" OFF)
 
 # The compiler itself
-add_executable(cmp cmp/main.c cmp/clipp.c
+add_executable(natron cmp/main.c cmp/clipp.c
         cmp/trans.h
         cmp/fio.h
         cmp/fio.c
@@ -27,10 +27,10 @@ add_executable(cmp cmp/main.c cmp/clipp.c
 )
 
 # Reformat the brainfuck source code using the compiler's built-in functionality
-add_custom_target(reformat-sample DEPENDS cmp DEPENDS ${CMAKE_SOURCE_DIR}/demo/logo.bf COMMAND ${CMAKE_BINARY_DIR}/${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cmp --source ${CMAKE_SOURCE_DIR}/demo/logo.bf --output ${CMAKE_SOURCE_DIR}/demo/logo.ref.bf --reformat --acknowledge-reformatting-damage VERBATIM)
+add_custom_target(reformat-sample DEPENDS natron DEPENDS ${CMAKE_SOURCE_DIR}/demo/logo.bf COMMAND ${CMAKE_BINARY_DIR}/${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/natron --source ${CMAKE_SOURCE_DIR}/demo/logo.bf --output ${CMAKE_SOURCE_DIR}/demo/logo.ref.bf --reformat --acknowledge-reformatting-damage VERBATIM)
 
 # Use the compiler to compile a sample brainfuck program
-add_custom_target(compile-sample DEPENDS reformat-sample COMMAND ${CMAKE_BINARY_DIR}/${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cmp --source ${CMAKE_SOURCE_DIR}/demo/logo.ref.bf --output ${CMAKE_SOURCE_DIR}/demo/logo.c VERBATIM)
+add_custom_target(compile-sample DEPENDS reformat-sample COMMAND ${CMAKE_BINARY_DIR}/${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/natron --source ${CMAKE_SOURCE_DIR}/demo/logo.ref.bf --output ${CMAKE_SOURCE_DIR}/demo/logo.c VERBATIM)
 
 # Brainfuck core library
 add_library(core STATIC

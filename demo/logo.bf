@@ -18,7 +18,11 @@ logo {
     .............>++++++++++.[->+++<]>++..................................
 }
 
+proxy_run_logo {
+    @logo
+}
+
 # The main function if annotated with a '&'
 &entry {
-    @logo
+    $fun_proxy_run_logo
 }
