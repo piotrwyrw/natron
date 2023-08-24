@@ -10,7 +10,7 @@
 
 char last_identifier[MAX_IDEN_LENGTH] = {0};
 
-int identifier(struct CompilerEnv *env)
+int identifier(struct CompilerEnv *env, _Bool peek)
 {
         if (!is_letter(env->src[env->offset])) {
                 return FAILURE;
@@ -32,7 +32,9 @@ int identifier(struct CompilerEnv *env)
                 }
         }
 
-        env->offset += i - 1;
+        if (!peek) {
+                env->offset += i - 1;
+        }
 
         return SUCCESS;
 }
@@ -80,8 +82,8 @@ int skip_spaces(struct CompilerEnv *env)
         return SUCCESS;
 }
 
-#define HANDLE(f, ...) \
-        if ((f(env)) == FAILURE) { \
+#define IDENTIFIER(...) \
+        if (identifier(env, false) == FAILURE) { \
                 ERROR(__VA_ARGS__) \
                 return FAILURE; \
         }
@@ -94,10 +96,7 @@ int skip_spaces(struct CompilerEnv *env)
 
 int parse_unit_header(struct unit_header *ptr, struct CompilerEnv *env)
 {
-        int last_status;
-
-        last_status = skip_spaces(env);
-        if (last_status == WARNING) {
+        if (skip_spaces(env) == WARNING) {
                 return WARNING;
         }
 
@@ -109,8 +108,7 @@ int parse_unit_header(struct unit_header *ptr, struct CompilerEnv *env)
 
                 env->offset++; /* Skip the attribute ('&') */
 
-                last_status = skip_spaces(env);
-                if (last_status == WARNING) {
+                if (skip_spaces(env) == WARNING) {
                         ERROR("Could not parse: Reached end of file after main attribute of unit '%s'.\n",
                               last_identifier)
                         return FAILURE;
@@ -118,10 +116,9 @@ int parse_unit_header(struct unit_header *ptr, struct CompilerEnv *env)
 
         }
 
-        HANDLE(last_status = identifier, "Expected identifier, got '%c'\n", env->src[env->offset])
+        IDENTIFIER("Expected identifier, got '%c'\n", env->src[env->offset])
 
-        last_status = skip_spaces(env);
-        if (last_status == WARNING) {
+        if (skip_spaces(env) == WARNING) {
                 ERROR("Could not parse: Reached end of file after identifier '%s'.\n", last_identifier)
                 return FAILURE;
         }
@@ -162,14 +159,44 @@ int parse_unit_call(struct unit_call *ptr, struct CompilerEnv *env)
 
         /* There should be no spaces between the '@' ('$') and the identifier. */
 
-        HANDLE(identifier, "Expected identifier immediately after '%c', got '%c'\n", c, env->src[env->offset])
+        IDENTIFIER("Expected identifier immediately after '%c', got '%c'\n", c, env->src[env->offset])
 
         ptr->id = strdup(last_identifier);
 
         return SUCCESS;
 }
 
-#undef HANDLE
+/* "externalize" identifier */
+int parse_unit_externalize(struct unit_externalise *ptr, struct CompilerEnv *env)
+{
+        if (skip_spaces(env) == WARNING) {
+                return WARNING;
+        }
+
+        char c;
+
+        c = env->src[env->offset];
+        IDENTIFIER("Expected \"externalize\", got '%c'.\n", c)
+
+        if (strcmp(last_identifier, "externalize") != 0) {
+                ERROR("Expected 'externalize' at the beginning of an externalization statement.\n");
+                return FAILURE;
+        }
+
+        if (skip_spaces(env) == WARNING) {
+                ERROR("Failed to parse: Reached end of file after 'externalize', expected identifier.\n");
+                return FAILURE;
+        }
+
+        c = env->src[env->offset];
+        IDENTIFIER("Expected identifier after \"externalize\", got '%c'.\n", c);
+
+        ptr->id = strdup(last_identifier);
+
+        return SUCCESS;
+}
+
+#undef IDENTIFIER
 #undef EXPECT
 
 

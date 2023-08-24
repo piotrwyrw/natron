@@ -39,6 +39,7 @@ program's entry point. Such main unit is however also not required, which may be
 link multiple brainfuck files together, but effectively renders the resulting C program unusable by default.
 
 ### Additional syntax
+
 ```brainfuck
 # Returns at a cell with the value '10' in it
 count_to_ten
@@ -62,32 +63,55 @@ zero_out
 ```
 
 #### Comments
+
 The classic version of brainfuck ignores all characters that are irrelevant for its operation, effectively
 treating them as comments. Here, however, you need to explicitly create a line comment to annotate your
 code. A line comment - as its name suggests - comments out everything from the initial character (`#`) till the
 end of the line (Or _EOF_ if _EOL_ is not available)
 
 #### Units
+
 A unit definition looks as follows:
+
 ```ebnf
 [ "&" ] identifier "{" brainfuck-code "}"
 ```
+
 Every unit must have its own unique `identifier`. If the identifier is preceded with an ampersand (`&`),
 the unit gets marked the main entry point of the program. Classic brainfuck code constitutes the body of the unit, which
 is located between the curly brackets.
 
 #### Unit calls
+
 ```ebnf
 "@" identifier
 ```
+
 _Note: The identifier must "stick" directly to the "@": There may not be any spaces separating the two tokens._
 
 #### Native C calls
-You may directly call a native C function if you choose. Doing so, however, is not recommended, as the compiler (natron) cannot guarantee
-that the function to be called (callee) is in fact present at the time of calling, or if it matches the required signature.
+
+You may directly call a native C function if you choose. Doing so, however, is not recommended, as the compiler (natron)
+cannot guarantee
+that the function to be called (callee) is in fact present at the time of calling, or if it matches the required
+signature.
 
 ```ebnf
 "$" identifier
 ```
 
 _Note: The identifier must "stick" directly to the "$": There may not be any spaces separating the two tokens._
+
+#### References to external units
+
+If your brainfuck project consists of multiple files, you will probably find yourself having to to cross-reference units
+across the project's files. It is recommended to use natron's built-in externalization statement for that.
+
+```ebnf
+"externalize" identifier
+```
+
+After this statement, the externalized unit may be run as if it was defined in the same file as you'd usually do.
+However, the fact that natron won't complain, doesn't necessarily mean that you won't encounter any further issues down
+the line; It is important to note that you will need to link the resulting files together using a C compiler and/or
+linker to produce a runnable standalone piece of software. Take a look in the `demo/` directory for inspiration.

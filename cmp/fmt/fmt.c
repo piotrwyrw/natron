@@ -16,6 +16,8 @@ static enum status reformat_unit(struct CompilerEnv *env);
 
 static int reformat_next(struct CompilerEnv *env);
 
+static int reformat_externalize(struct CompilerEnv *env);
+
 int reformat(struct CompilerEnv *env)
 {
         if (!sanity_check_env(env)) {
@@ -28,6 +30,17 @@ int reformat(struct CompilerEnv *env)
                 if (skip_spaces(env) == WARNING) {
                         return SUCCESS;
                 }
+
+                if (identifier(env, true) != SUCCESS) {
+                        continue;
+                }
+
+                if (strcmp(last_identifier, "externalize") == 0) {
+                        if (!reformat_externalize(env)) {
+                                return FAILURE;
+                        }
+                }
+
         } while ((last_status = reformat_unit(env)) == STATUS_OK);
 
         if (last_status == STATUS_ERR) {
@@ -37,6 +50,26 @@ int reformat(struct CompilerEnv *env)
         if (!env->main_set) {
                 WARN("For the program to be standalone, it requires a main unit to be set. However, in this program, no unit is marked as such.\n")
         }
+
+        return SUCCESS;
+}
+
+static int reformat_externalize(struct CompilerEnv *env)
+{
+        struct unit_externalise ext;
+
+        int status = parse_unit_externalize(&ext, env);
+
+        if (status == FAILURE) {
+                return FAILURE;
+        }
+
+        if (status == WARNING) {
+                return WARNING;
+        }
+
+        fprintf(env->out, "externalize %s\n", ext.id);
+        free(ext.id);
 
         return SUCCESS;
 }
@@ -97,21 +130,6 @@ static enum status reformat_unit(struct CompilerEnv *env)
                         char c = env->src[env->offset];
 
                         if (!parse_unit_call(&call, env)) {
-                                return STATUS_ERR;
-                        }
-
-                        if (c == '@' && strcmp(call.id, _id) == 0) {
-                                WARN("On unit call '%s' in '%s': Recursion is not recommended.\n", call.id, _id)
-                        }
-
-                        if (c == '$') {
-                                WARN("On native call '%s' in '%s': It is not recommended to use native C calls; doing so may cause unexpected behaviour, as natron cannot guarantee the presence of the callee.\n",
-                                     call.id, _id)
-                        }
-
-                        if (c == '@' && !unit_exists(call.id, env)) {
-                                ERROR("Attempting to call undefined unit '%s' from within '%s'.\n", call.id, id)
-                                free(call.id);
                                 return STATUS_ERR;
                         }
 

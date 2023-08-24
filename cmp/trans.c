@@ -11,10 +11,6 @@
 #include "color.h"
 #include "parse.h"
 
-static void gen_preamble(struct CompilerEnv *);
-
-static int compile_next(struct CompilerEnv *);
-
 void free_units_env(struct CompilerEnv *env)
 {
         for (size_t i = 0; i < env->units_ct; i++) {
@@ -62,6 +58,12 @@ int sanity_check_env(struct CompilerEnv *env)
         return SUCCESS;
 }
 
+static void gen_preamble(struct CompilerEnv *);
+
+static int compile_next(struct CompilerEnv *);
+
+static int compile_externalize(struct CompilerEnv *env);
+
 static enum status compile_unit(struct CompilerEnv *env);
 
 int compile(struct CompilerEnv *env)
@@ -74,8 +76,22 @@ int compile(struct CompilerEnv *env)
 
         enum status last_status;
 
-        /* Compile all units */
-        while ((last_status = compile_unit(env)) == STATUS_OK) {}
+        do {
+                if (skip_spaces(env) == WARNING) {
+                        break;
+                }
+
+                if (identifier(env, true) != SUCCESS) {
+                        continue;
+                }
+
+                if (strcmp(last_identifier, "externalize") == 0) {
+                        if (!compile_externalize(env)) {
+                                return FAILURE;
+                        }
+                }
+
+        } while ((last_status = compile_unit(env)) == STATUS_OK);
 
         if (last_status == STATUS_ERR) {
                 return FAILURE;
@@ -91,6 +107,28 @@ int compile(struct CompilerEnv *env)
                           "\treturn bf_end();\n"
                           "}", env->main)
         }
+
+        return SUCCESS;
+}
+
+static int compile_externalize(struct CompilerEnv *env)
+{
+        struct unit_externalise ext;
+
+        int status = parse_unit_externalize(&ext, env);
+
+        if (status == FAILURE) {
+                return FAILURE;
+        }
+
+        if (status == WARNING) {
+                return WARNING;
+        }
+
+        add_unit_env(env, ext.id);
+
+        EMIT(env, "extern void fun_%s(void);\n", ext.id);
+        free(ext.id);
 
         return SUCCESS;
 }
@@ -154,6 +192,11 @@ static enum status compile_unit(struct CompilerEnv *env)
                                 ERROR("Attempting to call undefined unit '%s' from within '%s'.\n", call.id, id)
                                 free(call.id);
                                 return STATUS_ERR;
+                        }
+
+                        if (c == '$') {
+                                WARN("On native call '%s' in '%s': Native function calls are not recommended.\n",
+                                     call.id, id)
                         }
 
                         if (c == '@') {
