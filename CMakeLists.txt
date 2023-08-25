@@ -9,8 +9,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "lib")
 
 option(BUILD_DEMO_PROGRAM "Compile the demo program" OFF)
 
-# The compiler itself
-add_executable(natron cmp/main.c cmp/clipp.c
+set(NATRON_CORE_SOURCES
+        cmp/clipp.c
         cmp/trans.h
         cmp/fio.h
         cmp/fio.c
@@ -24,6 +24,12 @@ add_executable(natron cmp/main.c cmp/clipp.c
         cmp/help.h
         cmp/help.c
         cmp/defs.h
+)
+
+# The compiler itself
+add_executable(natron
+        cmp/main.c
+        ${NATRON_CORE_SOURCES}
 )
 
 # Reformat the brainfuck source code using the compiler's built-in functionality
@@ -44,6 +50,13 @@ add_custom_target(compile-sample
 add_library(core STATIC
         core/core.h
         core/core.c)
+
+# Natron library; used for things that need to access natron's features
+add_library(libnatron STATIC
+        ${NATRON_CORE_SOURCES}
+)
+
+set_target_properties(libnatron PROPERTIES PREFIX "")
 
 # A demo program compiled with the compiler and linked with `libcore`
 if (BUILD_DEMO_PROGRAM)

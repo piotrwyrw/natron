@@ -157,7 +157,7 @@ static int compile_externalize(struct CompilerEnv *env)
 
         add_unit_env(env, ext.id);
 
-        EMIT(env, "extern void fun_%s(void);\n", ext.id);
+        EMIT(env, "void fun_%s(void);\n\n", ext.id);
         free(ext.id);
 
         return SUCCESS;
@@ -302,15 +302,15 @@ static void gen_preamble(struct CompilerEnv *env)
         EMIT(env, "\n")
 
         /* Extern-s to the core lib functions */
-        EMIT(env, "extern void bf_init();\n")
-        EMIT(env, "extern char bf_end();\n")
-        EMIT(env, "extern void bf_ptr_inc_n(size_t);\n")
-        EMIT(env, "extern void bf_ptr_dec_n(size_t);\n")
-        EMIT(env, "extern void bf_inc_arr(size_t);\n")
-        EMIT(env, "extern char bf_dec_arr(size_t);\n")
-        EMIT(env, "extern void bf_in();\n")
-        EMIT(env, "extern void bf_out_n(size_t);\n")
-        EMIT(env, "extern char bf_get();\n\n")
+        EMIT(env, "void bf_init();\n\n")
+        EMIT(env, "char bf_end();\n\n")
+        EMIT(env, "void bf_ptr_inc_n(size_t);\n\n")
+        EMIT(env, "void bf_ptr_dec_n(size_t);\n\n")
+        EMIT(env, "void bf_inc_arr(size_t);\n\n")
+        EMIT(env, "char bf_dec_arr(size_t);\n\n")
+        EMIT(env, "void bf_in();\n\n")
+        EMIT(env, "void bf_out_n(size_t);\n\n")
+        EMIT(env, "char bf_get();\n\n")
 }
 
 static int compile_next_brainfuck_operator(struct CompilerEnv *env)
