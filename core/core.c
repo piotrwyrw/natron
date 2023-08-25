@@ -37,7 +37,7 @@ static void bf_allocate_next(void)
         arr = realloc(arr, arr_len);
 
         if (arr) {
-                // Only fill the newly-allocated portion with 0's
+                /* Only fill the newly-allocated portion with 0's */
                 memset(arr + _arr_len, 0, BF_ALLOC_STEP_SIZE);
 
                 return;
@@ -49,7 +49,7 @@ static void bf_allocate_next(void)
         _sigterm:
         raise(SIGTERM);
 
-        // Wait forever to give the signal the best chances of getting caught
+        /* Wait forever to give the signal the best chances of getting caught */
         block_forever();
 }
 

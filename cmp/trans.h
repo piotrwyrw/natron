@@ -31,31 +31,6 @@
         }            \
         char (id) = env->src[env->offset];
 
-inline static _Bool is_primitive(char c)
-{
-        return c == '>' || c == '<' || c == '+' || c == '-' || c == '.';
-}
-
-inline static _Bool is_space(char c)
-{
-        return c == ' ' || c == '\t';
-}
-
-inline static _Bool is_letter(char c)
-{
-        return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_';
-}
-
-inline static _Bool is_space_ext(char c)
-{
-        return is_space(c) || c == '\n';
-}
-
-inline static _Bool is_illegal_op(char c)
-{
-        return !is_primitive(c) && c != '[' && c != ']' && !is_space(c) && c != '\n';
-}
-
 struct CompilerEnv {
         char *src;
         size_t offset; /* Offset from the base of the source string */
@@ -67,8 +42,8 @@ struct CompilerEnv {
         char *includes[BRAINFUCK_MAX_INCLUDES]; /* The headers to include in the resulting C file */
         size_t includes_ct; /* Size of the include array */
 
-        // The following section is dedicated to keeping track of the loops.
-        // Only use with the wrapper functions `refresh_loop_number()`, `add_loop()` and `delete_loop()` !
+        /* The following section is dedicated to keeping track of the loops. */
+        /* Only use with the wrapper functions `refresh_loop_number()`, `add_loop()` and `delete_loop()` ! */
         size_t loops[BRAINFUCK_MAX_LOOPS]; /* Keep track of loop numbering */
         size_t loop_no; /* The current loop number. Updated automatically - Do not overwrite manually! */
         _Bool loop_sub_zero; /* True - If you delete the 0th loop. Emulates a negative number. Managed automatically - don't alter manually. */

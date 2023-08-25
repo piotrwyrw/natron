@@ -22,7 +22,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(8);
 		bf_ptr_dec_n(1);
-	} // -- 1
+	} /* L1 */
 	bf_ptr_inc_n(1);
 	bf_out_n(2);
 	while (bf_get()) {
@@ -30,7 +30,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 2
+	} /* L2 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(1);
@@ -40,7 +40,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 3
+	} /* L3 */
 	bf_ptr_inc_n(1);
 	bf_out_n(3);
 	while (bf_get()) {
@@ -48,7 +48,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 4
+	} /* L4 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(1);
@@ -58,7 +58,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 5
+	} /* L5 */
 	bf_ptr_inc_n(1);
 	bf_out_n(7);
 	while (bf_get()) {
@@ -66,7 +66,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 6
+	} /* L6 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(1);
@@ -76,7 +76,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 7
+	} /* L7 */
 	bf_ptr_inc_n(1);
 	bf_out_n(19);
 	bf_ptr_inc_n(1);
@@ -87,7 +87,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 8
+	} /* L8 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(2);
 	bf_out_n(1);
@@ -97,7 +97,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 9
+	} /* L9 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -105,7 +105,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 10
+	} /* L10 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -115,7 +115,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 11
+	} /* L11 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(1);
@@ -125,7 +125,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 12
+	} /* L12 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -135,7 +135,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 13
+	} /* L13 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -143,7 +143,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 14
+	} /* L14 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -153,7 +153,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 15
+	} /* L15 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -161,7 +161,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 16
+	} /* L16 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(5);
@@ -171,7 +171,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 17
+	} /* L17 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -179,7 +179,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 18
+	} /* L18 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -189,7 +189,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 19
+	} /* L19 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -197,7 +197,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 20
+	} /* L20 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(18);
@@ -209,7 +209,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 21
+	} /* L21 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(2);
 	bf_out_n(1);
@@ -219,7 +219,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 22
+	} /* L22 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -227,7 +227,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 23
+	} /* L23 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(2);
@@ -237,7 +237,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 24
+	} /* L24 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(1);
@@ -247,7 +247,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 25
+	} /* L25 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -255,7 +255,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 26
+	} /* L26 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -265,7 +265,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 27
+	} /* L27 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -273,7 +273,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 28
+	} /* L28 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -282,7 +282,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 29
+	} /* L29 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(2);
@@ -292,7 +292,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 30
+	} /* L30 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -300,7 +300,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 31
+	} /* L31 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(1);
@@ -309,7 +309,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 32
+	} /* L32 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -317,7 +317,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 33
+	} /* L33 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -327,7 +327,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 34
+	} /* L34 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -335,7 +335,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 35
+	} /* L35 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(2);
 	bf_out_n(1);
@@ -345,7 +345,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 36
+	} /* L36 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -353,7 +353,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 37
+	} /* L37 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(1);
@@ -363,7 +363,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 38
+	} /* L38 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -371,7 +371,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 39
+	} /* L39 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(2);
@@ -381,7 +381,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 40
+	} /* L40 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -389,7 +389,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 41
+	} /* L41 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(3);
@@ -399,7 +399,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 42
+	} /* L42 */
 	bf_ptr_inc_n(1);
 	bf_out_n(2);
 	while (bf_get()) {
@@ -407,7 +407,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 43
+	} /* L43 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(1);
@@ -417,7 +417,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 44
+	} /* L44 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -425,7 +425,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 45
+	} /* L45 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(2);
@@ -435,7 +435,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 46
+	} /* L46 */
 	bf_ptr_inc_n(1);
 	bf_out_n(2);
 	bf_ptr_inc_n(1);
@@ -446,7 +446,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 47
+	} /* L47 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(2);
 	bf_out_n(1);
@@ -456,7 +456,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 48
+	} /* L48 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -464,7 +464,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 49
+	} /* L49 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -473,7 +473,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 50
+	} /* L50 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(2);
 	bf_out_n(1);
@@ -483,7 +483,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(2);
 		bf_ptr_dec_n(1);
-	} // -- 51
+	} /* L51 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -491,7 +491,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 52
+	} /* L52 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -499,7 +499,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 53
+	} /* L53 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	bf_dec_arr(1);
@@ -508,7 +508,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 54
+	} /* L54 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -516,7 +516,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 55
+	} /* L55 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(1);
@@ -526,7 +526,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(2);
 		bf_ptr_dec_n(1);
-	} // -- 56
+	} /* L56 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -534,7 +534,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 57
+	} /* L57 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(1);
@@ -545,7 +545,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 58
+	} /* L58 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	bf_dec_arr(1);
@@ -554,7 +554,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 59
+	} /* L59 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -562,7 +562,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 60
+	} /* L60 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -571,7 +571,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 61
+	} /* L61 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(2);
@@ -580,7 +580,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 62
+	} /* L62 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -588,7 +588,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 63
+	} /* L63 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -600,7 +600,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(5);
 		bf_ptr_dec_n(1);
-	} // -- 64
+	} /* L64 */
 	bf_ptr_inc_n(1);
 	bf_out_n(2);
 	bf_dec_arr(1);
@@ -609,7 +609,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 65
+	} /* L65 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	bf_inc_arr(1);
@@ -618,7 +618,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(2);
 		bf_ptr_dec_n(1);
-	} // -- 66
+	} /* L66 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -626,7 +626,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 67
+	} /* L67 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(1);
@@ -636,7 +636,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 68
+	} /* L68 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	bf_dec_arr(1);
@@ -645,7 +645,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 69
+	} /* L69 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(1);
@@ -655,7 +655,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 70
+	} /* L70 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -663,7 +663,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 71
+	} /* L71 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -675,7 +675,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(5);
 		bf_ptr_dec_n(1);
-	} // -- 72
+	} /* L72 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	bf_inc_arr(1);
@@ -684,7 +684,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 73
+	} /* L73 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	bf_dec_arr(1);
@@ -693,7 +693,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 74
+	} /* L74 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(1);
@@ -703,7 +703,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 75
+	} /* L75 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -715,7 +715,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 76
+	} /* L76 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(2);
 	bf_out_n(1);
@@ -725,7 +725,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 77
+	} /* L77 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -733,7 +733,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 78
+	} /* L78 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -743,7 +743,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 79
+	} /* L79 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -751,7 +751,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 80
+	} /* L80 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(1);
@@ -761,7 +761,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 81
+	} /* L81 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(2);
@@ -771,7 +771,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 82
+	} /* L82 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -779,7 +779,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 83
+	} /* L83 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -790,7 +790,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_dec_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 84
+	} /* L84 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -799,7 +799,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 85
+	} /* L85 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -807,7 +807,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 86
+	} /* L86 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -817,7 +817,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 87
+	} /* L87 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -825,7 +825,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 88
+	} /* L88 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -835,7 +835,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 89
+	} /* L89 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -843,7 +843,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 90
+	} /* L90 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(2);
 	bf_out_n(1);
@@ -852,7 +852,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 91
+	} /* L91 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -860,7 +860,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 92
+	} /* L92 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -870,7 +870,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 93
+	} /* L93 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -878,7 +878,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 94
+	} /* L94 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -888,7 +888,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 95
+	} /* L95 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -896,7 +896,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 96
+	} /* L96 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -907,7 +907,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_dec_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 97
+	} /* L97 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -917,7 +917,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 98
+	} /* L98 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	bf_dec_arr(9);
@@ -928,7 +928,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 99
+	} /* L99 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -936,7 +936,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 100
+	} /* L100 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -946,7 +946,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 101
+	} /* L101 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -954,7 +954,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 102
+	} /* L102 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -964,7 +964,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 103
+	} /* L103 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -972,7 +972,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 104
+	} /* L104 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -982,7 +982,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 105
+	} /* L105 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	bf_ptr_inc_n(1);
@@ -993,7 +993,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 106
+	} /* L106 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(2);
 	bf_out_n(1);
@@ -1003,7 +1003,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 107
+	} /* L107 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -1011,7 +1011,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 108
+	} /* L108 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(2);
 	bf_out_n(1);
@@ -1020,7 +1020,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 109
+	} /* L109 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -1028,7 +1028,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 110
+	} /* L110 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -1038,7 +1038,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 111
+	} /* L111 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(1);
@@ -1049,7 +1049,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 112
+	} /* L112 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -1057,7 +1057,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 113
+	} /* L113 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(1);
@@ -1069,7 +1069,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 114
+	} /* L114 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(3);
 	bf_out_n(1);
@@ -1079,7 +1079,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(2);
 		bf_ptr_dec_n(1);
-	} // -- 115
+	} /* L115 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -1088,7 +1088,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 116
+	} /* L116 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -1096,7 +1096,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 117
+	} /* L117 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(1);
@@ -1107,7 +1107,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 118
+	} /* L118 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -1115,7 +1115,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 119
+	} /* L119 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(2);
 	bf_out_n(1);
@@ -1124,7 +1124,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 120
+	} /* L120 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -1132,7 +1132,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 121
+	} /* L121 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(2);
@@ -1142,7 +1142,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 122
+	} /* L122 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(1);
@@ -1154,7 +1154,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 123
+	} /* L123 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	bf_ptr_inc_n(1);
@@ -1164,7 +1164,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 124
+	} /* L124 */
 	bf_ptr_inc_n(1);
 	bf_dec_arr(1);
 	bf_out_n(1);
@@ -1173,7 +1173,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 125
+	} /* L125 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(2);
 	bf_out_n(1);
@@ -1182,7 +1182,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 126
+	} /* L126 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -1190,7 +1190,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(1);
 		bf_ptr_dec_n(1);
-	} // -- 127
+	} /* L127 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(1);
 	bf_out_n(1);
@@ -1200,7 +1200,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 128
+	} /* L128 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	while (bf_get()) {
@@ -1208,7 +1208,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 129
+	} /* L129 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(2);
 	bf_out_n(1);
@@ -1217,7 +1217,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(4);
 		bf_ptr_dec_n(1);
-	} // -- 130
+	} /* L130 */
 	bf_ptr_inc_n(1);
 	bf_out_n(1);
 	bf_ptr_inc_n(1);
@@ -1228,7 +1228,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 131
+	} /* L131 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(2);
 	bf_out_n(34);
@@ -1240,7 +1240,7 @@ void fun_logo(void)
 		bf_ptr_inc_n(1);
 		bf_inc_arr(3);
 		bf_ptr_dec_n(1);
-	} // -- 132
+	} /* L132 */
 	bf_ptr_inc_n(1);
 	bf_inc_arr(2);
 	bf_out_n(34);

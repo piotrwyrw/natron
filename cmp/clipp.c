@@ -37,7 +37,7 @@ char **arg_vec = NULL;
 
 struct Clip parse_clip(int argc, char **argv)
 {
-        arg_i = 1; // Start at the second index, since the index 0 is occupied by default
+        arg_i = 1; /* Start at the second index, since the index 0 is occupied by default */
         arg_ct = argc;
         arg_vec = argv;
 
@@ -48,7 +48,7 @@ struct Clip parse_clip(int argc, char **argv)
         if (argc < 2)
                 return tmp_clip;
 
-        // The default mode of operation should be compilation
+        /* The default mode of operation should be compilation */
         tmp_clip.mode = MODE_COMPILE;
 
         for (;;) {

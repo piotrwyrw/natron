@@ -155,7 +155,7 @@ static int reformat_next(struct CompilerEnv *env, struct unit_call *call)
                 return WARNING;
         }
 
-        if (env->src[env->offset] == '@' || env->src[env->offset] == '$') {
+        if (is_call_initiator(env->src[env->offset])) {
                 char c = env->src[env->offset];
 
                 if (!parse_unit_call(call, env)) {

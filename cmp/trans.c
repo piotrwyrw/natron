@@ -225,7 +225,7 @@ static int compile_next(struct CompilerEnv *env, struct unit_call *call, char *i
                 return WARNING;
         }
 
-        if (env->src[env->offset] == '@' || env->src[env->offset] == '$') {
+        if (is_call_initiator(env->src[env->offset])) {
                 char c = env->src[env->offset];
 
                 if (!parse_unit_call(call, env)) {
@@ -348,7 +348,7 @@ static int compile_next_brainfuck_operator(struct CompilerEnv *env)
                                 ERROR("Syntax error: There are unclosed loops.\n")
                                 return FAILURE;
                         }
-                        EMIT(env, "} // -- %ld\n", delete_loop(env))
+                        EMIT(env, "} /* L%ld */\n", delete_loop(env))
                         break;
                 }
                 case '.': {

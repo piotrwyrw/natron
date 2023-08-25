@@ -15,7 +15,7 @@ static size_t file_length(FILE *fptr)
 
         size_t len = ftell(fptr);
 
-        // Reset the pointer
+        /* Reset the pointer */
         rewind(fptr);
 
         return len;

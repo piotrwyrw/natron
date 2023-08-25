@@ -7,6 +7,36 @@
 
 #include "trans.h"
 
+inline static _Bool is_primitive(char c)
+{
+        return c == '>' || c == '<' || c == '+' || c == '-' || c == '.';
+}
+
+inline static _Bool is_space(char c)
+{
+        return c == ' ' || c == '\t';
+}
+
+inline static _Bool is_letter(char c)
+{
+        return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_';
+}
+
+inline static _Bool is_space_ext(char c)
+{
+        return is_space(c) || c == '\n';
+}
+
+inline static _Bool is_illegal_op(char c)
+{
+        return !is_primitive(c) && c != '[' && c != ']' && !is_space(c) && c != '\n';
+}
+
+inline static _Bool is_call_initiator(char c)
+{
+        return c == '@' || c == '$';
+}
+
 struct unit_header {
         char *id;
         _Bool main;

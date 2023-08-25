@@ -199,8 +199,7 @@ int parse_unit_externalize(struct unit_externalise *ptr, struct CompilerEnv *env
 #undef IDENTIFIER
 #undef EXPECT
 
-
-char *isolate_till(char c, struct CompilerEnv *env)
+__attribute__((unused)) char *isolate_till(char c, struct CompilerEnv *env)
 {
         char *buff = NULL;
         size_t i = 0;
