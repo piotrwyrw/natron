@@ -1,8 +1,10 @@
 externalize logo
+
 proxy_run_logo
 {
 	@logo
 }
+
 
 &entry
 {

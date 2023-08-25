@@ -12,7 +12,7 @@
 static char lastC = 0;
 static _Bool newline;
 
-static int reformat_unit(struct CompilerEnv *env);
+static int reformat_unit(struct CompilerEnv *env, _Bool *first);
 
 static int reformat_brainfuck_operator(struct CompilerEnv *env);
 
@@ -27,17 +27,25 @@ int reformat(struct CompilerEnv *env)
         }
 
         int last_status;
-
         int status;
 
-        do {
-                status = exec_on_externalize(env, reformat_externalize);
-                if (status == WARNING) {
+        _Bool first = true;
+
+        while (true) {
+                status = exec_on_externalize(env, reformat_externalize, false, false);
+
+                if (status == SUCCESS) {
                         continue;
                 } else if (!status) {
                         return FAILURE;
                 }
-        } while ((last_status = reformat_unit(env)) == SUCCESS);
+
+                last_status = reformat_unit(env, &first);
+
+                if (last_status != SUCCESS) {
+                        break;
+                }
+        }
 
         if (last_status == FAILURE) {
                 return FAILURE;
@@ -66,7 +74,7 @@ static int reformat_externalize(struct CompilerEnv *env)
         return SUCCESS;
 }
 
-static int reformat_unit(struct CompilerEnv *env)
+static int reformat_unit(struct CompilerEnv *env, _Bool *first)
 {
         if (env->offset >= env->len) {
                 return WARNING;
@@ -99,6 +107,10 @@ static int reformat_unit(struct CompilerEnv *env)
                 ERROR("Not enough memory to store unit '%s'. The compiler allows up to %ld unit definitions.\n",
                       id, MAX_UNITS_COUNT)
                 return FAILURE;
+        }
+
+        if (first) {
+                fprintf(env->out, "\n");
         }
 
         if (header.main) {
@@ -146,6 +158,7 @@ static int reformat_unit(struct CompilerEnv *env)
                 fprintf(env->out, "\n\n");
         }
 
+        *first = false;
         return SUCCESS;
 }
 

@@ -68,7 +68,7 @@ _Bool unit_exists(char *id, struct CompilerEnv *env);
 
 int sanity_check_env(struct CompilerEnv *env);
 
-int exec_on_externalize(struct CompilerEnv *env, int (fun(struct CompilerEnv *)));
+int exec_on_externalize(struct CompilerEnv *env, int (fun(struct CompilerEnv *)), _Bool first, _Bool trans);
 
 int compile(struct CompilerEnv *env);
 

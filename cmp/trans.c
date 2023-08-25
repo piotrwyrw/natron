@@ -64,24 +64,31 @@ static int compile_next_brainfuck_operator(struct CompilerEnv *env);
 
 static int compile_externalize(struct CompilerEnv *env);
 
-static int compile_unit(struct CompilerEnv *env);
+static int compile_unit(struct CompilerEnv *env, _Bool *first);
 
 static int compile_next(struct CompilerEnv *env, struct unit_call *call, char *id);
 
-int exec_on_externalize(struct CompilerEnv *env, int (fun(struct CompilerEnv *)))
+int exec_on_externalize(struct CompilerEnv *env, int (fun(struct CompilerEnv *)), _Bool first, _Bool trans)
 {
         if (skip_spaces(env) == WARNING) {
                 return WARNING;
         }
 
         if (identifier(env, true) != SUCCESS) {
-                return SUCCESS;
+                return WARNING;
         }
 
-        if (strcmp(last_identifier, "externalize") == 0) {
-                if (!fun(env)) {
-                        return FAILURE;
-                }
+        if (strcmp(last_identifier, "externalize") != 0) {
+                return WARNING;
+        }
+
+        if (trans && !first) {
+                ERROR("The externalize statement must precede all unit definitions in the file.\n")
+                return FAILURE;
+        }
+
+        if (!fun(env)) {
+                return FAILURE;
         }
 
         return SUCCESS;
@@ -98,14 +105,23 @@ int compile(struct CompilerEnv *env)
         int last_status;
         int status;
 
-        do {
-                status = exec_on_externalize(env, compile_externalize);
-                if (status == WARNING) {
+        _Bool first = true;
+
+        while (true) {
+                status = exec_on_externalize(env, compile_externalize, first, true);
+
+                if (status == SUCCESS) {
                         continue;
                 } else if (!status) {
                         return FAILURE;
                 }
-        } while ((last_status = compile_unit(env)) == SUCCESS);
+
+                last_status = compile_unit(env, &first);
+
+                if (last_status != SUCCESS) {
+                        break;
+                }
+        }
 
         if (last_status == FAILURE) {
                 return FAILURE;
@@ -147,7 +163,7 @@ static int compile_externalize(struct CompilerEnv *env)
         return SUCCESS;
 }
 
-static int compile_unit(struct CompilerEnv *env)
+static int compile_unit(struct CompilerEnv *env, _Bool *first)
 {
         if (env->offset >= env->len) {
                 return WARNING; /* We're at the end of the file; Nothing left to do. */
@@ -216,6 +232,7 @@ static int compile_unit(struct CompilerEnv *env)
 
         env->offset++; /* Skip the '}' */
 
+        *first = false;
         return SUCCESS;
 }
 
