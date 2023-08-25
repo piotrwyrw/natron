@@ -11,6 +11,7 @@ static const char *help_page = "natron\n"
                                "    --compile             | Default mode of operation. Compile to C.\n"
                                "    --reformat            | Reformat the brainfuck source code";
 
-void show_help() {
+void show_help()
+{
         printf("%s\n", help_page);
 }

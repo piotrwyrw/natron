@@ -7,7 +7,7 @@
 #include <string.h>
 #include <stdio.h>
 
-char tmp_buffer[TMP_BUFFER_SIZE] = { 0 };
+char tmp_buffer[TMP_BUFFER_SIZE] = {0};
 
 char *repeat(char c, size_t n)
 {

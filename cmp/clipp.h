@@ -28,6 +28,7 @@ extern size_t arg_ct;
 extern char **arg_vec;
 
 struct Clip parse_clip(int argc, char **argv);
+
 void free_clip(struct Clip *clip);
 
 int clip_check_integrity(struct Clip *clip);

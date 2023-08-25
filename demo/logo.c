@@ -5,1244 +5,1252 @@
 #include <stdlib.h>
 
 extern void bf_init();
+
 extern char bf_end();
+
 extern void bf_ptr_inc_n(size_t);
+
 extern void bf_ptr_dec_n(size_t);
+
 extern void bf_inc_arr(size_t);
+
 extern char bf_dec_arr(size_t);
+
 extern void bf_in();
+
 extern void bf_out_n(size_t);
+
 extern char bf_get();
 
 void fun_logo(void)
 {
-	bf_inc_arr(4);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(8);
-		bf_ptr_dec_n(1);
-	} /* L1 */
-	bf_ptr_inc_n(1);
-	bf_out_n(2);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L2 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L3 */
-	bf_ptr_inc_n(1);
-	bf_out_n(3);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L4 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L5 */
-	bf_ptr_inc_n(1);
-	bf_out_n(7);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L6 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L7 */
-	bf_ptr_inc_n(1);
-	bf_out_n(19);
-	bf_ptr_inc_n(1);
-	bf_inc_arr(10);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L8 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(2);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L9 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L10 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L11 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(3);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L12 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L13 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L14 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L15 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L16 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(5);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L17 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L18 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L19 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L20 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(18);
-	bf_ptr_inc_n(1);
-	bf_inc_arr(10);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L21 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(2);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L22 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L23 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(2);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L24 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(3);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L25 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L26 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L27 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L28 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L29 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(2);
-	bf_inc_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L30 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L31 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L32 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L33 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L34 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L35 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(2);
-	bf_out_n(1);
-	bf_inc_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L36 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L37 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L38 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L39 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(2);
-	bf_inc_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L40 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L41 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(3);
-	bf_inc_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L42 */
-	bf_ptr_inc_n(1);
-	bf_out_n(2);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L43 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L44 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L45 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(2);
-	bf_inc_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L46 */
-	bf_ptr_inc_n(1);
-	bf_out_n(2);
-	bf_ptr_inc_n(1);
-	bf_inc_arr(10);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L47 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(2);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L48 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L49 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(2);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L50 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(2);
-	bf_out_n(1);
-	bf_inc_arr(2);
-	while (bf_get()) {
-		bf_dec_arr(3);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(2);
-		bf_ptr_dec_n(1);
-	} /* L51 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L52 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L53 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L54 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(5);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L55 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(3);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(2);
-		bf_ptr_dec_n(1);
-	} /* L56 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L57 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L58 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L59 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L60 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L61 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(2);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L62 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L63 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(7);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(2);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(5);
-		bf_ptr_dec_n(1);
-	} /* L64 */
-	bf_ptr_inc_n(1);
-	bf_out_n(2);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(2);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L65 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	bf_inc_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(3);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(2);
-		bf_ptr_dec_n(1);
-	} /* L66 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L67 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L68 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L69 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(3);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L70 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L71 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(7);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(2);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(5);
-		bf_ptr_dec_n(1);
-	} /* L72 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	bf_inc_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L73 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L74 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(3);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L75 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_ptr_inc_n(1);
-	bf_inc_arr(10);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L76 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(2);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L77 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L78 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L79 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L80 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(3);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L81 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(2);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L82 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L83 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(8);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_inc_arr(4);
-		bf_ptr_inc_n(1);
-		bf_dec_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L84 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L85 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L86 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L87 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L88 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L89 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L90 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(2);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L91 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L92 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L93 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L94 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L95 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L96 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(8);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_inc_arr(4);
-		bf_ptr_inc_n(1);
-		bf_dec_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L97 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(4);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L98 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	bf_dec_arr(9);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L99 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L100 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L101 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L102 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L103 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L104 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L105 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	bf_ptr_inc_n(1);
-	bf_inc_arr(10);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L106 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(2);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L107 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L108 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(2);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L109 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L110 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L111 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(3);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L112 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L113 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(3);
-	bf_out_n(2);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(2);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L114 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(3);
-	bf_out_n(1);
-	bf_inc_arr(3);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(2);
-		bf_ptr_dec_n(1);
-	} /* L115 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L116 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L117 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(3);
-	bf_out_n(2);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L118 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L119 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(2);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L120 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L121 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(2);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L122 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(1);
-	bf_inc_arr(3);
-	bf_out_n(3);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(2);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L123 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	bf_ptr_inc_n(1);
-	bf_dec_arr(2);
-	while (bf_get()) {
-		bf_dec_arr(2);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L124 */
-	bf_ptr_inc_n(1);
-	bf_dec_arr(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L125 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(2);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L126 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(1);
-		bf_ptr_dec_n(1);
-	} /* L127 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(1);
-	bf_out_n(1);
-	bf_dec_arr(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L128 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(4);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L129 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(2);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(4);
-		bf_ptr_dec_n(1);
-	} /* L130 */
-	bf_ptr_inc_n(1);
-	bf_out_n(1);
-	bf_ptr_inc_n(1);
-	bf_inc_arr(10);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L131 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(2);
-	bf_out_n(34);
-	bf_ptr_inc_n(1);
-	bf_inc_arr(10);
-	bf_out_n(1);
-	while (bf_get()) {
-		bf_dec_arr(1);
-		bf_ptr_inc_n(1);
-		bf_inc_arr(3);
-		bf_ptr_dec_n(1);
-	} /* L132 */
-	bf_ptr_inc_n(1);
-	bf_inc_arr(2);
-	bf_out_n(34);
+        bf_inc_arr(4);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(8);
+                bf_ptr_dec_n(1);
+        } /* L1 */
+        bf_ptr_inc_n(1);
+        bf_out_n(2);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L2 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L3 */
+        bf_ptr_inc_n(1);
+        bf_out_n(3);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L4 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L5 */
+        bf_ptr_inc_n(1);
+        bf_out_n(7);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L6 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L7 */
+        bf_ptr_inc_n(1);
+        bf_out_n(19);
+        bf_ptr_inc_n(1);
+        bf_inc_arr(10);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L8 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(2);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L9 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L10 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L11 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(3);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L12 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L13 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L14 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L15 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L16 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(5);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L17 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L18 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L19 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L20 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(18);
+        bf_ptr_inc_n(1);
+        bf_inc_arr(10);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L21 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(2);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L22 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L23 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(2);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L24 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(3);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L25 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L26 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L27 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L28 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L29 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(2);
+        bf_inc_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L30 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L31 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L32 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L33 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L34 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L35 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(2);
+        bf_out_n(1);
+        bf_inc_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L36 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L37 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L38 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L39 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(2);
+        bf_inc_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L40 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L41 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(3);
+        bf_inc_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L42 */
+        bf_ptr_inc_n(1);
+        bf_out_n(2);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L43 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L44 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L45 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(2);
+        bf_inc_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L46 */
+        bf_ptr_inc_n(1);
+        bf_out_n(2);
+        bf_ptr_inc_n(1);
+        bf_inc_arr(10);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L47 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(2);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L48 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L49 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(2);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L50 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(2);
+        bf_out_n(1);
+        bf_inc_arr(2);
+        while (bf_get()) {
+                bf_dec_arr(3);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(2);
+                bf_ptr_dec_n(1);
+        } /* L51 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L52 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L53 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L54 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(5);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L55 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(3);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(2);
+                bf_ptr_dec_n(1);
+        } /* L56 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L57 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L58 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L59 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L60 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L61 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(2);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L62 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L63 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(7);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(2);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(5);
+                bf_ptr_dec_n(1);
+        } /* L64 */
+        bf_ptr_inc_n(1);
+        bf_out_n(2);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(2);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L65 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        bf_inc_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(3);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(2);
+                bf_ptr_dec_n(1);
+        } /* L66 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L67 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L68 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L69 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(3);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L70 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L71 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(7);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(2);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(5);
+                bf_ptr_dec_n(1);
+        } /* L72 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        bf_inc_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L73 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L74 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(3);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L75 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_ptr_inc_n(1);
+        bf_inc_arr(10);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L76 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(2);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L77 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L78 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L79 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L80 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(3);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L81 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(2);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L82 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L83 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(8);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_inc_arr(4);
+                bf_ptr_inc_n(1);
+                bf_dec_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L84 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L85 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L86 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L87 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L88 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L89 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L90 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(2);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L91 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L92 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L93 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L94 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L95 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L96 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(8);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_inc_arr(4);
+                bf_ptr_inc_n(1);
+                bf_dec_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L97 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(4);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L98 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        bf_dec_arr(9);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L99 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L100 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L101 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L102 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L103 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L104 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L105 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        bf_ptr_inc_n(1);
+        bf_inc_arr(10);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L106 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(2);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L107 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L108 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(2);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L109 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L110 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L111 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(3);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L112 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L113 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(3);
+        bf_out_n(2);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(2);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L114 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(3);
+        bf_out_n(1);
+        bf_inc_arr(3);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(2);
+                bf_ptr_dec_n(1);
+        } /* L115 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L116 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L117 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(3);
+        bf_out_n(2);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L118 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L119 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(2);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L120 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L121 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(2);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L122 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(1);
+        bf_inc_arr(3);
+        bf_out_n(3);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(2);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L123 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        bf_ptr_inc_n(1);
+        bf_dec_arr(2);
+        while (bf_get()) {
+                bf_dec_arr(2);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L124 */
+        bf_ptr_inc_n(1);
+        bf_dec_arr(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L125 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(2);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L126 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(1);
+                bf_ptr_dec_n(1);
+        } /* L127 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(1);
+        bf_out_n(1);
+        bf_dec_arr(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L128 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(4);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L129 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(2);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(4);
+                bf_ptr_dec_n(1);
+        } /* L130 */
+        bf_ptr_inc_n(1);
+        bf_out_n(1);
+        bf_ptr_inc_n(1);
+        bf_inc_arr(10);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L131 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(2);
+        bf_out_n(34);
+        bf_ptr_inc_n(1);
+        bf_inc_arr(10);
+        bf_out_n(1);
+        while (bf_get()) {
+                bf_dec_arr(1);
+                bf_ptr_inc_n(1);
+                bf_inc_arr(3);
+                bf_ptr_dec_n(1);
+        } /* L132 */
+        bf_ptr_inc_n(1);
+        bf_inc_arr(2);
+        bf_out_n(34);
 }
 
