@@ -64,7 +64,7 @@ static int compile_next(struct CompilerEnv *);
 
 static int compile_externalize(struct CompilerEnv *env);
 
-static enum status compile_unit(struct CompilerEnv *env);
+static int compile_unit(struct CompilerEnv *env);
 
 int exec_on_externalize(struct CompilerEnv *env, int (fun(struct CompilerEnv *)))
 {
@@ -93,7 +93,7 @@ int compile(struct CompilerEnv *env)
 
         gen_preamble(env);
 
-        enum status last_status;
+        int last_status;
         int status;
 
         do {
@@ -103,9 +103,9 @@ int compile(struct CompilerEnv *env)
                 } else if (!status) {
                         return FAILURE;
                 }
-        } while ((last_status = compile_unit(env)) == STATUS_OK);
+        } while ((last_status = compile_unit(env)) == SUCCESS);
 
-        if (last_status == STATUS_ERR) {
+        if (last_status == FAILURE) {
                 return FAILURE;
         }
 
@@ -145,10 +145,10 @@ static int compile_externalize(struct CompilerEnv *env)
         return SUCCESS;
 }
 
-static enum status compile_unit(struct CompilerEnv *env)
+static int compile_unit(struct CompilerEnv *env)
 {
         if (env->offset >= env->len) {
-                return STATUS_EOF; /* We're at the end of the file; Nothing left to do. */
+                return WARNING; /* We're at the end of the file; Nothing left to do. */
         }
 
         /* Unit header */
@@ -156,11 +156,11 @@ static enum status compile_unit(struct CompilerEnv *env)
         int parse_status;
 
         if (!(parse_status = parse_unit_header(&header, env))) {
-                return STATUS_ERR;
+                return FAILURE;
         }
 
         if (parse_status == WARNING) {
-                return STATUS_EOF;
+                return WARNING;
         }
 
         char *id = header.id;
@@ -168,14 +168,14 @@ static enum status compile_unit(struct CompilerEnv *env)
         if (unit_exists(id, env)) {
                 ERROR("The identifier of a unit must be unique: Attempted redefinition of '%s'.\n", id);
                 free(id);
-                return STATUS_ERR;
+                return FAILURE;
         }
 
         if (!add_unit_env(env, id)) {
                 ERROR("Not enough memory to store unit '%s'. The compiler allows up to %ld unit definitions.\n",
                       id, MAX_UNITS_COUNT)
                 free(id);
-                return STATUS_ERR;
+                return FAILURE;
         }
 
         /* Compile the brainfuck itself */
@@ -193,7 +193,7 @@ static enum status compile_unit(struct CompilerEnv *env)
                         char c = env->src[env->offset];
 
                         if (!parse_unit_call(&call, env)) {
-                                return STATUS_ERR;
+                                return FAILURE;
                         }
 
                         if (c == '@' && strcmp(call.id, id) == 0) {
@@ -203,7 +203,7 @@ static enum status compile_unit(struct CompilerEnv *env)
                         if (c == '@' && !unit_exists(call.id, env)) {
                                 ERROR("Attempting to call undefined unit '%s' from within '%s'.\n", call.id, id)
                                 free(call.id);
-                                return STATUS_ERR;
+                                return FAILURE;
                         }
 
                         if (c == '$') {
@@ -227,14 +227,14 @@ static enum status compile_unit(struct CompilerEnv *env)
                 }
                 if (!compile_next(env)) {
                         free(id);
-                        return STATUS_ERR;
+                        return FAILURE;
                 }
         }
 
         if (env->loop_ct != 0) {
                 ERROR("There are unclosed loops in unit '%s'.\n", id)
                 free(id);
-                return STATUS_ERR;
+                return FAILURE;
         }
 
         env->indent--;
@@ -243,14 +243,14 @@ static enum status compile_unit(struct CompilerEnv *env)
         if (env->src[env->offset] != '}') {
                 ERROR("Expected '}' at the end of unit '%s'. Reached end of file while parsing.\n", id)
                 free(id);
-                return STATUS_ERR;
+                return FAILURE;
         }
 
         free(id);
 
         env->offset++; /* Skip the '}' */
 
-        return STATUS_OK;
+        return SUCCESS;
 }
 
 static void gen_preamble(struct CompilerEnv *env)

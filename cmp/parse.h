@@ -7,12 +7,6 @@
 
 #include "trans.h"
 
-enum status {
-        STATUS_OK,
-        STATUS_EOF,
-        STATUS_ERR
-};
-
 struct unit_header {
         char *id;
         _Bool main;

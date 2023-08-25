@@ -12,7 +12,7 @@
 static char lastC = 0;
 static _Bool newline;
 
-static enum status reformat_unit(struct CompilerEnv *env);
+static int reformat_unit(struct CompilerEnv *env);
 
 static int reformat_next(struct CompilerEnv *env);
 
@@ -24,7 +24,7 @@ int reformat(struct CompilerEnv *env)
                 return FAILURE;
         }
 
-        enum status last_status;
+        int last_status;
 
         int status;
 
@@ -35,9 +35,9 @@ int reformat(struct CompilerEnv *env)
                 } else if (!status) {
                         return FAILURE;
                 }
-        } while ((last_status = reformat_unit(env)) == STATUS_OK);
+        } while ((last_status = reformat_unit(env)) == SUCCESS);
 
-        if (last_status == STATUS_ERR) {
+        if (last_status == FAILURE) {
                 return FAILURE;
         }
 
@@ -64,21 +64,21 @@ static int reformat_externalize(struct CompilerEnv *env)
         return SUCCESS;
 }
 
-static enum status reformat_unit(struct CompilerEnv *env)
+static int reformat_unit(struct CompilerEnv *env)
 {
         if (env->offset >= env->len) {
-                return STATUS_EOF;
+                return WARNING;
         }
 
         struct unit_header header;
-        enum status parse_status;
+        int parse_status;
 
         if (!(parse_status = parse_unit_header(&header, env))) {
-                return STATUS_ERR;
+                return FAILURE;
         }
 
         if (parse_status == WARNING) {
-                return STATUS_EOF;
+                return WARNING;
         }
 
         char *id = header.id;
@@ -90,13 +90,13 @@ static enum status reformat_unit(struct CompilerEnv *env)
 
         if (unit_exists(_id, env)) {
                 ERROR("The identifier of a unit must be unique: Attempted redefinition of '%s'.\n", _id);
-                return STATUS_ERR;
+                return FAILURE;
         }
 
         if (!add_unit_env(env, _id)) {
                 ERROR("Not enough memory to store unit '%s'. The compiler allows up to %ld unit definitions.\n",
                       id, MAX_UNITS_COUNT)
-                return STATUS_ERR;
+                return FAILURE;
         }
 
         if (header.main) {
@@ -120,7 +120,7 @@ static enum status reformat_unit(struct CompilerEnv *env)
                         char c = env->src[env->offset];
 
                         if (!parse_unit_call(&call, env)) {
-                                return STATUS_ERR;
+                                return FAILURE;
                         }
 
                         if (!newline) {
@@ -137,18 +137,18 @@ static enum status reformat_unit(struct CompilerEnv *env)
                         break;
                 }
                 if (!reformat_next(env)) {
-                        return STATUS_ERR;
+                        return FAILURE;
                 }
         }
 
         if (env->src[env->offset] != '}') {
                 ERROR("Expected '}' at the end of unit '%s'.\n", _id)
-                return STATUS_ERR;
+                return FAILURE;
         }
 
         if (env->loop_ct != 0) {
                 ERROR("There are unclosed loops left in the code.\n")
-                return STATUS_ERR;
+                return FAILURE;
         }
 
         env->offset++; /* Skip '}' */
@@ -163,7 +163,7 @@ static enum status reformat_unit(struct CompilerEnv *env)
                 fprintf(env->out, "\n\n");
         }
 
-        return STATUS_OK;
+        return SUCCESS;
 }
 
 static int reformat_next(struct CompilerEnv *env)
