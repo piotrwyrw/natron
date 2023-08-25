@@ -60,11 +60,13 @@ int sanity_check_env(struct CompilerEnv *env)
 
 static void gen_preamble(struct CompilerEnv *);
 
-static int compile_next(struct CompilerEnv *);
+static int compile_next_brainfuck_operator(struct CompilerEnv *env);
 
 static int compile_externalize(struct CompilerEnv *env);
 
 static int compile_unit(struct CompilerEnv *env);
+
+static int compile_next(struct CompilerEnv *env, struct unit_call *call, char *id);
 
 int exec_on_externalize(struct CompilerEnv *env, int (fun(struct CompilerEnv *)))
 {
@@ -182,52 +184,16 @@ static int compile_unit(struct CompilerEnv *env)
         EMIT(env, "void fun_%s(void)\n{\n", id)
         env->indent++;
 
+        int status;
         struct unit_call call;
 
         for (; env->offset < env->len; env->offset++) {
-                if (skip_spaces(env) == WARNING) {
-                        continue;
-                }
-
-                if (env->src[env->offset] == '@' || env->src[env->offset] == '$') {
-                        char c = env->src[env->offset];
-
-                        if (!parse_unit_call(&call, env)) {
-                                return FAILURE;
-                        }
-
-                        if (c == '@' && strcmp(call.id, id) == 0) {
-                                WARN("On unit call '%s' in '%s': Recursion is not recommended.\n", call.id, id)
-                        }
-
-                        if (c == '@' && !unit_exists(call.id, env)) {
-                                ERROR("Attempting to call undefined unit '%s' from within '%s'.\n", call.id, id)
-                                free(call.id);
-                                return FAILURE;
-                        }
-
-                        if (c == '$') {
-                                WARN("On native call '%s' in '%s': Native function calls are not recommended.\n",
-                                     call.id, id)
-                        }
-
-                        if (c == '@') {
-                                EMIT(env, "fun_%s();\n", call.id)
-                        } else {
-                                EMIT(env, "%s();\n", call.id)
-                        }
-
-                        free(call.id);
-
-                        env->offset--;
-                        continue;
-                }
-                if (env->src[env->offset] == '}') {
-                        break;
-                }
-                if (!compile_next(env)) {
-                        free(id);
+                status = compile_next(env, &call, id);
+                if (status == FAILURE) {
                         return FAILURE;
+                }
+                if (status == WARNING) {
+                        break;
                 }
         }
 
@@ -249,6 +215,58 @@ static int compile_unit(struct CompilerEnv *env)
         free(id);
 
         env->offset++; /* Skip the '}' */
+
+        return SUCCESS;
+}
+
+static int compile_next(struct CompilerEnv *env, struct unit_call *call, char *id)
+{
+        if (skip_spaces(env) == WARNING) {
+                return WARNING;
+        }
+
+        if (env->src[env->offset] == '@' || env->src[env->offset] == '$') {
+                char c = env->src[env->offset];
+
+                if (!parse_unit_call(call, env)) {
+                        return FAILURE;
+                }
+
+                if (c == '@' && strcmp(call->id, id) == 0) {
+                        WARN("On unit call '%s' in '%s': Recursion is not recommended.\n", call->id, id)
+                }
+
+                if (c == '@' && !unit_exists(call->id, env)) {
+                        ERROR("Attempting to call undefined unit '%s' from within '%s'.\n", call->id, id)
+                        free(call->id);
+                        return FAILURE;
+                }
+
+                if (c == '$') {
+                        WARN("On native call '%s' in '%s': Native function calls are not recommended.\n",
+                             call->id, id)
+                }
+
+                if (c == '@') {
+                        EMIT(env, "fun_%s();\n", call->id)
+                } else {
+                        EMIT(env, "%s();\n", call->id)
+                }
+
+                free(call->id);
+
+                env->offset--;
+                return SUCCESS;
+        }
+
+        if (env->src[env->offset] == '}') {
+                return WARNING;
+        }
+
+        if (!compile_next_brainfuck_operator(env)) {
+                free(id);
+                return FAILURE;
+        }
 
         return SUCCESS;
 }
@@ -278,7 +296,7 @@ static void gen_preamble(struct CompilerEnv *env)
         EMIT(env, "extern char bf_get();\n\n")
 }
 
-static int compile_next(struct CompilerEnv *env)
+static int compile_next_brainfuck_operator(struct CompilerEnv *env)
 {
         CURRENT_CHAR(op)
 

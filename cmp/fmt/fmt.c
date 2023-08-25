@@ -14,9 +14,11 @@ static _Bool newline;
 
 static int reformat_unit(struct CompilerEnv *env);
 
-static int reformat_next(struct CompilerEnv *env);
+static int reformat_brainfuck_operator(struct CompilerEnv *env);
 
 static int reformat_externalize(struct CompilerEnv *env);
+
+static int reformat_next(struct CompilerEnv *env, struct unit_call *call);
 
 int reformat(struct CompilerEnv *env)
 {
@@ -109,35 +111,16 @@ static int reformat_unit(struct CompilerEnv *env)
 
         newline = true;
 
+        int status;
         struct unit_call call;
 
         for (; env->offset < env->len; env->offset++) {
-                if (skip_spaces(env) == WARNING) {
-                        continue;
-                }
-
-                if (env->src[env->offset] == '@' || env->src[env->offset] == '$') {
-                        char c = env->src[env->offset];
-
-                        if (!parse_unit_call(&call, env)) {
-                                return FAILURE;
-                        }
-
-                        if (!newline) {
-                                fprintf(env->out, "\n");
-                        }
-
-                        fprintf(env->out, "%s%c%s\n", repeat('\t', env->indent), c, call.id);
-                        newline = true;
-                        free(call.id);
-                        env->offset--;
-                        continue;
-                }
-                if (env->src[env->offset] == '}') {
-                        break;
-                }
-                if (!reformat_next(env)) {
+                status = reformat_next(env, &call);
+                if (status == FAILURE) {
                         return FAILURE;
+                }
+                if (status == WARNING) {
+                        break;
                 }
         }
 
@@ -166,7 +149,42 @@ static int reformat_unit(struct CompilerEnv *env)
         return SUCCESS;
 }
 
-static int reformat_next(struct CompilerEnv *env)
+static int reformat_next(struct CompilerEnv *env, struct unit_call *call)
+{
+        if (skip_spaces(env) == WARNING) {
+                return WARNING;
+        }
+
+        if (env->src[env->offset] == '@' || env->src[env->offset] == '$') {
+                char c = env->src[env->offset];
+
+                if (!parse_unit_call(call, env)) {
+                        return FAILURE;
+                }
+
+                if (!newline) {
+                        fprintf(env->out, "\n");
+                }
+
+                fprintf(env->out, "%s%c%s\n", repeat('\t', env->indent), c, call->id);
+                newline = true;
+                free(call->id);
+                env->offset--;
+                return SUCCESS;
+        }
+
+        if (env->src[env->offset] == '}') {
+                return WARNING;
+        }
+
+        if (!reformat_brainfuck_operator(env)) {
+                return FAILURE;
+        }
+
+        return SUCCESS;
+}
+
+static int reformat_brainfuck_operator(struct CompilerEnv *env)
 {
         CURRENT_CHAR(c)
 
