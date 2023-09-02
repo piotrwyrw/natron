@@ -176,10 +176,14 @@ int parse_unit_externalize(struct unit_externalise *ptr, struct CompilerEnv *env
         char c;
 
         c = env->src[env->offset];
-        IDENTIFIER("Expected \"externalize\", got '%c'.\n", c)
+        IDENTIFIER("Expected \"externalize\" or \"native\", got '%c'.\n", c)
 
-        if (strcmp(last_identifier, "externalize") != 0) {
-                ERROR("Expected 'externalize' at the beginning of an externalization statement.\n");
+        if (strcmp(last_identifier, "externalize") == 0) {
+                ptr->native = false;
+        } else if (strcmp(last_identifier, "native") == 0) {
+                ptr->native = true;
+        } else {
+                ERROR("Expected \"externalize\" or \"native\" at the beginning of an externalization statement.\n");
                 return FAILURE;
         }
 
@@ -189,7 +193,7 @@ int parse_unit_externalize(struct unit_externalise *ptr, struct CompilerEnv *env
         }
 
         c = env->src[env->offset];
-        IDENTIFIER("Expected identifier after \"externalize\", got '%c'.\n", c);
+        IDENTIFIER("Expected identifier after \"%s\", got '%c'.\n", (ptr->native ? "native" : "externalize"), c);
 
         ptr->id = strdup(last_identifier);
 

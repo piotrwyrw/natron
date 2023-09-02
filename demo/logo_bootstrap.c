@@ -22,16 +22,17 @@ void bf_out_n(size_t);
 
 char bf_get();
 
-void fun_logo(void);
+void fun_logo(void); // NATIVE
 
 void fun_proxy_run_logo(void)
 {
-	fun_logo();
+	fun_logo(); // $
 }
 
+// Unit "entry" (fun_entry) is marked as MAIN
 void fun_entry(void)
 {
-	fun_proxy_run_logo();
+	fun_proxy_run_logo(); // @
 }
 
 int main(void)

@@ -78,7 +78,7 @@ int exec_on_externalize(struct CompilerEnv *env, int (fun(struct CompilerEnv *))
                 return WARNING;
         }
 
-        if (strcmp(last_identifier, "externalize") != 0) {
+        if (strcmp(last_identifier, "externalize") != 0 && strcmp(last_identifier, "native") != 0) {
                 return WARNING;
         }
 
@@ -157,7 +157,12 @@ static int compile_externalize(struct CompilerEnv *env)
 
         add_unit_env(env, ext.id);
 
-        EMIT(env, "void fun_%s(void);\n\n", ext.id);
+        if (ext.native) {
+                EMIT(env, "void %s(void); // NATIVE\n\n", ext.id);
+        } else {
+                EMIT(env, "void fun_%s(void); // NON-NATIVE\n\n", ext.id);
+        }
+
         free(ext.id);
 
         return SUCCESS;
@@ -197,6 +202,11 @@ static int compile_unit(struct CompilerEnv *env, _Bool *first)
         }
 
         /* Compile the brainfuck itself */
+
+        if (header.main) {
+                EMIT(env, "// Unit \"%s\" (fun_%s) is marked as MAIN\n", id, id)
+        }
+
         EMIT(env, "void fun_%s(void)\n{\n", id)
         env->indent++;
 
@@ -265,9 +275,9 @@ static int compile_next(struct CompilerEnv *env, struct unit_call *call, char *i
                 }
 
                 if (c == '@') {
-                        EMIT(env, "fun_%s();\n", call->id)
+                        EMIT(env, "fun_%s(); // @\n", call->id)
                 } else {
-                        EMIT(env, "%s();\n", call->id)
+                        EMIT(env, "%s(); // $\n", call->id)
                 }
 
                 free(call->id);

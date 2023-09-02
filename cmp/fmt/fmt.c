@@ -68,7 +68,7 @@ static int reformat_externalize(struct CompilerEnv *env)
                 return WARNING;
         }
 
-        fprintf(env->out, "externalize %s\n", ext.id);
+        fprintf(env->out, "%s %s\n", (ext.native ? "native" : "externalize"), ext.id);
         free(ext.id);
 
         return SUCCESS;

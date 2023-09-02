@@ -48,6 +48,7 @@ struct unit_call {
 
 struct unit_externalise {
         char *id;
+        _Bool native;
 };
 
 extern char last_identifier[];

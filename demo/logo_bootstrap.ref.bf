@@ -1,12 +1,12 @@
-externalize logo
+native fun_logo
 
 proxy_run_logo
 {
-	@logo
+	$fun_logo
 }
 
 
 &entry
 {
-	$fun_proxy_run_logo
+	@proxy_run_logo
 }
